@@ -1,7 +1,9 @@
 package docker.registry.web.support
 
 class Image {
+    String displayName
     String architecture
+    String author
     String id
     String name
     String description
@@ -14,4 +16,24 @@ class Image {
     Map<String, String> config
     Map<String, String> container_config
     String Size
+
+    @Override
+    public String toString() {
+        return "Image{" +
+                "architecture='" + architecture + '\'' +
+                ", author='" + author + '\'' +
+                ", id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", docker_version='" + docker_version + '\'' +
+                ", parent='" + parent + '\'' +
+                ", os='" + os + '\'' +
+                ", created='" + created + '\'' +
+                ", container='" + container + '\'' +
+                ", comment='" + comment + '\'' +
+                ", config=" + config +
+                ", container_config=" + container_config +
+                ", Size='" + Size + '\'' +
+                '}';
+    }
 }
