@@ -10,10 +10,9 @@ class SearchService {
     def search(final Search search) {
         final searchResults = []
 
-        log.info("URI is $uri")
-
         Registry.all.each { Registry registry ->
             final uri = registry.url
+            log.info("URI is $uri")
             withHttp (uri: uri) {
                 def result = get(
                         path: "/${registry.apiVersion}/search",
