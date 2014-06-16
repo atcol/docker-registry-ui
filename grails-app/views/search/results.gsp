@@ -1,6 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE html>
 <html>
 <head>
+    <meta name="layout" content="main">
     <title>Docker Registry - Image Search</title>
     <script language="JavaScript" src="<g:resource dir='js' file='jquery/jquery-1.10.2.min.js'/>"/>
     <jqDT:resources/>
