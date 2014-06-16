@@ -18,9 +18,11 @@
     </thead>
     <tbody>
         <g:each in="${results}" var="image">
-            <td>${image.name}</td>
-            <td>${image.description}</td>
-            <td><g:link controller="Image" action="delete" params="[id: image.id]">Delete</g:link></td>
+            <tr>
+                <td>${image.name}</td>
+                <td>${image.description}</td>
+                <td><g:link controller="Image" action="delete" params="[id: image.id]">Delete</g:link></td>
+            </tr>
         </g:each>
     </tbody>
 </table>
