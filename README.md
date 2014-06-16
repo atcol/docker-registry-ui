@@ -6,9 +6,11 @@ well as register multiple registries for large registry installations.
 
 # Getting Started - Building Yourself
 
-Build the web-app with `grails war docker-registry-web.war`, and then build the docker image:
+Build the web-app with `grails war docker/docker-registry-web.war`. Now you build the docker image:
 
-	`docker build .`
+	`docker build docker/`
+
+and run it:
 	
 	`docker run -dt -p 8080:8080 <image id from last command>`
 
