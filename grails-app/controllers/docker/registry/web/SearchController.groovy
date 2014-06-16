@@ -10,7 +10,7 @@ class SearchController {
     def index() { }
 
     def search(String q) {
-        final List<Result> resultList = searchService.search(new Search(query: q))
-        render view: "results", model: [results: resultList]
+        final resultMap = searchService.search(new Search(query: q))
+        render view: "results", model: [results: resultMap]
     }
 }
