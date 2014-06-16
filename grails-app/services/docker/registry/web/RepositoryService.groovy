@@ -1,8 +1,6 @@
 package docker.registry.web
 
 import docker.registry.web.support.Image
-import grails.converters.JSON
-import grails.plugin.cache.Cacheable
 import grails.transaction.Transactional
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.Method
@@ -10,7 +8,6 @@ import groovyx.net.http.Method
 @Transactional
 class RepositoryService {
 
-    @Cacheable("registryCache")
     def index(final Registry registry) {
         log.info("Loading images from $registry")
         final imageList = []
@@ -29,7 +26,7 @@ class RepositoryService {
                         log.info("tag is ${tag}")
                         tag.entrySet().each { entry ->
                             def imgDetail = getImageDetail(registry, entry.value)
-                            imgDetail.displayName = "$repo:${entry.key}"
+                            imgDetail.displayName = "${repo.name}:${entry.key}"
                             if (imgDetail) {
                                 imageList.add(imgDetail)
                             } else {
@@ -58,7 +55,6 @@ class RepositoryService {
         tagList
     }
 
-    @Cacheable("imageDetailCache")
     def Image getImageDetail(final Registry registry, final String imgId) {
         log.info("getting image $imgId")
         def img = null
