@@ -85,6 +85,20 @@ grails.hibernate.pass.readonly = false
 // configure passing read-only to OSIV session by default, requires "singleSession = false" OSIV mode
 grails.hibernate.osiv.readonly = false
 
+grails.cache.config = {
+    defaultCache {
+        maxElementsInMemory 10000
+        eternal false
+        timeToIdleSeconds 86400
+        timeToLiveSeconds 86400
+        overflowToDisk false
+        maxElementsOnDisk 0
+        diskPersistent false
+        diskExpiryThreadIntervalSeconds 120
+        memoryStoreEvictionPolicy 'LRU'
+    }
+}
+
 environments {
     development {
         grails.logging.jul.usebridge = true
@@ -118,3 +132,4 @@ log4j.main = {
            'net.sf.ehcache.hibernate'
 }
 
+grails.views.javascript.library="jquery"
