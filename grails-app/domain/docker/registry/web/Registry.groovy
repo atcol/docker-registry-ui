@@ -4,8 +4,6 @@ class Registry {
     String url
     String apiVersion
 
-    static hasMany = [repositories: Repository]
-
     static constraints = {
     }
 
@@ -15,7 +13,6 @@ class Registry {
                 "id=" + id +
                 ", url='" + url + '\'' +
                 ", apiVersion='" + apiVersion + '\'' +
-                ", repositories=" + repositories +
                 ", version=" + version +
                 '}';
     }
