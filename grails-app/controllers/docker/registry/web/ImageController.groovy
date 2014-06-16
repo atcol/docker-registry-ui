@@ -1,23 +1,21 @@
 package docker.registry.web
 
-import docker.registry.web.Repository
-
 class ImageController {
 
-    def imageService
+    def repositoryService
     static allowedMethods = [delete: 'DELETE']
 
     def index() {
-        def imageList = []
+        def registryToImg = [:]
         Registry.all.each { registry ->
-            imageList.addAll(imageService.index(registry))
+            registryToImg.put(registry, repositoryService.index(registry))
         }
-        render view: "index", model: [images: imageList]
+        render view: "index", model: [registryToImageMap: registryToImg]
     }
 
     def delete(final String id) {
         log.info("Deleting image $id")
-        imageService.deleteImage(id)
+        repositoryService.deleteImage(id)
         render view: "delete"
     }
 }
