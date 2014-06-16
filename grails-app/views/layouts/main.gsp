@@ -37,8 +37,8 @@
 
         </div>
     </div>
+    <g:include view="layouts/footer.gsp"/>
 </div>
 
-<g:include view="layouts/footer.gsp"/>
 </body>
 </html>
