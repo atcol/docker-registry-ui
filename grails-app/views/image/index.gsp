@@ -11,18 +11,22 @@
 <table>
     <thead>
         <tr>
+            <th>Registry</th>
             <th>Name</th>
             <th>Description</th>
             <th>Created</th>
         </tr>
     </thead>
     <tbody>
-        <g:each in="${images}" var="img">
-            <tr>
-                <td>${img.name}</td>
-                <td>${img.description}</td>
-                <td>${img.created}</td>
-            </tr>
+        <g:each in="${registryToImageMap.entrySet()}" var="entry">
+            <g:each in="${entry.value}" var="img">
+                <tr>
+                    <td>${entry.key.url}</td>
+                    <td>${img.name}</td>
+                    <td>${img}</td>
+                    <td>${img.created}</td>
+                </tr>
+            </g:each>
         </g:each>
     </tbody>
 </table>
