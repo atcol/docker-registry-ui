@@ -1,7 +1,7 @@
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="../../">Docker Registry</a>
+            <a class="navbar-brand" href="../../">Home</a>
             <button data-target="#navbar-main" data-toggle="collapse" type="button" class="navbar-toggle">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -11,8 +11,11 @@
 
         <div id="navbar-main" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a id="themes" href="#" data-toggle="dropdown" class="dropdown-toggle">Images</a>
+                <li>
+                    <g:link controller="registry" action="index"><g:message code="nav.label" args="['Registries']"/></g:link>
+                </li>
+                <li>
+                    <g:link controller="image" action="index"><g:message code="nav.label" args="['Images']"/></g:link>
                 </li>
             </ul>
 
