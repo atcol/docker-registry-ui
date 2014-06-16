@@ -32,17 +32,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${registryInstance?.repositories}">
-				<li class="fieldcontain">
-					<span id="repositories-label" class="property-label"><g:message code="registry.repositories.label" default="Repositories" /></span>
-					
-						<g:each in="${registryInstance.repositories}" var="r">
-						<span class="property-value" aria-labelledby="repositories-label"><g:link controller="repository" action="show" id="${r.id}">${r?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${registryInstance?.url}">
 				<li class="fieldcontain">
 					<span id="url-label" class="property-label"><g:message code="registry.url.label" default="Url" /></span>
