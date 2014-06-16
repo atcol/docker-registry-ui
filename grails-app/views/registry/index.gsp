@@ -1,4 +1,3 @@
-
 <%@ page import="docker.registry.web.Registry" %>
 <!DOCTYPE html>
 <html>
