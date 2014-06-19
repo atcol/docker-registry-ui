@@ -13,7 +13,7 @@
 
 <g:if test="${!results.isEmpty()}">
 
-    <table id="resultsTbl">
+    <table id="resultsTbl" class="table table-striped table-hover">
         <thead>
             <tr>
                 <th>Registry</th>
