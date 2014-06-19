@@ -1,7 +1,7 @@
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="../../">Home</a>
+            <g:link class="navbar-brand" uri="/">Home</g:link>
             <button data-target="#navbar-main" data-toggle="collapse" type="button" class="navbar-toggle">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
