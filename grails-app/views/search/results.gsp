@@ -3,8 +3,14 @@
 <head>
     <meta name="layout" content="main">
     <title>Docker Registry - Image Search</title>
-    <script language="JavaScript" src="<g:resource dir='js' file='jquery/jquery-1.10.2.min.js'/>"/>
-    <jqDT:resources/>
+    <asset:javascript src="jquery/jquery-1.10.2.js"/>
+    <script language="JavaScript">
+        function confirmDelete(anchor) {
+            if (showConfirm()) {
+
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -24,22 +30,23 @@
         </thead>
         <tbody>
             <g:each in="${results.entrySet()}" var="entry">
-                <g:each in="${entry.value}" var="img">
+                <g:each in="${entry.value}" var="img" status="it">
                     <tr>
                         <td>${entry.key.url}</td>
                         <td>${img.name}</td>
                         <td>${img.description}</td>
-                        <td><g:link controller="Image" action="delete" params="[id: img.id]">Delete</g:link></td>
+                        <td>
+                            <a href="#" onclick="confirmDelete('${img.id}', '${href}');">Delete</a>
+                        </td>
                     </tr>
                 </g:each>
             </g:each>
         </tbody>
     </table>
-    <script language="JavaScript">
-        $(document).ready(function(){
-            $('#resultsTbl').dataTable();
-        });
-    </script>
+
+<div id="dialog-confirm" title="Delete image?">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
+</div>
 </g:if>
 <g:else>
     <p>No results. Sorry :(</p>
