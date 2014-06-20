@@ -10,6 +10,8 @@ This project is containerized. You can run with docker right now by simply runni
 
 	docker run -p 8080:8080 atcol/docker-registry-web
 
+and browsing to localhost:8080/
+
 # Building
 
 Build the web-app with `grails war docker/docker-registry-web.war`. Now you build the docker image:
