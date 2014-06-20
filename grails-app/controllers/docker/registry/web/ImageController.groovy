@@ -13,9 +13,9 @@ class ImageController {
         render view: "index", model: [registryToImageMap: registryToImg]
     }
 
-    def delete(final String id) {
-        log.info("Deleting image $id")
-        repositoryService.deleteImage(id)
+    def delete(final int registry, final String id) {
+        log.info("Deleting image $id for registry $registry")
+        repositoryService.deleteImage(Registry.get(registry), id)
         render view: "delete"
     }
 }
