@@ -18,3 +18,24 @@ if (typeof jQuery !== 'undefined') {
 		});
 	})(jQuery);
 }
+
+var SUCCESS_ALERT_HTML = "<div class='alert alert-dismissable alert-success'> \
+  <button type='button' class='close' data-dismiss='alert'>&times;</button> \
+  <span id='successMsg'>Done!</span> \
+</div>";
+
+var FAIL_ALERT_HTML = "<div class='alert alert-dismissable alert-danger'> \
+  <button type='button' class='close' data-dismiss='alert'>&times;</button> \
+  <span id='errMsg'>Error!</span> \
+</div>";
+
+function showSuccess(msg) {
+    $("#banner").append(SUCCESS_ALERT_HTML);
+    $("#successMsg").innerText = msg
+}
+
+function showFail(msg) {
+    $("#banner").append(FAIL_ALERT_HTML);
+    $("#errMsg").innerText = msg
+}
+
