@@ -6,7 +6,8 @@ jdk:
 before_install:
     - sudo add-apt-repository -y ppa:groovy-dev/grails
     - sudo apt-get update
-    - sudo apt-get install grails-ppa grails-2.4.0
+    - sudo apt-get install grails-ppa
+    - sudo apt-get install grails-2.4.0
 
 
 script: grails refresh-dependencies
