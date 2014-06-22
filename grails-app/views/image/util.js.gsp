@@ -21,9 +21,9 @@
             url: "${g.createLink(controller: 'image', action: 'delete')}" + "?repoName=" + repoName + "&registry=" + registryId,
             type: "DELETE"
         }).done(function () {
-            alert("Done!");
+            showSuccess("Deleted. Bye bye...");
         }).fail(function () {
-            alert("Sorry, that failed!")
+            showFail("That failed. Please try again.");
         });
     }
 
