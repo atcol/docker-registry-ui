@@ -18,6 +18,7 @@
             <th>OS</th>
             <th>Author</th>
             <th>Created</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -30,10 +31,12 @@
                     <td>${img.os}</td>
                     <td>${img.author}</td>
                     <td>${img.created}</td>
+                    <td><a href="#" class="deleteImg" data-registryId="${entry.key.id}" data-repoName="${img.name}">Delete</a></td>
                 </tr>
             </g:each>
         </g:each>
     </tbody>
 </table>
+<g:include view="image/util.js.gsp"/>
 </body>
 </html>
