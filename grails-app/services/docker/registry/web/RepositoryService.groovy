@@ -26,6 +26,7 @@ class RepositoryService {
                         log.info("tag is ${entry}")
                         def imgDetail = getImageDetail(registry, entry.value)
                         imgDetail.displayName = "${repo.name}:${entry.key}"
+                        imgDetail.name = repo.name
                         if (imgDetail) {
                             imageList.add(imgDetail)
                         } else {
@@ -83,7 +84,7 @@ class RepositoryService {
 
             response.failure = { resp ->
                 log.info("Failed to get img $imgId: $resp")
-                return null
+                img = null
             }
         }
         img
