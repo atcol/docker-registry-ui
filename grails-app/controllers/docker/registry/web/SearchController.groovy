@@ -1,6 +1,5 @@
 package docker.registry.web
 
-import docker.registry.web.support.Result
 import docker.registry.web.support.Search
 
 class SearchController {
@@ -10,7 +9,7 @@ class SearchController {
     def index() { }
 
     def search(String q) {
-        final resultMap = searchService.search(new Search(query: q))
+        final resultMap = searchService.searchAll(new Search(query: q))
         render view: "results", model: [results: resultMap]
     }
 }
