@@ -1,0 +1,3 @@
+language: groovy
+script: ./grailsw refresh-dependencies
+    && ./grailsw war docker/docker-registry-web.war
