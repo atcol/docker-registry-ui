@@ -2,15 +2,10 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <title>Docker Registry - Image Search</title>
+    <title>Image Search</title>
     <asset:javascript src="jquery/jquery-1.10.2.js"/>
-    <script language="JavaScript">
-        function confirmDelete(anchor) {
-            if (showConfirm()) {
-
-            }
-        }
-    </script>
+    <asset:javascript src="jquery/jquery-ui-1.10.4.min.js" />
+    <asset:stylesheet src="jquery-ui.css" />
 </head>
 
 <body>
@@ -36,7 +31,7 @@
                         <td>${img.name}</td>
                         <td>${img.description}</td>
                         <td>
-                            <a href="#" onclick="confirmDelete('${img.id}', '${href}');">Delete</a>
+                            <a href="#" class="deleteImg" data-repoName="${img.name}" data-registryId="${entry.key.id}">Delete</a>
                         </td>
                     </tr>
                 </g:each>
@@ -44,13 +39,10 @@
         </tbody>
     </table>
 
-<div id="dialog-confirm" title="Delete image?">
-    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
-</div>
 </g:if>
 <g:else>
     <p>No results. Sorry :(</p>
 </g:else>
-
+<g:include view="image/util.js.gsp"/>
 </body>
 </html>
