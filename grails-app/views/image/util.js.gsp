@@ -5,7 +5,7 @@
             var anchor = $(val);
             anchor.click(function() {
                 $('#dialog-confirm').show();
-                showConfirm(anchor.attr("data-registryId"), anchor.attr("data-imgId"));
+                showConfirm(anchor.attr("data-registryId"), anchor.attr("data-repoName"));
             });
         });
     }
@@ -16,11 +16,10 @@
         setupImageDeleteLinks();
     });
 
-    function doDelete(registryId, imgId) {
+    function doDelete(registryId, repoName) {
         $.ajax({
-            url: "${g.createLink(controller: 'image', action: 'delete')}" + "/" + imgId,
-            type: "DELETE",
-            data: "?registry=" + registryId
+            url: "${g.createLink(controller: 'image', action: 'delete')}" + "?repoName=" + repoName + "&registry=" + registryId,
+            type: "DELETE"
         }).done(function () {
             alert("Done!");
         }).fail(function () {
@@ -28,7 +27,7 @@
         });
     }
 
-    function showConfirm(registryId, imgId) {
+    function showConfirm(registryId, repoName) {
         $("#dialog-confirm").dialog({
             autoResize: true,
             resizable: true,
@@ -37,7 +36,7 @@
             modal: true,
             buttons: {
                 "${g.message(code: 'ui.dialog.button.deleteImage')}": function () {
-                    doDelete(registryId, imgId);
+                    doDelete(registryId, repoName);
                     $(this).dialog("close");
                 },
                 Cancel: function () {
