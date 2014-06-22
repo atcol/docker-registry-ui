@@ -26,7 +26,14 @@ This project is containerized. You can run with docker right now by simply runni
 
 	docker run -p 8080:8080 atcol/docker-registry-web
 
-and browsing to localhost:8080/
+and browsing to localhost:8080/.
+
+You can also hold the internal database's contents on the host machine using the `-v` or `--volumes-from` flag:
+
+	docker run -p 8080:8080 -v /some/data/dir:/var/lib/h2 atcol/docker-registry-web
+
+and the registry configurations and other data will be stored on the host machine, which survives container restarts
+etc.
 
 ## Building
 
