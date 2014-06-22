@@ -1,3 +1,8 @@
 language: groovy
-script: ./grailsw refresh-dependencies
-    && ./grailsw war docker/docker-registry-web.war
+
+before_install:
+- curl -s get.gvmtool.net | bash
+- gvm install grails 2.4.0
+
+script: grails refresh-dependencies
+    && grails war docker/docker-registry-web.war
