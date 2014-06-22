@@ -17,8 +17,9 @@
     <asset:stylesheet src="bootstrap.journal.css"/>
     <asset:stylesheet src="bootswatch.min.css"/>
     <asset:stylesheet src="general.css"/>
-    <asset:stylesheet src="jquery/jquery-1.10.2.js"/>
     <asset:javascript src="jquery/jquery-1.10.2.js"/>
+    <asset:javascript src="jquery/jquery-ui-1.10.4.min.js" />
+    <asset:stylesheet src="jquery-ui.css" />
     <asset:javascript src="bootstrap.min.js"/>
     <asset:javascript src="application.js"/>
     <g:layoutHead/>
