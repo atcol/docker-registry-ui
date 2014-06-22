@@ -1,8 +1,11 @@
 language: groovy
 
+jdk:
+    - oraclejdk7
+
 before_install:
-- curl -s get.gvmtool.net | bash
-- gvm install grails 2.4.0
+    - curl -s get.gvmtool.net | bash
+    - yes y | gvm install grails
 
 script: grails refresh-dependencies
     && grails war docker/docker-registry-web.war
