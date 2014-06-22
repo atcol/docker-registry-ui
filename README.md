@@ -6,7 +6,21 @@ docker-registry-web
 A Grails web application for easy private/local Docker Registry integration. Allows you to browse, delete and search for images as
 well as register multiple registries for large installations.
 
-# Demo
+## Features
+
+The application boasts the following features:
+
+ * View all images for all registries (one to many)
+
+ * Delete images
+
+ * Search for images
+
+ * Containerized via [Docker](https://registry.hub.docker.com/u/atcol/docker-registry-web/)
+
+ * Exposes its database as a volume 
+
+## Demo
 
 This project is containerized. You can run with docker right now by simply running:
 
@@ -14,7 +28,7 @@ This project is containerized. You can run with docker right now by simply runni
 
 and browsing to localhost:8080/
 
-# Building
+## Building
 
 Build the web-app with `grails war docker/docker-registry-web.war`. Now you build the docker image:
 
