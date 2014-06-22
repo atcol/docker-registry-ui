@@ -30,12 +30,12 @@ var FAIL_ALERT_HTML = "<div class='alert alert-dismissable alert-danger'> \
 </div>";
 
 function showSuccess(msg) {
-    $("#banner").append(SUCCESS_ALERT_HTML);
+    $("#banner").prepend(SUCCESS_ALERT_HTML);
     $("#successMsg").innerText = msg
 }
 
 function showFail(msg) {
-    $("#banner").append(FAIL_ALERT_HTML);
+    $("#banner").prepend(FAIL_ALERT_HTML);
     $("#errMsg").innerText = msg
 }
 
