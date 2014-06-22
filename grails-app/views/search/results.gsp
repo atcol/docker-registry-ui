@@ -3,9 +3,6 @@
 <head>
     <meta name="layout" content="main">
     <title>Image Search</title>
-    <asset:javascript src="jquery/jquery-1.10.2.js"/>
-    <asset:javascript src="jquery/jquery-ui-1.10.4.min.js" />
-    <asset:stylesheet src="jquery-ui.css" />
 </head>
 
 <body>
