@@ -20,6 +20,7 @@
     <asset:stylesheet src="jquery/jquery-1.10.2.js"/>
     <asset:javascript src="jquery/jquery-1.10.2.js"/>
     <asset:javascript src="bootstrap.min.js"/>
+    <asset:javascript src="application.js"/>
     <g:layoutHead/>
 </head>
 
