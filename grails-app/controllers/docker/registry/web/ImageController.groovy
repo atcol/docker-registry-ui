@@ -13,9 +13,17 @@ class ImageController {
         render view: "index", model: [registryToImageMap: registryToImg]
     }
 
-    def delete(final int registry, final String id) {
-        log.info("Deleting image $id for registry $registry")
-        repositoryService.deleteImage(Registry.get(registry), id)
+    def delete() {
+        def repoName = params.repoName
+        def registry = params.registry
+        log.info("Deleting image $repoName for registry $registry")
+        def reg = Registry.get(registry)
+        log.info("Got registry by id $registry ? $reg")
+        if (reg) {
+            repositoryService.delete(reg, repoName)
+        } else {
+            response.status = 404
+        }
         render view: "delete"
     }
 }
