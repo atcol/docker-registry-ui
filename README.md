@@ -3,7 +3,7 @@
 docker-registry-web
 ===================
 
-A Grails web application for easy private/local Docker Registry integration. Allows you to browse, delete and search for images as
+A web UI for easy private/local Docker Registry integration. Allows you to browse, delete and search for images as
 well as register multiple registries for large installations.
 
 ## Features
