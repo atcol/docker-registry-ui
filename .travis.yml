@@ -15,11 +15,9 @@ jdk:
     - oraclejdk7
 
 script: ./grailsw refresh-dependencies
-    && ./grailsw war docker/docker-registry-web.war
+    && ./grailsw war docker-registry-web.war
 
-after_script:
-  - "travis-artifacts upload --path logs"
 after_failure: # this will of course run only on failure
   - "travis-artifacts upload --path debug/debug.log"
 after_success: # and this only on success
-  - "travis-artifacts upload --path build.tar.gz"
+  - "travis-artifacts upload --path docker-registry-web.war"
