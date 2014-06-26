@@ -45,5 +45,5 @@ and run it:
 	
 	docker run -dt -p 8080:8080 <image id from last command>
 
-then browse to localhost:8080/docker-registry-web/registry/index and create a new registry (using the host's external
+then browse to localhost:8080/registry/index and create a new registry (using the host's external
 IP).
