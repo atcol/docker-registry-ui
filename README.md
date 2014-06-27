@@ -18,7 +18,7 @@ The application boasts the following features:
 
  * Containerized via [Docker](https://registry.hub.docker.com/u/atcol/docker-registry-web/)
 
- * Exposes its database as a volume 
+ * Exposes the webapp's configuration data as a volume for use with data-containers or simple host directory storage
 
 ## Demo
 
@@ -28,11 +28,11 @@ This project is containerized. You can run with docker right now by simply runni
 
 and browsing to localhost:8080/.
 
-You can also hold the internal database's contents on the host machine using the `-v` or `--volumes-from` flag:
+The webapp's configuration data is stored inside the container in a H2 database under `/var/lib/h2/`. You can hold this data on the host machine using the `-v` flag:
 
 	docker run -p 8080:8080 -v /some/data/dir:/var/lib/h2 atcol/docker-registry-web
 
-and the registry configurations and other data will be stored on the host machine, which survives container restarts.
+which survives container restarts.
 
 You could also use the data-container pattern using `--volumes-from`:
 
