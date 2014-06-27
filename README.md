@@ -32,8 +32,15 @@ You can also hold the internal database's contents on the host machine using the
 
 	docker run -p 8080:8080 -v /some/data/dir:/var/lib/h2 atcol/docker-registry-web
 
-and the registry configurations and other data will be stored on the host machine, which survives container restarts
-etc.
+and the registry configurations and other data will be stored on the host machine, which survives container restarts.
+
+You could also use the data-container pattern using `--volumes-from`:
+
+	docker run -v /var/lib/h2 --name="registry_web_data" ubuntu
+
+	docker run -p 8080:8080 --volumes-from=registry_web_data atcol/docker-registry-web
+
+Now all data will be kept in the `registry_web_data` container.
 
 ## Building
 
