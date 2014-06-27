@@ -20,4 +20,4 @@ script: ./grailsw refresh-dependencies
 after_failure: # this will of course run only on failure
   - "travis-artifacts upload --path debug/debug.log"
 after_success: # and this only on success
-  - "travis-artifacts upload --path docker-registry-web.war"
+  - "travis-artifacts upload --path docker-registry-web.war --target-path build/"
