@@ -6,8 +6,10 @@ env:
   global: 
    - "ARTIFACTS_AWS_REGION=us-east-1"
    - "ARTIFACTS_S3_BUCKET=github-docker-registry-web"
-   - secure: "cGr2uDV4iQPxgO9Q3S0ZvDPh4Cd8Jtl5m2mxE1d1Oz81TItAGcKDioKP+5kR0ppSBCoYX/Xv1WdvKxG5zkiYCt4z3A71C65phDFWGm7W+tANLPXz3dmHWGYP72ulg2I2mgnxnorDWKY+9hVeIgLWyaGxu4UTIyALh1/nEex+TJc="
-   - secure: "dtLuvNxxZE6COI+SGCYELr+KbPjwpNEeP7ExOzdwm6Nz9SGhfuAM6r8/07YMcco0uB8vEv8oW/MH8ktpWE437ORLawDpl2vUwrs45lVWnmHZml2G+0h/ocqEtONFJPI0GDmiwdzF+hAahaeXeSzjNcfR1tIUSrt/15MvjRvNu68="
+   - secure: "Mz+R6C16cAPKwBosr2QToM8KY+e0bRxXDVhTwWgOC8dZwQrmFGy9Gdozz3KWspVXiNdqhXzDHgAhFRpR/1l+gFLUsDoYyyF5JfWaI4qmXky0R6XtdQmB7t3nId10zHDz583hyYih4AWlYNHK1PomDBZtr8NsOb6IHJb0vs9TdH8="
+   - secure: "TgzKqSW2q/iWvQ9jvL008rDy4MI/EizpUxxi+05QK2nPy27bQd5xM/ZLkP9Qgx0ApO5jPbI0XvSXJKcuikpToSvPykVfSGqp0MK2UBiH+U0CtcJ8pa1aGT2q3O0F6n2yJt8LAKQ6lA21MxLnAOkRcDktEQsI/UN0fwq1Fq3Bqt4="
+
+
 
 before_install: 
 - gem install travis-artifacts
