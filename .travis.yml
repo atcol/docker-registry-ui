@@ -1,19 +1,21 @@
 language: groovy
 
-env: 
-  global: 
-  - ARTIFACTS_AWS_REGION=us-east-1
-  - ARTIFACTS_S3_BUCKET=github-docker-registry-web
-  - secure: COuIFgZZaoKk+lZRuu9qX31dNAIHO+ThgDpCDQHDUE/mcmxRG3+0yElGl9MCn+1ZordudYIqUe9HlSWw3yPbLzyzCjSxshh3vKcYGYBjdG0ZA7OYf2NUKOz/HibTl5FmSYfxdLwJX08gm3iutTTBnmr7NQBCBKEdquDjj4X+cZU=
-  - secure: S4xBwZhmt8ks3yuoNei2yW6oEdGrb45/+NuUZNm62odKQnhoSiALyyoDAtewZmOEdqh/qbGqsHcTmDgbqNq2zNCwlzKbFnDFJJ9sMVEP/FFqKPUORzt2MEakAqiegaOoPkrMeDa18wwvzdLeA1Q3zTQrBKdrHzm9nLPNooyODKA=
-
 jdk: 
-    - oraclejdk7
+  - oraclejdk7
+
+deploy: 
+  provider: s3
+  bucket: "github-docker-registry-web"
+  secret_access_key: 
+    secure: N81X9Z4eZ7/bGosmav3nwdxBblN0C0wqagN0w1tTKlrQZXJ9wiaHT+kbHpOtzPWlVT8Tvma9Mjr/64dtrFybkpdOhk+tqPXhew+9YQQy/FYBypUW5BuKPpEAHJg43rKhGbEgJWZxmXxo72GNuxjTvTxPieKBobhwLrqIIITwsT4=
+  access_key_id: 
+        secure: G9i3WVT2FUVmWkbBPkueC1QWZV5tq60gnmaQ/9dO19tByKBc+nuS3EwXNhfD1/pyjP8saGgnXy1+qKPnFtQXj06Th/f9rU4PxQnPOHYiwEND/ouuBc5y6TvvDE/awwzsV8BbP99WlGhp8NOQnJACc8Vr1CThMphaLvP+0AEWTeA=
+  skip_cleanup: true
 
 before_install: 
-    - gem install travis-artifacts
+  - gem install travis-artifacts
 
 script: ./grailsw war docker-registry-web.war
 
 after_success: 
-    - travis-artifacts upload --path docker-registry-web.war --target-path build/
+- travis-artifacts upload --path docker-registry-web.war --target-path build/
