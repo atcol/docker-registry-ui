@@ -1,18 +1,6 @@
 language: groovy
-after_success: 
-- travis-artifacts upload --path docker-registry-web.war --target-path build/
-script: ./grailsw war docker-registry-web.war
-env: 
-  global: 
-   - "ARTIFACTS_AWS_REGION=us-east-1"
-   - "ARTIFACTS_S3_BUCKET=github-docker-registry-web"
-   - secure: "Mz+R6C16cAPKwBosr2QToM8KY+e0bRxXDVhTwWgOC8dZwQrmFGy9Gdozz3KWspVXiNdqhXzDHgAhFRpR/1l+gFLUsDoYyyF5JfWaI4qmXky0R6XtdQmB7t3nId10zHDz583hyYih4AWlYNHK1PomDBZtr8NsOb6IHJb0vs9TdH8="
-   - secure: "TgzKqSW2q/iWvQ9jvL008rDy4MI/EizpUxxi+05QK2nPy27bQd5xM/ZLkP9Qgx0ApO5jPbI0XvSXJKcuikpToSvPykVfSGqp0MK2UBiH+U0CtcJ8pa1aGT2q3O0F6n2yJt8LAKQ6lA21MxLnAOkRcDktEQsI/UN0fwq1Fq3Bqt4="
-
-
-
-before_install: 
-- gem install travis-artifacts
 
 jdk: 
 - oraclejdk7
+
+script: ./grailsw war docker-registry-web.war
