@@ -3,7 +3,7 @@ language: groovy
 env:
  global:
    - "ARTIFACTS_AWS_REGION=us-east-1"
-   - "ARTIFACTS_S3_BUCKET=github.docker-registry-web"
+   - "ARTIFACTS_S3_BUCKET=github-docker-registry-web"
    - secure: "WofIVh2ZWsOL3A5rJO2Li0EWqJQcdpGbyxrl0AJzTPLBL7c0oMss1qSjDoL6DQ5EuFmTPxROgSzow75V1/ien4Ui+XbT6MxiV/WzF+lnXy+biGH6x6eKHCK+5BZ8DomqpdhjcLvpFHJhlvdy4j4An2UUeiqJ7Dv3bpbNpiM1Ue4="
    - secure: "J0UX5amUG7C4HLz1bzkqY8gHKsjSaJdLlljU/hYSIHgsL8cOY/28jlN4AR7YDA20Y0VXKJ9d1SG9Z2hiLSJwKzVURtMCItgu4A8mim0CXDA/hsvPLk8IEk8n6PyfvixnLM0kNLMFU67ocfwKtKBeBuS3shizoM4LZs6FYjg96oc="
 
