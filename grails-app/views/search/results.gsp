@@ -40,6 +40,6 @@
 <g:else>
     <p>No results. Sorry :(</p>
 </g:else>
-<g:include view="image/util.js.gsp"/>
+<g:include view="image/image-prompts.js.gsp"/>
 </body>
 </html>
