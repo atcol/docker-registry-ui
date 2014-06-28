@@ -3,6 +3,7 @@
 <head>
     <meta name="layout" content="main">
     <title>Image Search</title>
+    <jqDT:resources/>
 </head>
 
 <body>
@@ -35,7 +36,6 @@
             </g:each>
         </tbody>
     </table>
-
 </g:if>
 <g:else>
     <p>No results. Sorry :(</p>
