@@ -33,6 +33,7 @@
 
         </div>
     </div>
+    <jqui:resources/>
     <g:include view="layouts/footer.gsp"/>
 </div>
 
