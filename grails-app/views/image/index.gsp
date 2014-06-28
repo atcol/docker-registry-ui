@@ -3,7 +3,6 @@
 <head>
     <meta name="layout" content="main">
     <title>Docker Registry - Image List</title>
-    <jqDT:resources/>
 </head>
 <body>
 
@@ -31,12 +30,13 @@
                     <td>${img.os}</td>
                     <td>${img.author}</td>
                     <td>${img.created}</td>
-                    <td><a href="#" class="deleteImg" data-registryId="${entry.key.id}" data-repoName="${img.name}">Delete</a></td>
+                    <td><a href="#" class="pullImg" data-repoName="${img.name}">Pull</a> | <a href="#" class="deleteImg" data-registryId="${entry.key.id}" data-repoName="${img.name}">Delete</a></td>
                 </tr>
             </g:each>
         </g:each>
     </tbody>
 </table>
+<jqDT:resources/>
 <g:include view="image/util.js.gsp"/>
 </body>
 </html>
