@@ -16,7 +16,7 @@ The application boasts the following features:
 
  * Search for images
 
- * Containerized via [Docker](https://registry.hub.docker.com/u/atcol/docker-registry-web/)
+ * Containerized via [Docker](https://registry.hub.docker.com/u/atcol/docker-registry-ui/)
 
  * Exposes the webapp's configuration data as a volume for use with data-containers or simple host directory storage
 
