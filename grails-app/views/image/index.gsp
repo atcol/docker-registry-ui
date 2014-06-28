@@ -3,13 +3,13 @@
 <head>
     <meta name="layout" content="main">
     <title>Docker Registry - Image List</title>
-    <link rel="stylesheet" href="${g.resource(dir: 'css', file:'bootstrap.journal.css')}"
+    <jqDT:resources/>
 </head>
 <body>
 
 <h1>Images</h1>
 
-<table class="table table-striped table-hover">
+<table id="imgTbl" class="table table-striped table-hover">
     <thead>
         <tr>
             <th>Registry</th>
