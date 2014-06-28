@@ -3,13 +3,12 @@
 <head>
     <meta name="layout" content="main">
     <title>Docker Registry - Image List</title>
-    <link rel="stylesheet" href="${g.resource(dir: 'css', file:'bootstrap.journal.css')}"
 </head>
 <body>
 
 <h1>Images</h1>
 
-<table class="table table-striped table-hover">
+<table id="imgTbl" class="table table-striped table-hover">
     <thead>
         <tr>
             <th>Registry</th>
@@ -31,12 +30,13 @@
                     <td>${img.os}</td>
                     <td>${img.author}</td>
                     <td>${img.created}</td>
-                    <td><a href="#" class="deleteImg" data-registryId="${entry.key.id}" data-repoName="${img.name}">Delete</a></td>
+                    <td><a href="#" class="pullImg" data-pullName="${img.pullName}">Pull</a> | <a href="#" class="deleteImg" data-registryId="${entry.key.id}" data-repoName="${img.name}">Delete</a></td>
                 </tr>
             </g:each>
         </g:each>
     </tbody>
 </table>
-<g:include view="image/util.js.gsp"/>
+<jqDT:resources/>
+<g:include view="image/image-prompts.js.gsp"/>
 </body>
 </html>

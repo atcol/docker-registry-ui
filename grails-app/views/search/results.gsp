@@ -3,6 +3,7 @@
 <head>
     <meta name="layout" content="main">
     <title>Image Search</title>
+    <jqDT:resources/>
 </head>
 
 <body>
@@ -35,11 +36,10 @@
             </g:each>
         </tbody>
     </table>
-
 </g:if>
 <g:else>
     <p>No results. Sorry :(</p>
 </g:else>
-<g:include view="image/util.js.gsp"/>
+<g:include view="image/image-prompts.js.gsp"/>
 </body>
 </html>

@@ -1,7 +1,6 @@
 language: groovy
 
-jdk:
-    - oraclejdk7
+jdk: 
+- oraclejdk7
 
-script: ./grailsw refresh-dependencies
-    && ./grailsw war docker/docker-registry-web.war
+script: ./grailsw war docker-registry-web.war

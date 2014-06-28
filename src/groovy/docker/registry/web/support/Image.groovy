@@ -2,6 +2,7 @@ package docker.registry.web.support
 
 class Image {
     String displayName
+    String pullName
     String architecture
     String author
     String id
@@ -20,7 +21,9 @@ class Image {
     @Override
     public String toString() {
         return "Image{" +
-                "architecture='" + architecture + '\'' +
+                "displayName='" + displayName + '\'' +
+                ", pullName='" + pullName + '\'' +
+                ", architecture='" + architecture + '\'' +
                 ", author='" + author + '\'' +
                 ", id='" + id + '\'' +
                 ", name='" + name + '\'' +

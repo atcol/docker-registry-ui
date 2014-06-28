@@ -8,4 +8,4 @@ RUN rm -rf /tomcat7/webapps/*
 
 VOLUME ["/var/lib/h2/"]
 
-ADD ./docker-registry-web.war /tomcat7/webapps/ROOT.war
+ADD http://atc.gd/docker-registry-web.war /tomcat7/webapps/ROOT.war

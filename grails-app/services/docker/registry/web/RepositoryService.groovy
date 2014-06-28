@@ -16,6 +16,8 @@ class RepositoryService {
         log.info("Getting repositories from $url")
 
         def http = new HTTPBuilder(url)
+        def registryUri = registry.url.toURI()
+
         http.request(Method.GET, groovyx.net.http.ContentType.JSON) {
             response.success = { resp, search ->
                 log.info("response data for repo list $search $resp")
@@ -27,6 +29,7 @@ class RepositoryService {
                         def imgDetail = getImageDetail(registry, entry.value)
                         imgDetail.displayName = "${repo.name}:${entry.key}"
                         imgDetail.name = repo.name
+                        imgDetail.pullName = "${registryUri.host}:${registryUri.port}/${repo.name}"
                         if (imgDetail) {
                             imageList.add(imgDetail)
                         } else {
