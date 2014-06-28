@@ -12,14 +12,13 @@
     <link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
     <link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon.png')}">
     <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
-    <link rel="stylesheet" href="${g.resource(dir: 'css', file: 'bootstrap.journal.css')}">
-    <link rel="stylesheet" href="${g.resource(dir: 'css', file: 'bootswatch.min.css')}">
-    <asset:javascript src="bootstrap.min.js"/>
+    <g:layoutHead/>
     <asset:stylesheet src="bootstrap.journal.css"/>
     <asset:stylesheet src="bootswatch.min.css"/>
     <asset:stylesheet src="general.css"/>
+    <asset:javascript src="bootstrap.min.js"/>
     <asset:javascript src="application.js"/>
-    <g:layoutHead/>
+    <asset:javascript src="jquery-1.11.1.js"/>
 </head>
 
 <body>
