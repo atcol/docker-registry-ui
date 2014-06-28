@@ -18,7 +18,6 @@
     <asset:stylesheet src="general.css"/>
     <asset:javascript src="bootstrap.min.js"/>
     <asset:javascript src="application.js"/>
-    <asset:javascript src="jquery-1.11.1.js"/>
 </head>
 
 <body>
