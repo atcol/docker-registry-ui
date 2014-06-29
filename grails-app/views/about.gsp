@@ -8,9 +8,7 @@
 <body>
 <p>This project is open source software licensed under the Apache License version 2.</p>
 <p>You are running version ${grailsApplication.metadata['app.version']}.</p>
-<ul>
-    <li>Contribute at <a href="https://github.com/atc-/docker-registry-web/" target="_blank"><asset:image src="github.png" /></a></li>
-    <li>Styles by <a href="https://github.com/thomaspark/bootswatch/">Bootswatch</a></li>
-</ul>
+<p>Contribute at <a href="https://github.com/atc-/docker-registry-web/" target="_blank"><asset:image src="github.png" /></a></p>
+<p>Styles by <a href="https://github.com/thomaspark/bootswatch/">Bootswatch</a></p>
 </body>
 </html>
