@@ -138,6 +138,8 @@ grails.views.javascript.library="jquery"
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'docker.registry.web.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'docker.registry.web.UserRole'
 grails.plugin.springsecurity.authority.className = 'docker.registry.web.Role'
+grails.plugin.springsecurity.requestMap.className = 'docker.registry.web.Requestmap'
+grails.plugin.springsecurity.securityConfigType = 'Requestmap'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                              ['permitAll'],
 	'/index':                         ['permitAll'],
