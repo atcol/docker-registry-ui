@@ -42,15 +42,3 @@ You could also use the data-container pattern using `--volumes-from`:
 
 Now all data will be kept in the `registry_web_data` container.
 
-## Building
-
-Build the web-app with `grails war docker/docker-registry-web.war`. Now you build the docker image:
-
-	docker build docker/
-
-and run it:
-	
-	docker run -dt -p 8080:8080 <image id from last command>
-
-then browse to localhost:8080/registry/index and create a new registry (using the host's external
-IP).
