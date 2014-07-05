@@ -26,7 +26,7 @@
                 <g:each in="${entry.value}" var="img" status="it">
                     <tr>
                         <td>${entry.key.url}</td>
-                        <td><g:link controller="image" action="show" params="[registryId: entry.key.id, img: img.id]">
+                        <td><g:link controller="image" action="show" params="[registryId: entry.key.id, repoName: img.name, tag: img.tag, imgId: img.id]">
                             ${img.name}</g:link>
                         </td>
                         <td>${img.description}</td>
