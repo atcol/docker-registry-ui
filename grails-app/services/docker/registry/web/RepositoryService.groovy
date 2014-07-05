@@ -16,31 +16,34 @@ class RepositoryService {
         log.info("Getting repositories from $url")
 
         def http = new HTTPBuilder(url)
-        def registryUri = registry.url.toURI()
 
         http.request(Method.GET, groovyx.net.http.ContentType.JSON) {
             response.success = { resp, search ->
                 log.info("response data for repo list $search $resp")
                 search.results.each { repo ->
-                    def tags = getTags(registry, repo.name)
-                    tags.entrySet().each { entry ->
-                        // tags is a map of tag name to its image id
-                        log.info("tag is ${entry}")
-                        def imgDetail = getImageDetail(registry, entry.value)
-                        imgDetail.displayName = "${repo.name}:${entry.key}"
-                        imgDetail.tag = entry.key
-                        imgDetail.name = repo.name
-                        imgDetail.pullName = "${registryUri.host}${registryUri.port != -1 ? ':' + registryUri.port : ''}/${repo.name}"
-                        if (imgDetail) {
-                            imageList.add(imgDetail)
-                        } else {
-                            imageList.add(new Image(description: "Failed to retrieve image detail"))
-                        }
-                    }
+                    imageList.add(detail(registry, repo.name?.toString()))
                 }
             }
         }
         imageList
+    }
+
+    def detail(final Registry registry, final String repoName) {
+        def registryUri = registry.url.toURI()
+        def tagToImgIdMap = getTags(registry, repoName)
+        tagToImgIdMap.entrySet().each { entry ->
+            log.info("tag is ${entry}")
+            def imgDetail = getImageDetail(registry, entry.value)
+            imgDetail.displayName = "${repoName}:${entry.key}"
+            imgDetail.tag = entry.key
+            imgDetail.name = repoName
+            imgDetail.pullName = "${registryUri.host}${registryUri.port != -1 ? ':' + registryUri.port : ''}/${repoName}"
+            if (imgDetail) {
+                return imgDetail
+            } else {
+                return new Image(description: "Failed to retrieve image detail")
+            }
+        }
     }
 
     def search(final Registry registry, final String query) {
@@ -77,10 +80,8 @@ class RepositoryService {
     def Image getImageDetail(final Registry registry, final String imgId) {
         log.info("getting image $imgId")
         def img = null
-        def http = new HTTPBuilder(registry.url)
+        def http = new HTTPBuilder("${registry.toURL()}/images/${imgId}/json")
         http.request (Method.GET, groovyx.net.http.ContentType.JSON) {
-            uri.path = "/$registry.apiVersion/images/${imgId}/json"
-            log.info("uri is $uri.path")
             response.success = { imgResp, imgData ->
                 log.info("Image data is $imgData")
                 img = new Image(imgData)
