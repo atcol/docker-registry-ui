@@ -45,7 +45,7 @@
 
     function doDelete(registryId, repoName, tag) {
         $.ajax({
-            url: "${g.createLink(controller: 'image', action: 'delete')}" + "?repoName=" + repoName + "&registry=" + registryId + "&tag=" + tag,
+            url: "${g.createLink(controller: 'repository', action: 'delete')}" + "?repoName=" + repoName + "&registry=" + registryId + "&tag=" + tag,
             type: "DELETE"
         }).done(function () {
             showSuccess('<g:message code="image.delete.success" />');
