@@ -14,6 +14,7 @@ class UrlMappings {
         )
 
         "/"(view:"/index")
+        "/about"(view:"/about")
         "500"(view:'/error')
 	}
 }
