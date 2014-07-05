@@ -23,10 +23,10 @@
         </thead>
         <tbody>
             <g:each in="${results.entrySet()}" var="entry">
-                <g:each in="${entry.value}" var="img" status="it">
+                <g:each in="${entry.value.images}" var="img">
                     <tr>
                         <td>${entry.key.url}</td>
-                        <td><g:link controller="image" action="show" params="[registryId: entry.key.id, repoName: img.name, tag: img.tag, imgId: img.id]">
+                        <td><g:link controller="repository" action="show" params="[registryId: entry.key.id, repoName: img.name, tag: img.tag, imgId: img.id]">
                             ${img.name}</g:link>
                         </td>
                         <td>${img.description}</td>
@@ -42,6 +42,6 @@
 <g:else>
     <p>No results. Sorry :(</p>
 </g:else>
-<g:include view="image/image-prompts.js.gsp"/>
+<g:include view="repository/image-prompts.js.gsp"/>
 </body>
 </html>
