@@ -1,7 +1,5 @@
 package docker.registry.web
 
-import docker.registry.web.support.Image
-
 class RepositoryController {
 
     def repositoryService
@@ -17,18 +15,17 @@ class RepositoryController {
 
     def show(final int registryId, final String repoName, final String tag, final String imgId) {
         def reg = Registry.get(registryId)
-        Image image = null
+        Repository repository = null
 
         if (reg) {
-            image = repositoryService.detail(reg, repoName)
-            image.id = imgId
+            repository = repositoryService.detail(reg, repoName)
         }
 
-        if (!reg || !image) {
+        if (!reg || !repository) {
             response.status = 404
         }
 
-        render view: "show", model: [registry: reg, img: image]
+        render view: "show", model: [registry: reg, img: repository.images.find { it.id.equals(imgId)}]
     }
 
     def delete() {
