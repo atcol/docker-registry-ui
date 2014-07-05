@@ -6,6 +6,6 @@ RUN chmod a+rw /var/lib/h2
 
 RUN rm -rf /tomcat7/webapps/*
 
-VOLUME ["/var/lib/h2/"]
+VOLUME ["/var/lib/h2/", "/tomcat7"]
 
-ADD http://atc.gd/docker-registry-web.war /tomcat7/webapps/ROOT.war
+ADD http://atc.gd/docker-registry-ui.war /tomcat7/webapps/ROOT.war
