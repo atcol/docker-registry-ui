@@ -4,13 +4,19 @@ class Registry {
     String url
     String apiVersion
 
+    def repositoryService
+
     static constraints = {
     }
 
-    static transients = ['toURL']
+    static transients = ['toUrl', 'repositories']
 
-    def toURL() {
+    def toUrl() {
         return "${this.url}/${this.apiVersion}"
+    }
+
+    def getRepositories() {
+        repositoryService.index(this)
     }
 
     @Override

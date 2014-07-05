@@ -14,7 +14,7 @@ class ImageService {
         log.info("Loading images from $registry")
         final imageList = []
         registry.repositories.each { repo ->
-            def http = new HTTPBuilder("${registry.toURL()}/repositories/$repo.name/images")
+            def http = new HTTPBuilder("${registry.toUrl()}/repositories/$repo.name/images")
             http.request(Method.GET, groovyx.net.http.ContentType.JSON) {
                 response.success = { resp, res ->
                     log.info("response data for image list $res $resp")
