@@ -21,7 +21,7 @@
         </tr>
     </thead>
     <tbody>
-        <g:each in="${registryToImageMap.entrySet()}" var="entry">
+        <g:each in="${registryToRepoMap.entrySet()}" var="entry">
             <g:each in="${entry.value.images}" var="img">
                 <tr>
                     <td>${entry.key.url}</td>

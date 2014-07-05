@@ -6,11 +6,11 @@ class RepositoryController {
     static allowedMethods = [delete: 'DELETE']
 
     def index() {
-        def registryToImg = [:]
+        def registryToRepo = [:]
         Registry.all.each { registry ->
-            registryToImg.put(registry, repositoryService.index(registry))
+            registryToRepo.put(registry, repositoryService.index(registry))
         }
-        render view: "index", model: [registryToImageMap: registryToImg]
+        render view: "index", model: [registryToRepoMap: registryToRepo]
     }
 
     def show(final int registryId, final String repoName, final String tag, final String imgId) {
