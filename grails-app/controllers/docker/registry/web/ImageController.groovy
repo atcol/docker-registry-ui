@@ -16,11 +16,12 @@ class ImageController {
     def delete() {
         def repoName = params.repoName
         def registry = params.registry
-        log.info("Deleting image $repoName for registry $registry")
+        def tag = params.tag
+        log.info("Deleting image $repoName for registry $registry and tag $tag")
         def reg = Registry.get(registry)
         log.info("Got registry by id $registry ? $reg")
         if (reg) {
-            repositoryService.delete(reg, repoName)
+            repositoryService.delete(reg, repoName, tag)
         } else {
             response.status = 404
         }

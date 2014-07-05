@@ -7,6 +7,7 @@
         setupImagePullLinks();
     });
 
+    //TODO: generalize these "iterate and assign onclick func" methods
     function setupImagePullLinks() {
         $(document).ready(function() {
             var pullLinks = $('.pullImg');
@@ -37,23 +38,23 @@
             var anchor = $(val);
             anchor.click(function() {
                 $('#dialog-confirm-delete').show();
-                showConfirm(anchor.attr("data-registryId"), anchor.attr("data-repoName"));
+                showConfirm(anchor.attr("data-registryId"), anchor.attr("data-repoName"), anchor.attr("data-tag"));
             });
         });
     }
 
-    function doDelete(registryId, repoName) {
+    function doDelete(registryId, repoName, tag) {
         $.ajax({
-            url: "${g.createLink(controller: 'image', action: 'delete')}" + "?repoName=" + repoName + "&registry=" + registryId,
+            url: "${g.createLink(controller: 'image', action: 'delete')}" + "?repoName=" + repoName + "&registry=" + registryId + "&tag=" + tag,
             type: "DELETE"
         }).done(function () {
-            showSuccess("Deleted. Bye bye...");
+            showSuccess('<g:message code="image.delete.success" />');
         }).fail(function () {
-            showFail("That failed. Please try again.");
+            showFail('<g:message code="image.delete.failure" />');
         });
     }
 
-    function showConfirm(registryId, repoName) {
+    function showConfirm(registryId, repoName, tag) {
         $("#dialog-confirm-delete").dialog({
             autoResize: true,
             resizable: true,
@@ -62,7 +63,7 @@
             modal: true,
             buttons: {
                 "${g.message(code: 'ui.dialog.button.deleteImage')}": function () {
-                    doDelete(registryId, repoName);
+                    doDelete(registryId, repoName, tag);
                     $(this).dialog("close");
                 },
                 Cancel: function () {

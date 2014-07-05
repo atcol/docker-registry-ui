@@ -24,12 +24,13 @@ class RepositoryService {
                 search.results.each { repo ->
                     def tags = getTags(registry, repo.name)
                     tags.entrySet().each { entry ->
-                        // tag is a map of tag name to its image id
+                        // tags is a map of tag name to its image id
                         log.info("tag is ${entry}")
                         def imgDetail = getImageDetail(registry, entry.value)
                         imgDetail.displayName = "${repo.name}:${entry.key}"
+                        imgDetail.tag = entry.key
                         imgDetail.name = repo.name
-                        imgDetail.pullName = "${registryUri.host}:${registryUri.port}/${repo.name}"
+                        imgDetail.pullName = "${registryUri.host}${registryUri.port != -1 ? ':' + registryUri.port : ''}/${repo.name}"
                         if (imgDetail) {
                             imageList.add(imgDetail)
                         } else {
@@ -93,14 +94,21 @@ class RepositoryService {
         img
     }
 
-    def delete(final Registry registry, final String repoName) {
-        final uri = "${registry.url}/${registry.apiVersion}/repositories/$repoName/"
+    def delete(final Registry registry, final String repoName, final String tag) {
+        final uri = "${registry.url}/${registry.apiVersion}/repositories/$repoName/tags/$tag"
         log.info("Deleting repo at $uri")
         def http = new HTTPBuilder(uri)
+        def result = true
         http.request(Method.DELETE, groovyx.net.http.ContentType.JSON) {
             response.success = { resp, json ->
                 log.info("Repo $repoName deleted: $json")
             }
+
+            response.failure = { resp ->
+                log.error("Failed to delete $uri: $resp")
+                result = false
+            }
         }
+        result
     }
 }
