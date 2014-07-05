@@ -13,8 +13,7 @@ class BootStrap {
         }
 
         log.info("Checking for registries in system env")
-        final def env = System.getenv()
-        env.findAll { key, urlStr ->
+        System.getenv().each { key, urlStr ->
             if (key.matches("REG(\\d)")) {
                 log.info("Found registry $urlStr. Creating...")
                 def m = urlStr =~ /.*(v\d).*/
