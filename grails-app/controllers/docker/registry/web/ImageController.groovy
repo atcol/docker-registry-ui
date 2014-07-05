@@ -23,7 +23,7 @@ class ImageController {
             response.status = 404
         }
 
-        render view: "show", model: [registry: reg, image: img]
+        render view: "show", model: [registry: reg, img: img]
     }
 
     def delete() {
