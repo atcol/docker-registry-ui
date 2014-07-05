@@ -1,5 +1,3 @@
-import docker.registry.web.ImageController
-
 class UrlMappings {
 
 	static mappings = {
