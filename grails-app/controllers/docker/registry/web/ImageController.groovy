@@ -13,6 +13,19 @@ class ImageController {
         render view: "index", model: [registryToImageMap: registryToImg]
     }
 
+    def show(final int registryId, final String imgId) {
+        def reg = Registry.get(registryId)
+        def img = null
+
+        if (reg) {
+            img = repositoryService.getImageDetail(reg, imgId)
+        } else {
+            response.status = 404
+        }
+
+        render view: "show", model: [registry: reg, image: img]
+    }
+
     def delete() {
         def repoName = params.repoName
         def registry = params.registry
