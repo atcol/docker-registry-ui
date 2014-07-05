@@ -11,7 +11,7 @@ class RepositoryService {
     def index(final Registry registry) {
         log.info("Loading images from $registry")
         final imageList = []
-        final url = "$registry.url/$registry.apiVersion/search"
+        final url = "${registry.toURL()}/search"
 
         log.info("Getting repositories from $url")
 
@@ -62,7 +62,7 @@ class RepositoryService {
     def getTags(final Registry registry, final repoName) {
         def tagMap = [:]
         log.info("Getting tags for $repoName")
-        def url = "${registry.url}/${registry.apiVersion}/repositories/${repoName}/tags"
+        def url = "${registry.toURL()}/repositories/${repoName}/tags"
         log.info("tags url $url")
         def http = new HTTPBuilder(url)
         http.request(Method.GET, groovyx.net.http.ContentType.JSON) {
@@ -95,7 +95,7 @@ class RepositoryService {
     }
 
     def delete(final Registry registry, final String repoName, final String tag) {
-        final uri = "${registry.url}/${registry.apiVersion}/repositories/$repoName/tags/$tag"
+        final uri = "${registry.toURL()}/repositories/$repoName/tags/$tag"
         log.info("Deleting repo at $uri")
         def http = new HTTPBuilder(uri)
         def result = true

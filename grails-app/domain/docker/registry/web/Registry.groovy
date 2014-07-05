@@ -7,6 +7,12 @@ class Registry {
     static constraints = {
     }
 
+    static transients = ['toURL']
+
+    def toURL() {
+        return "${this.url}/${this.apiVersion}"
+    }
+
     @Override
     public String toString() {
         return "Registry{" +
