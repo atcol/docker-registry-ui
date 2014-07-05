@@ -30,7 +30,7 @@
                     <td>${img.os}</td>
                     <td>${img.author}</td>
                     <td>${img.created}</td>
-                    <td><a href="#" class="pullImg" data-pullName="${img.pullName}">Pull</a> | <a href="#" class="deleteImg" data-registryId="${entry.key.id}" data-repoName="${img.name}">Delete</a></td>
+                    <td><a href="#" class="pullImg" data-pullName="${img.pullName}">Pull</a> | <a href="#" class="deleteImg" data-registryId="${entry.key.id}" data-repoName="${img.name}" data-tag="${img.tag}">Delete</a></td>
                 </tr>
             </g:each>
         </g:each>
