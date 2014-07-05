@@ -73,10 +73,10 @@
         });
     }
 </script>
-<div id="dialog-confirm-pull" title="Pull an image">
+<div id="dialog-confirm-pull" title="${message(code:"image.pull.prompt.title")}">
     <p>
-      <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>Copy &amp; paste the following into a shell to pull.</p>
+      <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span><g:message code="image.pull.prompt" /></p>
 </div>
-<div id="dialog-confirm-delete" title="Delete image?">
-    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>This image will be permanently deleted and cannot be recovered.</p>
+<div id="dialog-confirm-delete" title="${message(code:"image.delete.prompt.title")}">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><g:message code="image.delete.tag.prompt" /></p>
 </div>
