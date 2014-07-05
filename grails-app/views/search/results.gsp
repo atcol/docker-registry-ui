@@ -26,7 +26,9 @@
                 <g:each in="${entry.value}" var="img" status="it">
                     <tr>
                         <td>${entry.key.url}</td>
-                        <td>${img.name}</td>
+                        <td><g:link controller="image" action="show" params="[registryId: entry.key.id, img: img.id]">
+                            ${img.name}</g:link>
+                        </td>
                         <td>${img.description}</td>
                         <td>
                             <a href="#" class="deleteImg" data-repoName="${img.name}" data-registryId="${entry.key.id}">Delete</a>
