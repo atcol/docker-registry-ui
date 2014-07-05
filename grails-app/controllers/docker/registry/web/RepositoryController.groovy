@@ -1,6 +1,8 @@
 package docker.registry.web
 
-class ImageController {
+import docker.registry.web.support.Image
+
+class RepositoryController {
 
     def repositoryService
     static allowedMethods = [delete: 'DELETE']
@@ -13,17 +15,20 @@ class ImageController {
         render view: "index", model: [registryToImageMap: registryToImg]
     }
 
-    def show(final int registryId, final String imgId) {
+    def show(final int registryId, final String repoName, final String tag, final String imgId) {
         def reg = Registry.get(registryId)
-        def img = null
+        Image image = null
 
         if (reg) {
-            img = repositoryService.getImageDetail(reg, imgId)
-        } else {
+            image = repositoryService.detail(reg, repoName)
+            image.id = imgId
+        }
+
+        if (!reg || !image) {
             response.status = 404
         }
 
-        render view: "show", model: [registry: reg, img: img]
+        render view: "show", model: [registry: reg, img: image]
     }
 
     def delete() {
