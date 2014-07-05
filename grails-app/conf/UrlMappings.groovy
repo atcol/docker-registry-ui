@@ -9,10 +9,6 @@ class UrlMappings {
             }
         }
 
-        "/image/$id?" (
-            resource: 'Image'
-        )
-
         "/"(view:"/index")
         "/about"(view:"/about")
         "500"(view:'/error')
