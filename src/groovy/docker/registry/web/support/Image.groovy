@@ -11,6 +11,7 @@ class Image {
     String docker_version
     String parent
     String os
+    String tag
     String created
     String container
     String comment
@@ -31,6 +32,7 @@ class Image {
                 ", docker_version='" + docker_version + '\'' +
                 ", parent='" + parent + '\'' +
                 ", os='" + os + '\'' +
+                ", tag='" + tag + '\'' +
                 ", created='" + created + '\'' +
                 ", container='" + container + '\'' +
                 ", comment='" + comment + '\'' +
