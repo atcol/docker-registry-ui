@@ -10,8 +10,8 @@ class RepositoryService {
 
     def index(final Registry registry) {
         log.info("Loading images from $registry")
-        final imageList = []
-        final url = "${registry.toURL()}/search"
+        final repoList = []
+        final url = "${registry.toUrl()}/search"
 
         log.info("Getting repositories from $url")
 
@@ -21,29 +21,31 @@ class RepositoryService {
             response.success = { resp, search ->
                 log.info("response data for repo list $search $resp")
                 search.results.each { repo ->
-                    imageList.add(detail(registry, repo.name?.toString()))
+                    repoList.add(detail(registry, repo.name?.toString()))
                 }
             }
         }
-        imageList
+        repoList
     }
 
     def detail(final Registry registry, final String repoName) {
         def registryUri = registry.url.toURI()
         def tagToImgIdMap = getTags(registry, repoName)
-        tagToImgIdMap.entrySet().each { entry ->
-            log.info("tag is ${entry}")
-            def imgDetail = getImageDetail(registry, entry.value)
-            imgDetail.displayName = "${repoName}:${entry.key}"
-            imgDetail.tag = entry.key
+        def repo = new Repository()
+        tagToImgIdMap.each { tag, imageId ->
+            log.info("tag is ${tag}=${imageId}")
+            def imgDetail = getImageDetail(registry, imageId)
+            imgDetail.displayName = "${repoName}:${tag}"
+            imgDetail.tag = tag
             imgDetail.name = repoName
             imgDetail.pullName = "${registryUri.host}${registryUri.port != -1 ? ':' + registryUri.port : ''}/${repoName}"
             if (imgDetail) {
-                return imgDetail
+                repo.images.add(imgDetail)
             } else {
-                return new Image(description: "Failed to retrieve image detail")
+                repo.images.add(new Image(description: "Failed to retrieve image detail"))
             }
         }
+        repo
     }
 
     def search(final Registry registry, final String query) {
@@ -65,7 +67,7 @@ class RepositoryService {
     def getTags(final Registry registry, final repoName) {
         def tagMap = [:]
         log.info("Getting tags for $repoName")
-        def url = "${registry.toURL()}/repositories/${repoName}/tags"
+        def url = "${registry.toUrl()}/repositories/${repoName}/tags"
         log.info("tags url $url")
         def http = new HTTPBuilder(url)
         http.request(Method.GET, groovyx.net.http.ContentType.JSON) {
@@ -80,7 +82,7 @@ class RepositoryService {
     def Image getImageDetail(final Registry registry, final String imgId) {
         log.info("getting image $imgId")
         def img = null
-        def http = new HTTPBuilder("${registry.toURL()}/images/${imgId}/json")
+        def http = new HTTPBuilder("${registry.toUrl()}/images/${imgId}/json")
         http.request (Method.GET, groovyx.net.http.ContentType.JSON) {
             response.success = { imgResp, imgData ->
                 log.info("Image data is $imgData")
@@ -96,7 +98,7 @@ class RepositoryService {
     }
 
     def delete(final Registry registry, final String repoName, final String tag) {
-        final uri = "${registry.toURL()}/repositories/$repoName/tags/$tag"
+        final uri = "${registry.toUrl()}/repositories/$repoName/tags/$tag"
         log.info("Deleting repo at $uri")
         def http = new HTTPBuilder(uri)
         def result = true
