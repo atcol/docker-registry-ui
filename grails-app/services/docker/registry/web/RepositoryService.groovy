@@ -2,6 +2,7 @@ package docker.registry.web
 
 import docker.registry.web.support.Image
 import grails.transaction.Transactional
+import groovyx.net.http.ContentType
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.Method
 
@@ -51,17 +52,17 @@ class RepositoryService {
     def search(final Registry registry, final String query) {
         final uri = registry.url
         log.info("search URI is $uri")
-        def imgList = []
+        def repoList = []
         withHttp(uri: uri) {
             def result = get(
                     path: "/${registry.apiVersion}/search",
                     query: [q: query.toString()])
             log.info("Search result is $result")
-            result.results.each {
-                imgList.add(new Image(name: it.name))
+            result.results.each { Map repo ->
+                repoList.add(detail(registry, repo.name))
             }
         }
-        imgList
+        repoList
     }
 
     def getTags(final Registry registry, final repoName) {
@@ -70,7 +71,7 @@ class RepositoryService {
         def url = "${registry.toUrl()}/repositories/${repoName}/tags"
         log.info("tags url $url")
         def http = new HTTPBuilder(url)
-        http.request(Method.GET, groovyx.net.http.ContentType.JSON) {
+        http.request(Method.GET, ContentType.JSON) {
             response.success = { resp, tags ->
                 log.info("Got tags $tags")
                 tagMap.putAll(tags)
@@ -83,9 +84,9 @@ class RepositoryService {
         log.info("getting image $imgId")
         def img = null
         def http = new HTTPBuilder("${registry.toUrl()}/images/${imgId}/json")
-        http.request (Method.GET, groovyx.net.http.ContentType.JSON) {
-            response.success = { imgResp, imgData ->
-                log.info("Image data is $imgData")
+        http.request (Method.GET, ContentType.JSON) {
+            response.success = { imgResp, Map imgData  ->
+                log.info("Image data (${imgData.getClass()}) is $imgData")
                 img = new Image(imgData)
             }
 
