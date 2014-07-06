@@ -15,7 +15,7 @@
                     <g:link controller="registry" action="index"><g:message code="nav.label" args="['Registries']"/></g:link>
                 </li>
                 <li>
-                    <g:link controller="image" action="index"><g:message code="nav.label" args="['Images']"/></g:link>
+                    <g:link controller="repository" action="index"><g:message code="nav.label" args="['Images']"/></g:link>
                 </li>
             </ul>
 

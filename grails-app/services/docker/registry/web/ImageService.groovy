@@ -1,7 +1,6 @@
 package docker.registry.web
 
 import docker.registry.web.support.Image
-import grails.converters.JSON
 import grails.transaction.Transactional
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.Method
@@ -15,7 +14,7 @@ class ImageService {
         log.info("Loading images from $registry")
         final imageList = []
         registry.repositories.each { repo ->
-            def http = new HTTPBuilder("$registry.url/$registry.apiVersion/repositories/$repo.name/images")
+            def http = new HTTPBuilder("${registry.toUrl()}/repositories/$repo.name/images")
             http.request(Method.GET, groovyx.net.http.ContentType.JSON) {
                 response.success = { resp, res ->
                     log.info("response data for image list $res $resp")

@@ -6,8 +6,8 @@ import spock.lang.Specification
 /**
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
  */
-@TestFor(ImageController)
-class ImageControllerSpec extends Specification {
+@TestFor(RepositoryController)
+class RepositoryControllerSpec extends Specification {
 
     def setup() {
     }

@@ -28,6 +28,18 @@ This project is containerized. You can run with docker right now by simply runni
 
 and browsing to localhost:8080/.
 
+# Statelessness
+
+The app' requires registry configuration which can be supplied once the app's running, or through container environment
+variables:
+
+	docker run -p 8080:8080 -e REG1=http://dev:5000/v1/ -e REG2=http://prod/v1/ atcol/docker-regsitry-ui
+
+which will run the application and automatically register two registries at the hosts `dev` and `prod` respectively,
+both running API versions v1. You must provide URLs that include the API version. 
+
+# Volumes
+
 The webapp's configuration data is stored inside the container in a H2 database under `/var/lib/h2/`. You can hold this data on the host machine using the `-v` flag:
 
 	docker run -p 8080:8080 -v /some/data/dir:/var/lib/h2 atcol/docker-registry-ui

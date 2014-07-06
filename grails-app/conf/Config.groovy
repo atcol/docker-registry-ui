@@ -133,3 +133,22 @@ log4j.main = {
 }
 
 grails.views.javascript.library="jquery"
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'docker.registry.web.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'docker.registry.web.UserRole'
+grails.plugin.springsecurity.authority.className = 'docker.registry.web.Role'
+grails.plugin.springsecurity.securityConfigType = 'Annotation'
+grails.plugin.springsecurity.rejectIfNoRule = false
+grails.plugin.springsecurity.fii.rejectPublicInvocations = false
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	'/':                              ['permitAll'],
+	'/index':                         ['permitAll'],
+	'/index.gsp':                     ['permitAll'],
+	'/**/js/**':                      ['permitAll'],
+	'/**/css/**':                     ['permitAll'],
+	'/**/images/**':                  ['permitAll'],
+	'/**/assets/**':                  ['permitAll'],
+    '/**/favicon.ico':                ['permitAll']
+]
+
