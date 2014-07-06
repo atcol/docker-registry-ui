@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/atc-/docker-registry.svg?branch=master)](https://travis-ci.org/atc-/docker-registry)
+[![Build Status](https://travis-ci.org/atc-/docker-registry-web.svg?branch=master)](https://travis-ci.org/atc-/docker-registry-web)
 
 docker-registry
 ===================
