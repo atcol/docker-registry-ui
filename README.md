@@ -11,6 +11,10 @@ well as register multiple registries for large installations.
 The application boasts the following features:
 
  * View all images for all registries (one to many)
+ 
+ * Further info. page for images for inspection of config. etc
+ 
+ * Pull copy/paste shortcuts
 
  * Delete images
 
@@ -28,7 +32,7 @@ This project is containerized. You can run with docker right now by simply runni
 
 and browsing to localhost:8080/.
 
-# Statelessness
+## Statelessness
 
 The app' requires registry configuration which can be supplied once the app's running, or through container environment
 variables:
@@ -38,7 +42,7 @@ variables:
 which will run the application and automatically register two registries at the hosts `dev` and `prod` respectively,
 both running API versions v1. You must provide URLs that include the API version. 
 
-# Volumes
+## Volumes
 
 The webapp's configuration data is stored inside the container in a H2 database under `/var/lib/h2/`. You can hold this data on the host machine using the `-v` flag:
 
