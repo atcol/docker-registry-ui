@@ -29,7 +29,7 @@
                     <td>${entry.key.url}</td>
                     <td><g:link controller="repository" action="show"
                                 params="[registryId: entry.key.id, repoName: img.name, tag: img.tag, imgId: img.id]">
-                        ${img.name}</g:link></td>
+                        ${img.displayName}</g:link></td>
                     <td>${img.architecture}</td>
                     <td>${img.os}</td>
                     <td>${img.author}</td>
