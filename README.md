@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/atc-/docker-registry-web.svg?branch=master)](https://travis-ci.org/atc-/docker-registry-web)
 
-docker-registry
+Docker Registry UI
 ===================
 
 A web UI for easy private/local Docker Registry integration. Allows you to browse, delete and search for images as
