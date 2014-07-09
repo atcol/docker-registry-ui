@@ -1,5 +1,7 @@
 package docker.registry.web
 
+import docker.registry.web.support.Repository
+
 class RepositoryController {
 
     def repositoryService
