@@ -1,6 +1,8 @@
 package docker.registry.web
 
 import docker.registry.web.support.Image
+import docker.registry.web.support.Repository
+import docker.registry.web.support.Tag
 import grails.transaction.Transactional
 import groovyx.net.http.ContentType
 import groovyx.net.http.HTTPBuilder
@@ -22,7 +24,12 @@ class RepositoryService {
             response.success = { resp, search ->
                 log.info("response data for repo list $search $resp")
                 search.results.each { repo ->
-                    repoList.add(detail(registry, repo.name?.toString()))
+                    final tagToImgMap = getTags(registry, repo.name.toString())
+                    final repository = new Repository(name: repo.name.toString())
+                    repoList.add(repository)
+                    tagToImgMap.each { tagName, imageId ->
+                        repository.tags.add(new Tag(name: tagName.toString(), imageId: imageId))
+                    }
                 }
             }
         }
@@ -30,7 +37,6 @@ class RepositoryService {
     }
 
     def detail(final Registry registry, final String repoName) {
-        def registryUri = registry.url.toURI()
         def tagToImgIdMap = getTags(registry, repoName)
         def repo = new Repository()
         tagToImgIdMap.each { tag, imageId ->
@@ -39,7 +45,7 @@ class RepositoryService {
             imgDetail.displayName = "${repoName}:${tag}"
             imgDetail.tag = tag
             imgDetail.name = repoName
-            imgDetail.pullName = "${registryUri.host}${registryUri.port != -1 ? ':' + registryUri.port : ''}/${repoName}"
+            imgDetail.pullName = buildPullName(registry, repoName, tag)
             if (imgDetail) {
                 repo.images.add(imgDetail)
             } else {
@@ -115,4 +121,10 @@ class RepositoryService {
         }
         result
     }
+
+    String buildPullName(Registry registry, String repoName, String tag) {
+        def url = registry.url.toURL()
+        "${url.host}${url.port != -1 ? ':' + url.port : ''}/${repoName}:${tag}"
+    }
+
 }
