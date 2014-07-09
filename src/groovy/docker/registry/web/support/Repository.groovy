@@ -1,8 +1,8 @@
-package docker.registry.web
-
-import docker.registry.web.support.Image
+package docker.registry.web.support
 
 class Repository {
+
     String name
+    Set<Tag> tags = [] as Set
     Set<Image> images = [] as Set
 }
