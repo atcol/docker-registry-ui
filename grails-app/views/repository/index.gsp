@@ -14,31 +14,23 @@
     <tr>
         <th>Registry</th>
         <th>Name</th>
-        <th>Arch.</th>
-        <th>OS</th>
-        <th>Author</th>
-        <th>Created</th>
         <th></th>
     </tr>
     </thead>
     <tbody>
     <g:each in="${registryToRepoMap}" var="entry">
         <g:each in="${entry.value}" var="repo">
-            <g:each in="${repo.images}" var="img">
+            <g:each in="${repo.tags}" var="tag">
                 <tr>
                     <td>${entry.key.url}</td>
                     <td><g:link controller="repository" action="show"
-                                params="[registryId: entry.key.id, repoName: img.name, tag: img.tag, imgId: img.id]">
-                        ${img.displayName}</g:link></td>
-                    <td>${img.architecture}</td>
-                    <td>${img.os}</td>
-                    <td>${img.author}</td>
-                    <td>${img.created}</td>
-                    <td><a href="#" class="pullImg" data-pullName="${img.pullName}">Pull</a> | <a href="#"
-                                                                                                  class="deleteImg"
-                                                                                                  data-registryId="${entry.key.id}"
-                                                                                                  data-repoName="${img.name}"
-                                                                                                  data-tag="${img.tag}">Delete</a>
+                                params="[registryId: entry.key.id, repoName: repo.name, tag: tag.name, imgId: tag.imageId]">
+                        <util:generatePullName registry="${entry.key}" repoName="${repo.name}"/></g:link></td>
+                    <td><a href="#" class="pullImg" data-pullName='<util:generatePullName registry="${entry.key}" repoName="${repo.name}"/>'>Pull</a> | <a href="#"
+                                                                                         class="deleteImg"
+                                                                                         data-registryId="${entry.key.id}"
+                                                                                         data-repoName="${repo.name}"
+                                                                                         data-tag="${tag.name}">Delete</a>
                     </td>
                 </tr>
 
