@@ -7,7 +7,7 @@
 
 <body>
 
-<h2>Images</h2>
+<h2><g:message code="title.repository"/></h2>
 
 <table id="imgTbl" class="table table-striped table-hover">
     <thead>
