@@ -16,7 +16,7 @@
 
             <div class="col-lg-6">
                 <g:textField name="name" readonly autocomplete="off" style="cursor: auto;" class="form-control"
-                             id="imagePull" value="docker pull ${img.displayName}"></g:textField>
+                             id="imagePull" value="docker pull ${img.pullName}"></g:textField>
             </div>
         </div>
 
@@ -42,8 +42,26 @@
             <label for="imageTag" class="col-lg-2 control-label"><g:message code="labels.image.tag"/></label>
 
             <div class="col-lg-6">
-                <g:textField name="name" readonly autocomplete="off" style="cursor: auto;" class="form-control"
+                <g:textField name="tag" readonly autocomplete="off" style="cursor: auto;" class="form-control"
                              id="imageTag" value="${img.tag}"></g:textField>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="imageCreated" class="col-lg-2 control-label"><g:message code="labels.image.created"/></label>
+
+            <div class="col-lg-6">
+                <g:textField name="created" readonly autocomplete="off" style="cursor: auto;" class="form-control"
+                            id="imageCreated" value="${img.created}"></g:textField>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="imageAuthor" class="col-lg-2 control-label"><g:message code="labels.image.author"/></label>
+
+            <div class="col-lg-6">
+                <g:textField name="name" readonly autocomplete="off" style="cursor: auto;" class="form-control"
+                            id="imageAuthor" value="${img.author}"></g:textField>
             </div>
         </div>
 
