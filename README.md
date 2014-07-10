@@ -37,7 +37,7 @@ and browsing to localhost:8080/.
 The app' requires registry configuration which can be supplied once the app's running, or through container environment
 variables:
 
-	docker run -p 8080:8080 -e REG1=http://dev:5000/v1/ -e REG2=http://prod/v1/ atcol/docker-regsitry-ui
+	docker run -p 8080:8080 -e REG1=http://dev:5000/v1/ -e REG2=http://prod/v1/ atcol/docker-registry-ui
 
 which will run the application and automatically register two registries at the hosts `dev` and `prod` respectively,
 both running API versions v1. You must provide URLs that include the API version. 
