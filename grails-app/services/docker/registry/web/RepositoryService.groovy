@@ -12,28 +12,7 @@ import groovyx.net.http.Method
 class RepositoryService {
 
     def index(final Registry registry) {
-        log.info("Loading images from $registry")
-        final repoList = []
-        final url = "${registry.toUrl()}/search"
-
-        log.info("Getting repositories from $url")
-
-        def http = new HTTPBuilder(url)
-
-        http.request(Method.GET, groovyx.net.http.ContentType.JSON) {
-            response.success = { resp, search ->
-                log.info("response data for repo list $search $resp")
-                search.results.each { repo ->
-                    final tagToImgMap = getTags(registry, repo.name.toString())
-                    final repository = new Repository(name: repo.name.toString())
-                    repoList.add(repository)
-                    tagToImgMap.each { tagName, imageId ->
-                        repository.tags.add(new Tag(name: tagName.toString(), imageId: imageId))
-                    }
-                }
-            }
-        }
-        repoList
+        search(registry, null)
     }
 
     def detail(final Registry registry, final String repoName) {
@@ -56,23 +35,32 @@ class RepositoryService {
     }
 
     def search(final Registry registry, final String query) {
-        final uri = registry.url
-        log.info("search URI is $uri")
-        def repoList = []
-        withHttp(uri: uri) {
-            def result = get(
-                    path: "/${registry.apiVersion}/search",
-                    query: [q: query.toString()])
-            log.info("Search result is $result")
-            result.results.each { Map repo ->
-                repoList.add(detail(registry, repo.name))
+        log.info("Searching for images from $registry")
+        final repoList = []
+        def url = "${registry.toUrl()}/search"
+        def http = new HTTPBuilder(url)
+
+        log.info("Query provided for search is ${query}")
+        if (query) {
+            url += "?q=${query}"
+        }
+
+        log.info("Getting repositories from ${http.getUri()}")
+
+        http.request(Method.GET, groovyx.net.http.ContentType.JSON) {
+            response.success = { resp, search ->
+                log.info("response data for repo list $search $resp")
+                search.results.each { repo ->
+                    final repository = new Repository(name: repo.name.toString(), tags: getTags(registry, repo.name.toString()))
+                    repoList.add(repository)
+                }
             }
         }
         repoList
     }
 
     def getTags(final Registry registry, final repoName) {
-        def tagMap = [:]
+        def tagList = []
         log.info("Getting tags for $repoName")
         def url = "${registry.toUrl()}/repositories/${repoName}/tags"
         log.info("tags url $url")
@@ -80,10 +68,12 @@ class RepositoryService {
         http.request(Method.GET, ContentType.JSON) {
             response.success = { resp, tags ->
                 log.info("Got tags $tags")
-                tagMap.putAll(tags)
+                tagList = tags.collect { k, v ->
+                    new Tag(name: k.toString(), imageId: metaPropertyValues.toString())
+                }
             }
         }
-        tagMap
+        tagList
     }
 
     def Image getImageDetail(final Registry registry, final String imgId) {
