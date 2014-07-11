@@ -16,15 +16,15 @@ class RepositoryService {
     }
 
     def detail(final Registry registry, final String repoName) {
-        def tagToImgIdMap = getTags(registry, repoName)
+        def tags = getTags(registry, repoName)
         def repo = new Repository()
-        tagToImgIdMap.each { tag, imageId ->
-            log.info("tag is ${tag}=${imageId}")
-            def imgDetail = getImageDetail(registry, imageId)
-            imgDetail.displayName = "${repoName}:${tag}"
-            imgDetail.tag = tag
+        tags.each { tag ->
+            log.info("tag is ${tag}")
+            def imgDetail = getImageDetail(registry, tag.imageId)
+            imgDetail.displayName = "${repoName}:${tag.name}"
+            imgDetail.tag = tag.name
             imgDetail.name = repoName
-            imgDetail.pullName = buildPullName(registry, repoName, tag)
+            imgDetail.pullName = buildPullName(registry, repoName, tag.name)
             if (imgDetail) {
                 repo.images.add(imgDetail)
             } else {
@@ -38,12 +38,13 @@ class RepositoryService {
         log.info("Searching for images from $registry")
         final repoList = []
         def url = "${registry.toUrl()}/search"
-        def http = new HTTPBuilder(url)
 
         log.info("Query provided for search is ${query}")
         if (query) {
             url += "?q=${query}"
         }
+
+        def http = new HTTPBuilder(url)
 
         log.info("Getting repositories from ${http.getUri()}")
 
@@ -69,7 +70,7 @@ class RepositoryService {
             response.success = { resp, tags ->
                 log.info("Got tags $tags")
                 tagList = tags.collect { k, v ->
-                    new Tag(name: k.toString(), imageId: metaPropertyValues.toString())
+                    new Tag(name: k.toString(), imageId: v.toString())
                 }
             }
         }
