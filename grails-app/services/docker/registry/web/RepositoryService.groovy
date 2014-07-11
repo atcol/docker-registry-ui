@@ -38,12 +38,13 @@ class RepositoryService {
         log.info("Searching for images from $registry")
         final repoList = []
         def url = "${registry.toUrl()}/search"
-        def http = new HTTPBuilder(url)
 
         log.info("Query provided for search is ${query}")
         if (query) {
             url += "?q=${query}"
         }
+
+        def http = new HTTPBuilder(url)
 
         log.info("Getting repositories from ${http.getUri()}")
 
