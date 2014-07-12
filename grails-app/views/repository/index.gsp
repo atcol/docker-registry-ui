@@ -26,7 +26,7 @@
                     <td><g:link controller="repository" action="show"
                                 params="[registryId: entry.key.id, repoName: repo.name, tag: tag.name, imgId: tag.imageId]">
                         <util:generatePullName registry="${entry.key}" repoName="${repo.name}" tag="${tag.name}"/></g:link></td>
-                    <td><a href="#" class="pullImg" data-pullName='<util:generatePullName registry="${entry.key}" repoName="${repo.name}"/>'>Pull</a> | <a href="#"
+                    <td><a href="#" class="pullImg" data-pullName='<util:generatePullName registry="${entry.key}" repoName="${repo.name}" tag="${tag.name}"/>'>Pull</a> | <a href="#"
                                                                                          class="deleteImg"
                                                                                          data-registryId="${entry.key.id}"
                                                                                          data-repoName="${repo.name}"

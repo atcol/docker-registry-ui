@@ -21,35 +21,35 @@
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
-    <ol class="property-list registry">
 
-        <g:if test="${registryInstance?.apiVersion}">
-            <li class="fieldcontain">
-                <span id="apiVersion-label" class="property-label"><g:message code="registry.apiVersion.label"
-                                                                              default="Api Version"/></span>
+    <g:form class="form-horizontal" url="[resource:registryInstance, action:'save']" >
+        <fieldset>
+            <div class="form-group">
+                <label for="apiVersion" class="col-lg-2 control-label"><g:message code="labels.registry.apiVersion"/> </label>
 
-                <span class="property-value" aria-labelledby="apiVersion-label"><g:fieldValue bean="${registryInstance}"
-                                                                                              field="apiVersion"/></span>
+                <div class="col-lg-2">
+                    <g:textField name="apiVersion" style="cursor: auto;" class="form-control"
+                                 value="${registryInstance?.apiVersion}" readonly=""></g:textField>
+                </div>
+            </div>
 
-            </li>
-        </g:if>
+            <div class="form-group">
+                <label for="url" class="col-lg-2 control-label"><g:message code="labels.registry.url"/> </label>
 
-        <g:if test="${registryInstance?.url}">
-            <li class="fieldcontain">
-                <span id="url-label" class="property-label"><g:message code="registry.url.label" default="Url"/></span>
+                <div class="col-lg-4">
+                    <g:textField name="url" style="cursor: auto;" class="form-control"
+                                 value="${registryInstance?.url}" readonly=""></g:textField>
+                </div>
+            </div>
+        </fieldset>
 
-                <span class="property-value" aria-labelledby="url-label"><g:fieldValue bean="${registryInstance}"
-                                                                                       field="url"/></span>
+    </g:form>
 
-            </li>
-        </g:if>
-
-    </ol>
     <g:form url="[resource: registryInstance, action: 'delete']" method="DELETE">
         <fieldset class="buttons">
-            <g:link class="edit" action="edit" resource="${registryInstance}"><g:message
+            <g:link class="btn btn-primary" action="edit" resource="${registryInstance}"><g:message
                     code="default.button.edit.label" default="Edit"/></g:link>
-            <g:actionSubmit class="delete" action="delete"
+            <g:actionSubmit class="btn btn-primary" action="delete"
                             value="${message(code: 'default.button.delete.label', default: 'Delete')}"
                             onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
         </fieldset>

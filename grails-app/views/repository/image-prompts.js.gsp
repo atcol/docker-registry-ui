@@ -15,10 +15,9 @@
                 val = $(val);
                 val.click(function () {
                     var dialog = $('#dialog-confirm-pull');
-                    var pre = $('<pre>');
-                    var dockerCmd = val.attr("data-pullName");
-                    pre.text("docker pull " + dockerCmd);
-                    dialog.append(pre);
+                    var pre = $('#dialog-confirm-pull > pre');
+                    var pullName = val.attr("data-pullName");
+                    pre.text("docker pull " + pullName);
                     $("#dialog-confirm-pull").dialog({
                         autoResize: true,
                         resizable: true,
@@ -74,8 +73,8 @@
     }
 </script>
 <div id="dialog-confirm-pull" title="${message(code:"image.pull.prompt.title")}">
-    <p>
-      <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span><g:message code="image.pull.prompt" /></p>
+    <p><span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span><g:message code="image.pull.prompt" /></p>
+    <pre></pre>
 </div>
 <div id="dialog-confirm-delete" title="${message(code:"image.delete.prompt.title")}">
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><g:message code="image.delete.tag.prompt" /></p>
