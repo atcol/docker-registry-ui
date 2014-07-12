@@ -12,6 +12,9 @@
             <g:link class="create" action="index"><button class="btn btn-link" type="button">
                 <g:message code="default.list.label" args="[entityName]"/></button></g:link>
 		</div>
+
+
+
 		<div id="create-registry" class="content scaffold-create" role="main">
 			<h4><g:message code="default.create.label" args="[entityName]" /></h4>
 			<g:if test="${flash.message}">
@@ -24,14 +27,16 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form url="[resource:registryInstance, action:'save']" >
-				<fieldset class="form">
+
+			<g:form class="form-horizontal" url="[resource:registryInstance, action:'save']" >
+				<fieldset>
 					<g:render template="form"/>
 				</fieldset>
 				<fieldset class="buttons">
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 				</fieldset>
 			</g:form>
+
 		</div>
 	</body>
 </html>
