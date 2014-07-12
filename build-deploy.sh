@@ -1,4 +1,4 @@
 #!/bin/bash
-./grailsw war docker-registry-web.war && \
-	scp docker-registry-web.war $1:$2
+./grailsw war docker-registry-ui.war && \
+	scp docker-registry-ui.war $1:$2
 
