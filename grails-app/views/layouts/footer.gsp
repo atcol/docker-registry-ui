@@ -1,4 +1,4 @@
-<footer>
+<footer class="footer text-muted">
     <div class="row">
         <div class="col-lg-12">
 
