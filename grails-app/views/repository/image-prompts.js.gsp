@@ -61,7 +61,7 @@
             width: 450,
             modal: true,
             buttons: {
-                "${g.message(code: 'ui.dialog.button.deleteImage')}": function () {
+                "${g.message(code: 'ui.dialog.button.deleteTag')}": function () {
                     doDelete(registryId, repoName, tag);
                     $(this).dialog("close");
                 },
