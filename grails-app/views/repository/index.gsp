@@ -23,7 +23,7 @@
                         <strong>Actions:</strong>
                         <g:link controller="repository" action="show"
                                 params="[registryId: entry.key.id, repoName: repo.name, tag: tag.name, imgId: tag.imageId]">
-                            <asset:image src="icons/185072 - book read streamline.png" /></asset>
+                            <asset:image src="icons/185087 - link streamline.png" /></asset>
                         </g:link> |
                         <a href="#" class="pullImg" data-pullName='<util:generatePullName registry="${entry.key}" repoName="${repo.name}" tag="${tag.name}"/>'>
                             <asset:image src="icons/185073 - book dowload streamline.png"/>
