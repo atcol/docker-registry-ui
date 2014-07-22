@@ -30,13 +30,13 @@
                         <td>
                             <g:link controller="repository" action="show"
                                     params="[registryId: entry.key.id, repoName: repo.name, tag: tag.name, imgId: tag.imageId]">
-                                <asset:image src="icons/185087 - link streamline.png" /></asset>
+                                <asset:image src="icons/link.png" /></asset>
                             </g:link> |
                             <a href="#" class="pullImg" data-pullName='<util:generatePullName registry="${entry.key}" repoName="${repo.name}" tag="${tag.name}"/>'>
-                                <asset:image src="icons/185073 - book dowload streamline.png"/>
+                                <asset:image src="icons/book_download.png"/>
                             </a> |
                             <a href="#" class="deleteImg" data-registryId="${entry.key.id}" data-repoName="${repo.name}" data-tag="${tag.name}">
-                                <asset:image src="icons/185090 - delete garbage streamline.png"/>
+                                <asset:image src="icons/garbage.png"/>
                             </a>
                         </td>
                     </tr>

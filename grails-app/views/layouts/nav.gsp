@@ -1,7 +1,7 @@
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <g:link class="navbar-brand" uri="/"><asset:image src="icons/185038 - home house streamline.png"/></g:link>
+            <g:link class="navbar-brand" uri="/"><asset:image src="icons/house.png"/></g:link>
             <button data-target="#navbar-main" data-toggle="collapse" type="button" class="navbar-toggle">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
