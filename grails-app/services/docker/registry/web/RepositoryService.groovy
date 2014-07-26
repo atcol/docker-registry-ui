@@ -118,4 +118,25 @@ class RepositoryService {
         "${url.host}${url.port != -1 ? ':' + url.port : ''}/${repoName}:${tag}"
     }
 
+    boolean ping(Registry registry) {
+        def url = "${registry.toUrl()}/_ping"
+        def http = new HTTPBuilder(url)
+        def result = true
+        try {
+            http.request(Method.GET, groovyx.net.http.ContentType.JSON) {
+                response.success = { resp, json ->
+                    log.info("Ping of $registry succeeded")
+                }
+
+                response.failure = { resp ->
+                    log.error("Failed to ping $url: ${resp.statusLine.statusCode} : ${resp.statusLine.reasonPhrase}")
+                    result = false
+                }
+            }
+        } catch (final ConnectException|IOException e) {
+            log.info("Ping failed: $e")
+            result = false
+        }
+        result
+    }
 }
