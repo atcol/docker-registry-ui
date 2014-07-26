@@ -41,6 +41,15 @@
                                  value="${registryInstance?.url}" readonly=""></g:textField>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label for="url" class="col-lg-2 control-label"><g:message code="labels.registry.ping"/> </label>
+
+                <div class="col-lg-4">
+                     ${registryIsUp ? message(code:"registry.ping.succeeded") : message(code:"registry.ping.failed")}
+                </div>
+            </div>
+
         </fieldset>
 
     </g:form>
