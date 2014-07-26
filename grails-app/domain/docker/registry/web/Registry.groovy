@@ -9,7 +9,7 @@ class Registry {
     static constraints = {
     }
 
-    static transients = ['toUrl', 'repositories']
+    static transients = ['toUrl', 'repositories', 'ping']
 
     def toUrl() {
         return "${this.url}/${this.apiVersion}"
@@ -17,6 +17,10 @@ class Registry {
 
     def getRepositories() {
         repositoryService.index(this)
+    }
+
+    def ping() {
+        repositoryService.ping(this)
     }
 
     @Override
