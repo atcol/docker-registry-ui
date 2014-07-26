@@ -23,6 +23,11 @@ class BootStrap {
                     reg.url = urlStr.replaceAll("/(v\\d)/", "") // remove API version
                     reg.apiVersion = m.group(1) // extracts e.g. v1 from url
                     reg.save()
+
+                    if (!reg.ping()) {
+                        log.warn("Registry '${reg.toUrl()}' ping failed! Check it's up!")
+                    }
+
                 } else {
                     log.error("Couldn't parse the API version from $regUrl")
                 }
