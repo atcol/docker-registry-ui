@@ -16,7 +16,8 @@ class RegistryController {
     }
 
     def show(Registry registryInstance) {
-        respond registryInstance
+        boolean isUp = registryInstance?.ping()
+        respond registryInstance, model: [registryIsUp: isUp]
     }
 
     def create() {
