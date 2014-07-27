@@ -1,6 +1,5 @@
 import docker.registry.web.Registry
 import docker.registry.web.User
-import groovyx.net.http.URIBuilder
 
 class BootStrap {
 
@@ -16,13 +15,9 @@ class BootStrap {
         System.getenv().each { key, urlStr ->
             if (key.matches("REG(\\d)")) {
                 log.info("Found registry $urlStr. Creating...")
-                def m = urlStr =~ /.*(v\d).*/
+                def reg = Registry.fromUrl(urlStr)
 
-                if (m.matches()) {
-                    def reg = new Registry()
-                    reg.url = urlStr.replaceAll("/(v\\d)/", "") // remove API version
-                    reg.apiVersion = m.group(1) // extracts e.g. v1 from url
-
+                if (reg) {
                     if (Registry.findByUrlAndApiVersion(reg.url, reg.apiVersion)) {
                         log.info("Not creating registry ${urlStr} as it already exists")
                     } else {
@@ -35,15 +30,9 @@ class BootStrap {
                     }
 
                 } else {
-                    log.error("Couldn't parse the API version from $regUrl")
+                    log.error("Couldn't parse valid registry from $regUrl")
                 }
             }
-        }
-    }
-
-    def dwrconfig = {
-        service(name: 'registryService', javascript: 'RegistryService') {
-            exclude('setMetaClass,getMetaClass,setProperty,getProperty')
         }
     }
 
