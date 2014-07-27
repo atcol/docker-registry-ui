@@ -22,7 +22,13 @@ class BootStrap {
                     def reg = new Registry()
                     reg.url = urlStr.replaceAll("/(v\\d)/", "") // remove API version
                     reg.apiVersion = m.group(1) // extracts e.g. v1 from url
-                    reg.save()
+
+                    if (Registry.findByUrlAndApiVersion(reg.url, reg.apiVersion)) {
+                        log.info("Not creating registry ${urlStr} as it already exists")
+                    } else {
+                        log.info("Registry ${reg} doesn't exist; saving")
+                        reg.save()
+                    }
 
                     if (!reg.ping()) {
                         log.warn("Registry '${reg.toUrl()}' ping failed! Check it's up!")
@@ -34,6 +40,13 @@ class BootStrap {
             }
         }
     }
+
+    def dwrconfig = {
+        service(name: 'registryService', javascript: 'RegistryService') {
+            exclude('setMetaClass,getMetaClass,setProperty,getProperty')
+        }
+    }
+
     def destroy = {
     }
 }
