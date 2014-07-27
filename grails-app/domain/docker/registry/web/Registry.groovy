@@ -9,7 +9,7 @@ class Registry {
     static constraints = {
     }
 
-    static transients = ['toUrl', 'repositories', 'ping']
+    static transients = ['toUrl', 'repositories', 'ping', 'fromUrl']
 
     def toUrl() {
         return "${this.url}/${this.apiVersion}"
@@ -21,6 +21,18 @@ class Registry {
 
     def ping() {
         repositoryService.ping(this)
+    }
+
+    /**
+     * Static factory method for creating an instance from a URL
+     * @param urlStr a url in the format: http://hostOrIP:OptionalPort/apiVersion/
+     **/
+    static def fromUrl(def urlStr) {
+        def m = urlStr =~ /(.*)(v\d).*/
+        if (m.matches()) {
+            return new Registry(url: m.group(1), apiVersion: m.group(2))
+        }
+        null
     }
 
     @Override
