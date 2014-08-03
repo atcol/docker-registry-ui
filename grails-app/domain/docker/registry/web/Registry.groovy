@@ -1,18 +1,25 @@
 package docker.registry.web
 
+import groovyx.net.http.HTTPBuilder
+
 class Registry {
-    String url
-    String apiVersion
+    String host = "localhost"
+    int port
+    String apiVersion = "v1"
+    String username
+    String password
 
     def repositoryService
 
     static constraints = {
+        username nullable: true
+        password nullable: true
     }
 
     static transients = ['toUrl', 'repositories', 'ping', 'fromUrl']
 
     def toUrl() {
-        return "${this.url}/${this.apiVersion}"
+        return "http://${this.username}:${this.password}@${this.host}:${this.port}/${this.apiVersion}"
     }
 
     def getRepositories() {
@@ -24,13 +31,22 @@ class Registry {
     }
 
     /**
-     * Static factory method for creating an instance from a URL
-     * @param urlStr a url in the format: http://hostOrIP:OptionalPort/apiVersion/
+     * Static factory method for creating an instance from a URL.
+     * @param urlStr a url in the format: http://hostOrIP:OptionalPort/v1/
      **/
-    static def fromUrl(def urlStr) {
-        def m = urlStr =~ /(.*)(v\d).*/
-        if (m.matches()) {
-            return new Registry(url: m.group(1), apiVersion: m.group(2))
+    static def fromUrl(final String urlStr) {
+        if (urlStr?.endsWith("/v1/")) { //FIXME this won't work for new api versions
+            def url = urlStr.toURL()
+            if (url) {
+                def auth = url.userInfo?.split(":")
+                return new Registry(
+                        host: url.host,
+                        port: url.port == -1 ? 80 : url.port,
+                        apiVersion: url.path.replaceAll("\\p{Punct}", ""),
+                        username: auth?.length > 0 ? auth[0] : null,
+                        password: auth?.length > 1 ? auth[1] : null
+                )
+            }
         }
         null
     }
