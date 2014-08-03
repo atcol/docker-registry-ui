@@ -11,7 +11,7 @@ import groovyx.net.http.Method
 @Transactional
 class RepositoryService {
 
-    def index(final Registry registry) {
+    def List<Repository> index(final Registry registry) {
         search(registry, null)
     }
 
@@ -34,7 +34,7 @@ class RepositoryService {
         repo
     }
 
-    def search(final Registry registry, final String query) {
+    def List<Repository> search(final Registry registry, final String query) {
         log.info("Searching for images from $registry")
         final repoList = []
         def url = "${registry.toUrl()}/search"
@@ -60,7 +60,7 @@ class RepositoryService {
         repoList
     }
 
-    def getTags(final Registry registry, final repoName) {
+    def List<Tag> getTags(final Registry registry, final repoName) {
         def tagList = []
         log.info("Getting tags for $repoName")
         def url = "${registry.toUrl()}/repositories/${repoName}/tags"
@@ -95,7 +95,7 @@ class RepositoryService {
         img
     }
 
-    def delete(final Registry registry, final String repoName, final String tag) {
+    def boolean delete(final Registry registry, final String repoName, final String tag) {
         final uri = "${registry.toUrl()}/repositories/$repoName/tags/$tag"
         log.info("Deleting repo at $uri")
         def http = new HTTPBuilder(uri)
@@ -113,12 +113,12 @@ class RepositoryService {
         result
     }
 
-    String buildPullName(Registry registry, String repoName, String tag) {
-        def url = registry.url.toURL()
-        "${url.host}${url.port != -1 ? ':' + url.port : ''}/${repoName}:${tag}"
+    def String buildPullName(Registry registry, String repoName, String tag) {
+        def url = registry.toUrl().toURL()
+        "${url.authority}/${repoName}:${tag}"
     }
 
-    boolean ping(Registry registry) {
+    def boolean ping(Registry registry) {
         def url = "${registry.toUrl()}/_ping"
         def http = new HTTPBuilder(url)
         def result = true

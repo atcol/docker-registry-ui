@@ -34,16 +34,43 @@
             </div>
 
             <div class="form-group">
-                <label for="url" class="col-lg-2 control-label"><g:message code="labels.registry.url"/> </label>
+                <label for="host" class="col-lg-2 control-label"><g:message code="labels.registry.host"/> </label>
 
                 <div class="col-lg-4">
-                    <g:textField name="url" style="cursor: auto;" class="form-control"
-                                 value="${registryInstance?.url}" readonly=""></g:textField>
+                    <g:textField name="host" style="cursor: auto;" class="form-control"
+                                 value="${registryInstance?.host}" readonly=""></g:textField>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="url" class="col-lg-2 control-label"><g:message code="labels.registry.ping"/> </label>
+                <label for="port" class="col-lg-2 control-label"><g:message code="labels.registry.port"/> </label>
+
+                <div class="col-lg-4">
+                    <g:textField name="port" style="cursor: auto;" class="form-control"
+                                 value="${registryInstance?.port}" readonly=""></g:textField>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="username" class="col-lg-2 control-label"><g:message code="labels.registry.username"/> </label>
+
+                <div class="col-lg-4">
+                    <g:textField name="username" style="cursor: auto;" class="form-control"
+                                 value="${registryInstance?.username}" readonly=""></g:textField>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="col-lg-2 control-label"><g:message code="labels.registry.password"/> </label>
+
+                <div class="col-lg-4">
+                    <g:textField name="password" style="cursor: auto;" class="form-control"
+                                 value="${registryInstance?.password}" readonly=""></g:textField>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label"><g:message code="labels.registry.ping"/> </label>
 
                 <div class="col-lg-4">
                      ${registryIsUp ? message(code:"registry.ping.succeeded") : message(code:"registry.ping.failed")}

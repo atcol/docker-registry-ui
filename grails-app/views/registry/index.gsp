@@ -21,7 +21,10 @@
 			<thead>
 					<tr>
 						<th>${message(code: 'registry.apiVersion.label', default: 'Api Version')}</th>
-						<th>${message(code: 'registry.url.label', default: 'Url')}</th>
+						<th>${message(code: 'registry.host.label', default: 'Hostname')}</th>
+                        <th>${message(code: 'registry.port.label', default: 'Port')}</th>
+                        <th>${message(code: 'registry.username.label', default: 'Username')}</th>
+                        <th>${message(code: 'registry.password.label', default: 'Password')}</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -30,8 +33,13 @@
 					
 						<td><g:link action="show" id="${registryInstance.id}">${fieldValue(bean: registryInstance, field: "apiVersion")}</g:link></td>
 					
-						<td>${fieldValue(bean: registryInstance, field: "url")}</td>
-					
+						<td>${fieldValue(bean: registryInstance, field: "host")}</td>
+
+                        <td>${fieldValue(bean: registryInstance, field: "port")}</td>
+
+                        <td>${fieldValue(bean: registryInstance, field: "username")}</td>
+
+                        <td>${fieldValue(bean: registryInstance, field: "password")?.replaceAll(".", "*")}</td>
 					</tr>
 				</g:each>
 				</tbody>
