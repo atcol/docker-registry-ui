@@ -55,8 +55,12 @@ class Registry {
     public String toString() {
         return "Registry{" +
                 "id=" + id +
-                ", url='" + url + '\'' +
+                ", host='" + host + '\'' +
+                ", port=" + port +
                 ", apiVersion='" + apiVersion + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", repositoryService=" + repositoryService +
                 ", version=" + version +
                 '}';
     }
