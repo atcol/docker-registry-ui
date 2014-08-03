@@ -9,7 +9,7 @@
 
 <g:set var="multipleRegistries" value="${registryToRepoMap.size() > 1}"/>
 <g:each in="${registryToRepoMap}" var="entry">
-    <h3>Registry ${entry.key.url} </h3>
+    <h3>Registry ${entry.key.host} </h3>
 
     <table id="imgTbl" class="table table-striped table-hover">
         <thead>
