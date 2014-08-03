@@ -114,8 +114,8 @@ class RepositoryService {
     }
 
     def String buildPullName(Registry registry, String repoName, String tag) {
-        def url = registry.url.toURL()
-        "${url.host}${url.port != -1 ? ':' + url.port : ''}/${repoName}:${tag}"
+        def url = registry.toUrl().toURL()
+        "${url.authority}/${repoName}:${tag}"
     }
 
     def boolean ping(Registry registry) {
