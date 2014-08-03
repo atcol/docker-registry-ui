@@ -18,7 +18,7 @@ class BootStrap {
                 def reg = Registry.fromUrl(urlStr)
 
                 if (reg) {
-                    if (Registry.findByUrlAndApiVersion(reg.url, reg.apiVersion)) {
+                    if (Registry.findByHostAndApiVersion(reg.host, reg.apiVersion)) {
                         log.info("Not creating registry ${urlStr} as it already exists")
                     } else {
                         log.info("Registry ${reg} doesn't exist; saving")
@@ -30,7 +30,7 @@ class BootStrap {
                     }
 
                 } else {
-                    log.error("Couldn't parse valid registry from $regUrl")
+                    log.error("Couldn't parse valid registry URL from $urlStr")
                 }
             }
         }
