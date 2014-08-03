@@ -39,7 +39,7 @@
 
                         <td>${fieldValue(bean: registryInstance, field: "username")}</td>
 
-                        <td>${passwordField(name: "password", value: "${registryInstance.password}")}</td>
+                        <td>${fieldValue(bean: registryInstance, field: "password")?.replaceAll(".", "*")}</td>
 					</tr>
 				</g:each>
 				</tbody>
