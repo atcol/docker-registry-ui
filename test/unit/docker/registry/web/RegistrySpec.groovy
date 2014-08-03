@@ -15,6 +15,48 @@ class RegistrySpec extends Specification {
     def cleanup() {
     }
 
+    void "test toUrl without auth"() {
+        when:
+        def url = Registry.fromUrl("http://172.17.42.1:5000/v1/").toUrl()
+        then:
+        url != null
+        "172.17.42.1".equals(url.toURL().host)
+        5000 == url.toURL().port
+        "/v1".equals(url.toURL().path)
+    }
+
+    void "test toUrl with auth no password"() {
+        when:
+        def url = Registry.fromUrl("http://alex@172.17.42.1:5000/v1/").toUrl()
+        then:
+        url != null
+        "172.17.42.1".equals(url.toURL().host)
+        5000 == url.toURL().port
+        "/v1".equals(url.toURL().path)
+        "alex".equals(url.toURI().userInfo)
+    }
+
+    void "test toUrl with auth username & password"() {
+        when:
+        def url = Registry.fromUrl("http://alex:password@172.17.42.1:5000/v1/").toUrl()
+        then:
+        url != null
+        "172.17.42.1".equals(url.toURL().host)
+        5000 == url.toURL().port
+        "/v1".equals(url.toURL().path)
+        "alex:password".equals(url.toURI().userInfo)
+    }
+
+    void "test toUrl no port"() {
+        when:
+        def url = Registry.fromUrl("http://172.17.42.1/v1/").toUrl()
+        then:
+        url != null
+        "172.17.42.1".equals(url.toURL().host)
+        80 == url.toURL().port // Registry.fromUrl parses -1, the default port when none provided, to 80, for simplicity
+        "/v1".equals(url.toURL().path)
+    }
+
     void "test fromUrl basic valid url"() {
         when:
         def registry = Registry.fromUrl("http://172.17.42.1:5000/v1/")
