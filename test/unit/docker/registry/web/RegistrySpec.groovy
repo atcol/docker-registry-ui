@@ -20,70 +20,70 @@ class RegistrySpec extends Specification {
         def registry = Registry.fromUrl("http://172.17.42.1:5000/v1/")
         then:
         registry != null
-        registry.url != null
-        registry.url.length() > 0
-        registry.apiVersion != null
-        registry.apiVersion.equals("v1")
+        registry.host != null
+        "172.17.42.1".equals(registry.host)
+        registry.port == 5000
+        registry.username == null
+        registry.password == null
+        "v1".equals(registry.apiVersion)
     }
-    void "test fromUrl ip, port & GET params"() {
+
+    void "test fromUrl invalid path yields null"() {
         when:
         def registry = Registry.fromUrl("http://172.17.42.1:5000/v1/asdkjh/asd/asd/asd?wehrkwh=1q124")
-                then:
-        registry != null
-        registry.url != null
-        registry.url.length() > 0
-        registry.apiVersion != null
-        registry.apiVersion.equals("v1")
+        then:
+        registry == null
     }
+
     void "test fromUrl invalid URL: no api version"() {
         when:
-        def registry = Registry.fromUrl("http://172.17.42.1:5000/")
-                then:
-        registry != null
-        registry.url != null
-        registry.url.length() > 0
-        registry.apiVersion != null
-        registry.apiVersion.equals("v1")
+        def registry = Registry.fromUrl("http://172.17.42.1:5001/")
+        then:
+        registry == null
     }
+
     void "test fromUrl with no port (ip)"() {
         when:
         def registry = Registry.fromUrl("http://172.17.42.1/v1/")
-                then:
+        then:
         registry != null
-        registry.url != null
-        registry.url.length() > 0
-        registry.apiVersion != null
-        registry.apiVersion.equals("v1")
+        "172.17.42.1".equals(registry.host)
+        registry.port == 80
+        registry.username == null
+        registry.password == null
+        "v1".equals(registry.apiVersion)
     }
+
     void "test fromUrl with no port (hostname)"() {
         when:
         def registry = Registry.fromUrl("http://production/v1/")
-                then:
+        then:
         registry != null
-        registry.url != null
-        registry.url.length() > 0
-        registry.apiVersion != null
-        registry.apiVersion.equals("v1")
+        "production".equals(registry.host)
+        registry.username == null
+        registry.password == null
+        "v1".equals(registry.apiVersion)
     }
+
     void "test fromUrl with username and password"() {
         when:
         def registry = Registry.fromUrl("http://username:password@172.17.42.1:5000/v1/")
-                then:
+        then:
         registry != null
-        registry.url != null
-        registry.url.length() > 0
-        registry.apiVersion != null
-        registry.apiVersion.equals("v1")
+        "172.17.42.1".equals(registry.host)
+        "v1".equals(registry.apiVersion)
+        "username".equals(registry.username)
+        "password".equals(registry.password)
     }
 
     void "test fromUrl with username only url"() {
         when:
         def registry = Registry.fromUrl("http://username@172.17.42.1:5000/v1/")
-                then:
+        then:
         registry != null
-        registry.url != null
-        registry.url.length() > 0
-        registry.apiVersion != null
-        registry.apiVersion.equals("v1")
+        "172.17.42.1".equals(registry.host)
+        "v1".equals(registry.apiVersion)
+        "username".equals(registry.username)
+        registry.password == null
     }
 }
