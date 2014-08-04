@@ -123,6 +123,10 @@ class RepositoryService {
         def http = new HTTPBuilder(url)
         def result = true
         try {
+
+            http.getClient().getParams().setParameter("http.connection.timeout", new Integer(10000))
+            http.getClient().getParams().setParameter("http.socket.timeout", new Integer(10000))
+
             http.request(Method.GET, groovyx.net.http.ContentType.JSON) {
                 response.success = { resp, json ->
                     log.info("Ping of $registry succeeded")
@@ -136,6 +140,8 @@ class RepositoryService {
         } catch (final ConnectException|IOException e) {
             log.info("Ping failed: $e")
             result = false
+        } finally {
+            http.shutdown()
         }
         result
     }
