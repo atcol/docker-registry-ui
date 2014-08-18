@@ -52,6 +52,7 @@
         }).fail(function () {
             showFail('<g:message code="image.delete.failure" />');
         });
+        location.reload(true);
     }
 
     function showConfirm(registryId, repoName, tag) {
