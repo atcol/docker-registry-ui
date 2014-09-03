@@ -20,26 +20,21 @@
             <table class="table table-striped table-hover">
 			<thead>
 					<tr>
-						<th>${message(code: 'registry.apiVersion.label', default: 'Api Version')}</th>
 						<th>${message(code: 'registry.host.label', default: 'Hostname')}</th>
-                        <th>${message(code: 'registry.port.label', default: 'Port')}</th>
-                        <th>${message(code: 'registry.username.label', default: 'Username')}</th>
-                        <th>${message(code: 'registry.password.label', default: 'Password')}</th>
+						<th>${message(code: 'registry.port.label', default: 'Port')}</th>
+						<th>${message(code: 'registry.username.label', default: 'Username')}</th>
+						<th>${message(code: 'registry.password.label', default: 'Password')}</th>
+						<th>${message(code: 'registry.apiVersion.label', default: 'Api Version')}</th>
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${registryInstanceList}" status="i" var="registryInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${registryInstance.id}">${fieldValue(bean: registryInstance, field: "apiVersion")}</g:link></td>
-					
-						<td>${fieldValue(bean: registryInstance, field: "host")}</td>
-
-                        <td>${fieldValue(bean: registryInstance, field: "port")}</td>
-
-                        <td>${fieldValue(bean: registryInstance, field: "username")}</td>
-
-                        <td>${fieldValue(bean: registryInstance, field: "password")?.replaceAll(".", "*")}</td>
+						<td><g:link action="show" id="${registryInstance.id}">${fieldValue(bean: registryInstance, field: "host")}</g:link></td>
+						<td>${fieldValue(bean: registryInstance, field: "port")}</td>
+						<td>${fieldValue(bean: registryInstance, field: "username")}</td>
+						<td>${fieldValue(bean: registryInstance, field: "password")?.replaceAll(".", "*")}</td>
+						<td>${fieldValue(bean: registryInstance, field: "apiVersion")}</td>
 					</tr>
 				</g:each>
 				</tbody>
