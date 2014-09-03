@@ -1,15 +1,17 @@
 import docker.registry.web.Registry
+import docker.registry.web.Role
 import docker.registry.web.User
+import docker.registry.web.UserRole
 
 class BootStrap {
 
     def init = { servletContext ->
-        if (!User.findByUsername("admin")) {
-            def user = new User()
-            user.password = "pleasechangeme"
-            user.username = "admin"
-            user.save();
-        }
+        def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
+
+        def adminUser = new User(username: "admin", password: "pleasechangeme")
+        adminUser.save();
+
+        UserRole.create adminUser, adminRole, true
 
         log.info("Checking for registries in system env")
         System.getenv().each { key, urlStr ->
