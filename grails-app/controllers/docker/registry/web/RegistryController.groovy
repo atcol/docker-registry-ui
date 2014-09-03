@@ -1,9 +1,9 @@
 package docker.registry.web
 
 
-
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import org.springframework.security.access.annotation.Secured
 
 @Transactional(readOnly = true)
 class RegistryController {
@@ -20,6 +20,7 @@ class RegistryController {
         respond registryInstance, model: [registryIsUp: isUp]
     }
 
+    @Secured(['ROLE_ADMIN'])
     def create() {
         respond new Registry(params)
     }
@@ -47,6 +48,7 @@ class RegistryController {
         }
     }
 
+    @Secured(['ROLE_ADMIN'])
     def edit(Registry registryInstance) {
         respond registryInstance
     }
