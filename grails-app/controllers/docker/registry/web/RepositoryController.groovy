@@ -1,6 +1,7 @@
 package docker.registry.web
 
 import docker.registry.web.support.Repository
+import org.springframework.security.access.annotation.Secured
 
 class RepositoryController {
 
@@ -30,6 +31,7 @@ class RepositoryController {
         render view: "show", model: [registry: reg, img: repository.images.find { it.id.equals(imgId)}]
     }
 
+    @Secured(['ROLE_ADMIN'])
     def delete() {
         def repoName = params.repoName
         def registry = params.registry

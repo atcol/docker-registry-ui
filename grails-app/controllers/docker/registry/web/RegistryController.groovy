@@ -48,6 +48,7 @@ class RegistryController {
         }
     }
 
+    @Secured(['ROLE_ADMIN'])
     def edit(Registry registryInstance) {
         respond registryInstance
     }
