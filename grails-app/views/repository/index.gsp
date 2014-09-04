@@ -50,12 +50,5 @@
 </g:each>
 <jqDT:resources/>
 <g:include view="repository/image-prompts.js.gsp"/>
-<g:javascript>
-    $(document).ready(function() {
-        $('.accordion').accordion({
-            collapsible: true
-        });
-    });
-</g:javascript>
 </body>
 </html>
