@@ -42,6 +42,8 @@ variables:
 which will run the application and automatically register two registries at the hosts `dev` and `prod` respectively,
 both running API versions v1. You must provide URLs that include the API version. 
 
+**Note:** don't use `localhost` in registry URLs! The host needs to be visible from inside the container, so `-e REG1=http://localhost/...` won't work because localhost will resolve to the container's IP. If registry is running on the host, then remember to use its IP: `172.17.42.1`.
+
 ## Volumes
 
 The webapp's configuration data is stored inside the container in a H2 database under `/var/lib/h2/`. You can hold this data on the host machine using the `-v` flag:
