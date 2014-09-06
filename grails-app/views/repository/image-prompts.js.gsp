@@ -48,6 +48,7 @@
             type: "DELETE"
         }).done(function () {
             showSuccess('<g:message code="image.delete.success" />');
+            location.reload(true)
         }).fail(function () {
             showFail('<g:message code="image.delete.failure" />');
         });
