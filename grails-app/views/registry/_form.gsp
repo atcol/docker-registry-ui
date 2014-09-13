@@ -10,6 +10,15 @@
 </div>
 
 <div class="form-group">
+    <label for="protocol" class="col-lg-2 control-label"><g:message code="labels.registry.protocol"/> *</label>
+
+    <div class="col-lg-4">
+        <g:textField name="protocol" style="cursor: auto;" class="form-control"
+                     value="${registryInstance?.protocol}"></g:textField>
+    </div>
+</div>
+
+<div class="form-group">
     <label for="host" class="col-lg-2 control-label"><g:message code="labels.registry.host"/> *</label>
 
     <div class="col-lg-4">

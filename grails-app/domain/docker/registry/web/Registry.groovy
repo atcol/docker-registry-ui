@@ -8,6 +8,7 @@ class Registry {
     String apiVersion = "v1"
     String username
     String password
+    String protocol = "http"
 
     def repositoryService
 
@@ -19,8 +20,9 @@ class Registry {
     static transients = ['toUrl', 'repositories', 'ping', 'fromUrl']
 
     def toUrl() {
-        def urlString = "http://${this.host}:${this.port}/${this.apiVersion}"
+        def urlString = "${this.protocol}://${this.host}:${this.port}/${this.apiVersion}"
         if (username) {
+            log.info("username found: ${username}, password: ${password}")
             if (password) urlString = urlString.replace("://", "://$username:$password@")
             else urlString = urlString.replace("://", "://$username@")
         }
@@ -45,6 +47,7 @@ class Registry {
             if (url) {
                 def auth = url.userInfo?.split(":")
                 return new Registry(
+                        protocol: url.protocol,
                         host: url.host,
                         port: url.port == -1 ? 80 : url.port,
                         apiVersion: url.path.replaceAll("\\p{Punct}", ""),
@@ -60,6 +63,7 @@ class Registry {
     public String toString() {
         return "Registry{" +
                 "id=" + id +
+                ", protocol='" + protocol + '\'' +
                 ", host='" + host + '\'' +
                 ", port=" + port +
                 ", apiVersion='" + apiVersion + '\'' +

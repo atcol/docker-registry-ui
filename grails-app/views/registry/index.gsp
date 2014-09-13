@@ -1,52 +1,55 @@
 <%@ page import="docker.registry.web.Registry" %>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'registry.label', default: 'Registry')}" />
-		<title><g:message code="default.list.label" args="[entityName]" /></title>
-	</head>
-	<body>
+    <head>
+        <meta name="layout" content="main">
+        <g:set var="entityName" value="${message(code: 'registry.label', default: 'Registry')}" />
+        <title><g:message code="default.list.label" args="[entityName]" /></title>
+    </head>
+    <body>
         <div class="nav" role="navigation">
             <g:link class="create" action="create"><button class="btn btn-link" type="button">
                 <g:message code="default.new.label" args="[entityName]"/></button></g:link>
             <g:link class="create" action="index"><button class="btn btn-link" type="button">
                 <g:message code="default.list.label" args="[entityName]"/></button></g:link>
         </div>
-		<div id="list-registry" class="content scaffold-list" role="main">
-			<g:if test="${flash.message}">
-				<div class="message" role="status">${flash.message}</div>
-			</g:if>
+        <div id="list-registry" class="content scaffold-list" role="main">
+            <g:if test="${flash.message}">
+                <div class="message" role="status">${flash.message}</div>
+            </g:if>
             <table class="table table-striped table-hover">
-			<thead>
-					<tr>
-						<th>${message(code: 'registry.apiVersion.label', default: 'Api Version')}</th>
-						<th>${message(code: 'registry.host.label', default: 'Hostname')}</th>
+            <thead>
+                    <tr>
+                        <th>${message(code: 'registry.apiVersion.label', default: 'Api Version')}</th>
+                        <th>${message(code: 'registry.protocol.label', default: 'Protocol')}</th>
+                        <th>${message(code: 'registry.host.label', default: 'Hostname')}</th>
                         <th>${message(code: 'registry.port.label', default: 'Port')}</th>
                         <th>${message(code: 'registry.username.label', default: 'Username')}</th>
                         <th>${message(code: 'registry.password.label', default: 'Password')}</th>
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${registryInstanceList}" status="i" var="registryInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${registryInstance.id}">${fieldValue(bean: registryInstance, field: "apiVersion")}</g:link></td>
-					
-						<td>${fieldValue(bean: registryInstance, field: "host")}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                <g:each in="${registryInstanceList}" status="i" var="registryInstance">
+                    <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+                    
+                        <td><g:link action="show" id="${registryInstance.id}">${fieldValue(bean: registryInstance, field: "apiVersion")}</g:link></td>
+                    
+                        <td>${fieldValue(bean: registryInstance, field: "protocol")}</td>
+
+                        <td>${fieldValue(bean: registryInstance, field: "host")}</td>
 
                         <td>${fieldValue(bean: registryInstance, field: "port")}</td>
 
                         <td>${fieldValue(bean: registryInstance, field: "username")}</td>
 
                         <td>${fieldValue(bean: registryInstance, field: "password")?.replaceAll(".", "*")}</td>
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
-			<div class="pagination">
-				<g:paginate total="${registryInstanceCount ?: 0}" />
-			</div>
-		</div>
-	</body>
+                    </tr>
+                </g:each>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <g:paginate total="${registryInstanceCount ?: 0}" />
+            </div>
+        </div>
+    </body>
 </html>
