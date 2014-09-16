@@ -1,6 +1,7 @@
 package docker.registry.web
 
 import docker.registry.web.support.Repository
+import docker.registry.web.support.RegistryReposView
 
 class RepositoryController {
 
@@ -8,11 +9,13 @@ class RepositoryController {
     static allowedMethods = [delete: 'DELETE']
 
     def index() {
-        def registryToRepo = [:]
+        def registries = [] as Set<RegistryReposView>;
+
         Registry.all.each { registry ->
-            registryToRepo.put(registry, repositoryService.index(registry))
+            registries.add(repositoryService.index(registry))
         }
-        render view: "index", model: [registryToRepoMap: registryToRepo]
+ 
+        render view: "index", model: [registryAndReposViewSet: registries]
     }
 
     def show(final int registryId, final String repoName, final String tag, final String imgId) {
