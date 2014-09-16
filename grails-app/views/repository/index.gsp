@@ -9,7 +9,7 @@
 
 <g:set var="multipleRegistries" value="${registryToRepoMap.size() > 1}"/>
 <g:each in="${registryToRepoMap}" var="entry">
-    <h3>Registry ${entry.key.host} </h3>
+    <h3>Registry ${entry.key.host} <g:if test="${entry.key.unreachable}"><font color="#eb6864">(Unreachable)</font></g:if></h3>
 
     <table id="imgTbl" class="table table-striped table-hover">
         <thead>

@@ -10,7 +10,14 @@ class RepositoryController {
     def index() {
         def registryToRepo = [:]
         Registry.all.each { registry ->
-            registryToRepo.put(registry, repositoryService.index(registry))
+            try {
+              registryToRepo.put(registry, repositoryService.index(registry))
+
+            } catch (errorRetrievingReposFromRegistry) {
+              registry.setAsUnreachable();
+              registryToRepo.put(registry, [])
+              log.error("The registry ${registry.toUrl()} is unreachable")
+            }
         }
         render view: "index", model: [registryToRepoMap: registryToRepo]
     }
