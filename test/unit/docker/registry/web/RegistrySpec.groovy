@@ -57,6 +57,26 @@ class RegistrySpec extends Specification {
         "/v1".equals(url.toURL().path)
     }
 
+    void "test toUrl with Port resolution"() {
+        when:
+        def url = Registry.fromUrl("http://172.17.42.1:80/v1/").toUrl()
+        then:
+        url != null
+        "172.17.42.1".equals(url.toURL().host)
+        80 == url.toURL().port
+        "/v1".equals(url.toURL().path)
+    }
+
+    void "test toUrl with Port resolution when the user does not enter a port, defaulting to 0"() {
+        when:
+        def url = Registry.fromUrl("http://172.17.42.1:0/v1/").toUrl()
+        then:
+        url != null
+        "172.17.42.1".equals(url.toURL().host)
+        80 == url.toURL().port
+        "/v1".equals(url.toURL().path)
+    }
+
     void "test fromUrl basic valid url"() {
         when:
         def registry = Registry.fromUrl("http://172.17.42.1:5000/v1/")
