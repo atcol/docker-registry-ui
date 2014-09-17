@@ -19,7 +19,8 @@ class Registry {
     static transients = ['toUrl', 'repositories', 'ping', 'fromUrl']
 
     def toUrl() {
-        def urlString = "http://${this.host}:${this.port}/${this.apiVersion}"
+        def resolvedPort = this.port == 80 || this.port == 0 ? "" : ":" + this.port;
+        def urlString = "http://${this.host}${resolvedPort}/${this.apiVersion}"
         if (username) {
             if (password) urlString = urlString.replace("://", "://$username:$password@")
             else urlString = urlString.replace("://", "://$username@")
