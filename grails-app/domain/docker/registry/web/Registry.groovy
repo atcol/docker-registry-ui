@@ -9,11 +9,6 @@ class Registry {
     String username
     String password
 
-    /**
-     * Whether the registry is reachable or not.
-     */
-    transient boolean unreachable = false
-
     def repositoryService
 
     static constraints = {
@@ -21,7 +16,7 @@ class Registry {
         password nullable: true
     }
 
-    static transients = ['toUrl', 'repositories', 'ping', 'fromUrl', 'setAsUnreachable']
+    static transients = ['toUrl', 'repositories', 'ping', 'fromUrl']
 
     def toUrl() {
         def urlString = "http://${this.host}:${this.port}/${this.apiVersion}"
@@ -30,13 +25,6 @@ class Registry {
             else urlString = urlString.replace("://", "://$username@")
         }
         urlString
-    }
-
-    /**
-     * Sets the unreachable value to false in case the registry is unreachable during search.
-     */
-    def setAsUnreachable() {
-        unreachable = true
     }
 
     def getRepositories() {
