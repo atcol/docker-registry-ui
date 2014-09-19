@@ -63,7 +63,8 @@ class RegistrySpec extends Specification {
         then:
         url != null
         "172.17.42.1".equals(url.toURL().host)
-        80 == url.toURL().port
+        //  url.toURL to the Java implementation of URL class
+        -1 == url.toURL().port
         "/v1".equals(url.toURL().path)
     }
 
@@ -73,7 +74,8 @@ class RegistrySpec extends Specification {
         then:
         url != null
         "172.17.42.1".equals(url.toURL().host)
-        80 == url.toURL().port
+        // url.toURL to the Java implementation of URL class
+        -1 == url.toURL().port
         "/v1".equals(url.toURL().path)
     }
 
