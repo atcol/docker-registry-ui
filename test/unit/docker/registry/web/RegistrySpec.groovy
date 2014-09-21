@@ -47,23 +47,22 @@ class RegistrySpec extends Specification {
         "alex:password".equals(url.toURI().userInfo)
     }
 
-    void "test toUrl no port"() {
+    void "test toUrl port is default when no port specified"() {
         when:
         def url = Registry.fromUrl("http://172.17.42.1/v1/").toUrl()
         then:
         url != null
         "172.17.42.1".equals(url.toURL().host)
-        80 == url.toURL().port // Registry.fromUrl parses -1, the default port when none provided, to 80, for simplicity
+        -1 == url.toURL().port // Registry.fromUrl parses -1, the default port when none provided, to 80, for simplicity
         "/v1".equals(url.toURL().path)
     }
 
-    void "test toUrl with Port resolution"() {
+    void "test toUrl with explicit port 80 is forgotton once converted to java.util.URL"() {
         when:
         def url = Registry.fromUrl("http://172.17.42.1:80/v1/").toUrl()
         then:
         url != null
         "172.17.42.1".equals(url.toURL().host)
-        //  url.toURL to the Java implementation of URL class
         -1 == url.toURL().port
         "/v1".equals(url.toURL().path)
     }
