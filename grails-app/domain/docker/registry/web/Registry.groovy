@@ -1,10 +1,7 @@
 package docker.registry.web
 
-import groovyx.net.http.HTTPBuilder
-
 class Registry {
     String host = "localhost"
-    int port
     String apiVersion = "v1"
     String username
     String password
@@ -18,8 +15,8 @@ class Registry {
 
     static transients = ['toUrl', 'repositories', 'ping', 'fromUrl']
 
-    def toUrl() {
-        def resolvedPort = this.port == 80 || this.port == 0 ? "" : ":" + this.port;
+    def String toUrl() {
+        def resolvedPort = this.port == 80 || this.port <= 0 ? "" : ":" + this.port;
         def urlString = "http://${this.host}${resolvedPort}/${this.apiVersion}"
         if (username) {
             if (password) urlString = urlString.replace("://", "://$username:$password@")
