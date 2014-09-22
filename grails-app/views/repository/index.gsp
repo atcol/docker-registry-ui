@@ -9,7 +9,12 @@
 
 <g:set var="multipleRegistries" value="${registryToRepoMap.size() > 1}"/>
 <g:each in="${registryToRepoMap}" var="entry">
-    <h3>Registry ${entry.key.host} </h3>
+    <h3>Registry ${entry.key.host}</h3>
+    <g:if test="${!reachable.get(entry.key)}">
+      <div class="alert alert-dismissable alert-danger">
+        <strong>Oh snap!</strong> This server is Unreachable!
+      </div>
+    </g:if>
 
     <table id="imgTbl" class="table table-striped table-hover">
         <thead>
