@@ -59,3 +59,7 @@ You could also use the data-container pattern using `--volumes-from`:
 	docker run -p 8080:8080 --volumes-from=registry_web_data atcol/docker-registry-ui
 
 Now all data will be kept in the `registry_web_data` container.
+
+# License
+
+As of release 0.9.5, this project is licenced under GPL v3.0. See the LICENSE file.
