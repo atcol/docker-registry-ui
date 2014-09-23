@@ -12,22 +12,22 @@ class RegistryReposView {
     /**
      * The registry that was contacted.
      */
-    Registry registry;
+    Registry registry
     /**
      * The current list of repositories of the registry.
      */
-    Set<Repository> repositories = [] as Set;
+    Set<Repository> repositories = [] as Set
     /**
      * Whether this registry is reachable or not based on the attempt to reach its URL.
      */
-    boolean isReachable = false;
+    boolean isReachable = false
 
     /**
      * @return An instance of RegistryReposView that associates a registry to a set of repos
      * and the status.
      * TODO: if other attributes are needed, we may extend this to a builder method.
      */
-    public static RegistryReposView make(Registry registry, List<Repository> repos, Boolean isReachable) {
+    def static RegistryReposView make(Registry registry, List<Repository> repos, Boolean isReachable) {
         def instance = new RegistryReposView()
         instance.registry = registry
         instance.repositories.addAll(repos)

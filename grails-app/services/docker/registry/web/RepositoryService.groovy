@@ -14,13 +14,13 @@ import groovyx.net.http.Method
 class RepositoryService {
 
     def RegistryReposView index(final Registry registry) {
-        def repositories = [];
-        def reachable = true;
+        def repositories = []
+        def reachable = true
         try {
             repositories = search(registry, null)
 
         } catch (errorRetrievingReposFromRegistry) {
-            reachable = false;
+            reachable = false
             log.error("The registry ${registry.toUrl()} is unreachable")
         }
         

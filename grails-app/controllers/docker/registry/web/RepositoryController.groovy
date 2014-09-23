@@ -9,7 +9,7 @@ class RepositoryController {
     static allowedMethods = [delete: 'DELETE']
 
     def index() {
-        def registries = [] as Set<RegistryReposView>;
+        def registries = [] as Set<RegistryReposView>
 
         Registry.all.each { registry ->
             registries.add(repositoryService.index(registry))
