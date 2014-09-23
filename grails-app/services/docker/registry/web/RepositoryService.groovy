@@ -3,8 +3,6 @@ package docker.registry.web
 import docker.registry.web.support.Image
 import docker.registry.web.support.Repository
 import docker.registry.web.support.Tag
-import docker.registry.web.support.RegistryReposView
-
 import grails.transaction.Transactional
 import groovyx.net.http.ContentType
 import groovyx.net.http.HTTPBuilder
@@ -13,18 +11,8 @@ import groovyx.net.http.Method
 @Transactional
 class RepositoryService {
 
-    def RegistryReposView index(final Registry registry) {
-        def repositories = []
-        def reachable = true
-        try {
-            repositories = search(registry, null)
-
-        } catch (errorRetrievingReposFromRegistry) {
-            reachable = false
-            log.error("The registry ${registry.toUrl()} is unreachable")
-        }
-        
-        RegistryReposView.make(registry, repositories, reachable)
+    def List<Repository> index(final Registry registry) {
+        search(registry, null)
     }
 
     def detail(final Registry registry, final String repoName) {

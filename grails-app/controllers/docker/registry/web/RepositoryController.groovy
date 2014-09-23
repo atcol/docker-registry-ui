@@ -12,7 +12,16 @@ class RepositoryController {
         def registries = [] as Set<RegistryReposView>
 
         Registry.all.each { registry ->
-            registries.add(repositoryService.index(registry))
+            def repositories = []
+            def reachable = true
+            try {
+                repositories = repositoryService.index(registry)
+
+            } catch (errorRetrievingReposFromRegistry) {
+                reachable = false
+                log.error("The registry ${registry.toUrl()} is unreachable")
+            }
+            registries.add( RegistryReposView.make(registry, repositories, reachable) )
         }
  
         render view: "index", model: [registryAndReposViewSet: registries]
