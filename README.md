@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/atc-/docker-registry-web.svg?branch=master)](https://travis-ci.org/atc-/docker-registry-web)
+[![Build Status](https://travis-ci.org/atc-/docker-registry-web.svg?branch=master)](https://travis-ci.org/atc-/docker-registry-web) [![Gitter chat](https://badges.gitter.im/atc-/docker-registry-web.png)](https://gitter.im/atc-/docker-registry-web)
 
 Docker Registry UI
 ===================
