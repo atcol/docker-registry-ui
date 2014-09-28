@@ -15,7 +15,7 @@
                 val = $(val);
                 val.click(function () {
                     var dialog = $('#dialog-confirm-pull');
-                    var pre = $('#dialog-confirm-pull > pre');
+                    var pre = $('#dialog-confirm-pull').find('> pre');
                     var pullName = val.attr("data-pullName");
                     pre.text("docker pull " + pullName);
                     $("#dialog-confirm-pull").dialog({
@@ -48,6 +48,7 @@
             type: "DELETE"
         }).done(function () {
             showSuccess('<g:message code="image.delete.success" />');
+            location.reload(true)
         }).fail(function () {
             showFail('<g:message code="image.delete.failure" />');
         });
