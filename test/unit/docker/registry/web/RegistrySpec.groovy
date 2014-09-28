@@ -149,4 +149,13 @@ class RegistrySpec extends Specification {
         "username".equals(registry.username)
         registry.password == null
     }
+
+    void "test toString doesn't contain password :)"() {
+        when:
+        def registryStr = Registry.fromUrl("http://admin:abc123@172.17.42.1:5000/v1/").toString()
+        then:
+        registryStr != null
+        !registryStr.contains("abc123")
+        registryStr.contains("******") // * replaces abc123
+    }
 }
