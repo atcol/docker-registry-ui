@@ -66,7 +66,7 @@ class Registry {
                 ", port=" + port +
                 ", apiVersion='" + apiVersion + '\'' +
                 ", username='" + username + '\'' +
-                ", password='" + password.replaceAll("(?s).", "*") + '\'' +
+                ", password='" + password?.replaceAll("(?s).", "*") + '\'' +
                 ", repositoryService=" + repositoryService +
                 ", version=" + version +
                 '}';
