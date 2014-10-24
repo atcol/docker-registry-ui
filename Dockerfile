@@ -10,4 +10,7 @@ VOLUME ["/var/lib/h2/", "/tomcat7"]
 
 ADD http://atc.gd/docker-registry-ui.war /tomcat7/webapps/ROOT.war
 
-CMD sed -i '1iexport CATALINA_OPTS=" -Djava.security.egd=file:/dev/./urandom "' bin/catalina.sh && bin/catalina.sh run
+ADD startup.sh /tomcat7/startup.sh
+
+CMD /tomcat7/startup.sh
+
