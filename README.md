@@ -75,3 +75,6 @@ As of release 0.9.5, this project is licenced under GPL v3.0. See the LICENSE fi
 ## My registry can't be found/seen by docker registry web! Help!
 
 If you're seeing error messages like `Connection to http://registry refused`, make sure you've configured the port and hostname correctly. **Do not** set the registry hostname to `localhost`, because the container will resolve this to itself (127.0.0.1). If the registry instance runs on the host machine (that which runs the container), then set the registry IP/hostname to `172.17.42.1`. Alternatively, you could use writable /etc/hosts as of Docker 1.2 and 'route' it that way.
+
+## Registries behind HTTPS or `Ping failed: javax.net.ssl.SSLPeerUnverifiedException: peer not authenticated`
+You need to register the CA with the container's keystore; see issue #108.
