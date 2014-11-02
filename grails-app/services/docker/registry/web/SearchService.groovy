@@ -15,6 +15,7 @@ class SearchService {
         Registry.all.each { Registry registry ->
             searchResults.put(registry, repositoryService.search(registry, search.query))
         }
+
         log.info("Results are $searchResults")
         searchResults
     }
