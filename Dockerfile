@@ -20,6 +20,7 @@ RUN     ./grailsw war
 RUN     cp target/docker-registry-ui-*.war /var/lib/tomcat7/webapps/ROOT.war
 
 # Update catalina configuration
+WORKDIR /usr/share/tomcat7/bin/
 ADD     startup.sh /usr/share/tomcat7/bin/custom-startup.sh
 RUN     chmod +x /usr/share/tomcat7/bin/custom-startup.sh
 
