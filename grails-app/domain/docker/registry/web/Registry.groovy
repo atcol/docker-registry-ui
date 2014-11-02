@@ -1,7 +1,5 @@
 package docker.registry.web
 
-import groovyx.net.http.HTTPBuilder
-
 class Registry {
     String host = "localhost"
     int port
