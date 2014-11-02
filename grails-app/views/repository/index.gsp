@@ -12,7 +12,7 @@
     <h3>Registry ${entry.registry.host}</h3>
     <g:if test="${!entry.isReachable}">
       <div class="alert alert-dismissable alert-danger">
-        <strong>Oh snap!</strong> This server is Unreachable!
+        <strong>Oh no!</strong> This registry is unreachable!
       </div>
     </g:if>
 
