@@ -17,6 +17,7 @@ class RegistryReposView {
      * The current list of repositories of the registry.
      */
     Set<Repository> repositories = [] as Set
+
     /**
      * Whether this registry is reachable or not based on the attempt to reach its URL.
      */
