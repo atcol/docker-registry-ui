@@ -7,8 +7,8 @@
 
 <body>
 
-<g:set var="multipleRegistries" value="${registryAndReposViewSet?.size() > 1}"/>
-<g:each in="${registryAndReposViewSet}" var="entry">
+<g:set var="multipleRegistries" value="${registryViewSet?.size() > 1}"/>
+<g:each in="${registryViewSet}" var="entry">
     <h3>Registry ${entry.registry.host}</h3>
     <g:if test="${!entry.isReachable}">
       <div class="alert alert-dismissable alert-danger">
