@@ -6,25 +6,12 @@ import docker.registry.web.support.RegistryReposView
 class RepositoryController {
 
     def repositoryService
+    def registryViewService
     static allowedMethods = [delete: 'DELETE']
 
     def index() {
-        def registries = [] as Set<RegistryReposView>
-
-        Registry.all.each { registry ->
-            def repositories = []
-            def reachable = true
-            try {
-                repositories = repositoryService.index(registry)
-
-            } catch (errorRetrievingReposFromRegistry) {
-                reachable = false
-                log.error("The registry ${registry.toUrl()} is unreachable")
-            }
-            registries.add( RegistryReposView.make(registry, repositories, reachable) )
-        }
- 
-        render view: "index", model: [registryAndReposViewSet: registries]
+        def registries = registryViewService.viewRegistries()
+        render view: "index", model: [registryViewSet: registries]
     }
 
     def show(final int registryId, final String repoName, final String tag, final String imgId) {
