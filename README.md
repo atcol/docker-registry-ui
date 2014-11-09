@@ -21,6 +21,8 @@ The application boasts the following features:
  * Search for images
 
  * Containerized via [Docker](https://registry.hub.docker.com/u/atcol/docker-registry-ui/)
+ 
+ * Custom deployment contest
 
  * Exposes the webapp's configuration data as a volume for use with data-containers or simple host directory storage
 
@@ -65,6 +67,14 @@ You could also use the data-container pattern using `--volumes-from`:
 	docker run -p 8080:8080 --volumes-from=registry_web_data atcol/docker-registry-ui
 
 Now all data will be kept in the `registry_web_data` container.
+
+# Custom Deployment Context
+
+You can deploy this container in a custom context as such:
+
+`docker run -p 80:8080 -it -e APP_CONTEXT=ui -e REG1=http://172.17.42.1:5000/v1/ atcol/docker-registry-ui`
+
+will expose the container under `http://localhost/ui`.
 
 # License
 
