@@ -10,6 +10,6 @@ class SearchController {
 
     def search(String q) {
         final resultMap = searchService.searchAll(new Search(query: q))
-        render view: "/repository/index", model: [registryToRepoMap: resultMap]
+        render view: "results", model: [registryToRepoMap: resultMap]
     }
 }
