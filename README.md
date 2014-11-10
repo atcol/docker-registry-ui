@@ -22,7 +22,7 @@ The application boasts the following features:
 
  * Containerized via [Docker](https://registry.hub.docker.com/u/atcol/docker-registry-ui/)
  
- * Custom deployment contest
+ * Custom deployment context (e.g. /reg-ui)
 
  * Exposes the webapp's configuration data as a volume for use with data-containers or simple host directory storage
 
@@ -68,7 +68,7 @@ You could also use the data-container pattern using `--volumes-from`:
 
 Now all data will be kept in the `registry_web_data` container.
 
-# Custom Deployment Context
+## Custom Deployment Context
 
 You can deploy this container in a custom context as such:
 
