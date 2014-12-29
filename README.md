@@ -34,12 +34,10 @@ This project is containerized. You can run with docker right now by simply runni
 
 and browsing to localhost:8080/.
 
-## Application context
+## Dependencies
 
-Sometimes you may want to run the app in custom context, say `http://server:8080/webui`. To do so, supply the optional variable `APP_CONTEXT`.
+You need to have a running instance of `docker registry` that has a **search backend enabled**! See the information on [this issue](https://github.com/atc-/docker-registry-web/issues/65#issuecomment-68060219) for further information
 
-	docker run -p 8080:8080 -e APP_CONTEXT=/webui atcol/docker-registry-ui
-        
 ## Statelessness
 
 The app' requires registry configuration which can be supplied once the app's running, or through container environment
