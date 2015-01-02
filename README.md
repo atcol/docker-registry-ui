@@ -36,7 +36,7 @@ and browsing to localhost:8080/.
 
 ## Dependencies
 
-You need to have a running instance of `docker registry` that has a **search backend enabled**! See the information on [this issue](https://github.com/atc-/docker-registry-web/issues/65#issuecomment-68060219) for further information
+You need to have a running instance of `docker registry` that has a **search backend enabled**! See [this issue](https://github.com/atc-/docker-registry-web/issues/65#issuecomment-68060219) for further information.
 
 ## Statelessness
 
