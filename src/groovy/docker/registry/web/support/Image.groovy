@@ -1,6 +1,7 @@
 package docker.registry.web.support
 
 class Image {
+    String checksum
     String displayName
     String pullName
     String architecture
@@ -22,7 +23,8 @@ class Image {
     @Override
     public String toString() {
         return "Image{" +
-                "displayName='" + displayName + '\'' +
+                "checksum='" + checksum + '\'' +
+                ", displayName='" + displayName + '\'' +
                 ", pullName='" + pullName + '\'' +
                 ", architecture='" + architecture + '\'' +
                 ", author='" + author + '\'' +
