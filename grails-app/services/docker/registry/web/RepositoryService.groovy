@@ -1,12 +1,15 @@
 package docker.registry.web
 
-import docker.registry.web.support.Image
-import docker.registry.web.support.Repository
-import docker.registry.web.support.Tag
 import grails.transaction.Transactional
 import groovyx.net.http.ContentType
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.Method
+
+import org.apache.http.HttpResponse
+
+import docker.registry.web.support.Image
+import docker.registry.web.support.Repository
+import docker.registry.web.support.Tag
 
 @Transactional
 class RepositoryService {
@@ -67,6 +70,9 @@ class RepositoryService {
         log.info("tags url $url")
         def http = new HTTPBuilder(url)
         http.request(Method.GET, ContentType.JSON) {
+			response.failure = { HttpResponse resp ->
+				log.error("Could not retrieve tags: ${resp.statusLine}")
+			}
             response.success = { resp, tags ->
                 log.info("Got tags $tags")
                 tagList = tags.collect { k, v ->
