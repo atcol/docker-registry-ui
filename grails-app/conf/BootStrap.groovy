@@ -51,6 +51,7 @@ public class BootStrap {
             log.error("Couldn't parse valid registry URL from $val")
         }
     }
+
     def destroy = {
     }
 }
