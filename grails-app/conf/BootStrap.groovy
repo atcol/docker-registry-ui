@@ -17,12 +17,17 @@ public class BootStrap {
             if (key.matches("REG(\\d)")) {
                 handleRegistry(val)
             } else if ("READ_ONLY".equalsIgnoreCase(key)) {
-                if (val?.matches("true|false")) {
-                    new Setting(name: "READ_ONLY", value: val.toString()).save(flush: true)
-                } else {
-                    log.info("Ignoring value ${val} for READ_ONLY mode; it's not valid")
-                }
+                handleReadOnlyMode(val)
             }
+        }
+    }
+
+    def handleReadOnlyMode(String val) {
+        if (val?.matches("true|false")) {
+            new Setting(name: "READ_ONLY", value: val.toString()).save()
+            log.info("Read only mode enabled")
+        } else {
+            log.error("Ignoring value ${val} for READ_ONLY mode; it's not valid")
         }
     }
 
