@@ -25,7 +25,14 @@
                         width: 450,
                         modal: true
                     });
-                    dialog.show();
+                // select the text for easy copy pasting
+                var selection = window.getSelection();            
+                var range = document.createRange();
+                range.selectNodeContents(pre.get()[0]);
+                selection.removeAllRanges();
+                selection.addRange(range);
+                
+                dialog.show();
                 });
             });
         });
