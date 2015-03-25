@@ -6,7 +6,7 @@
 		<g:if env="development"><asset:stylesheet src="errors.css"/></g:if>
 	</head>
 	<body>
-        <h1>Forbidden</h1>
+        <h2>Forbidden</h2>
         <h3>${flash.message}</h3>
 	</body>
 </html>
