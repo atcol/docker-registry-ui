@@ -56,8 +56,11 @@
         }).done(function () {
             showSuccess('<g:message code="image.delete.success" />');
             location.reload(true)
-        }).fail(function () {
-            showFail('<g:message code="image.delete.failure" />');
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 403) {
+                alert('<g:message code="image.delete.prohibited"/>');
+            }
+            showFail('<g:message code="image.delete.failure" /> ');
         });
     }
 
