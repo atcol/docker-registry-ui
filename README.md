@@ -24,7 +24,9 @@ The application boasts the following features:
  
  * Custom deployment context (e.g. /reg-ui)
 
- * Exposes the webapp's configuration data as a volume for use with data-containers or simple host directory storage
+ * Read only mode for preventing registry configuration changes once running
+ 
+ * Stateless application
 
 ## Demo
 
@@ -73,6 +75,11 @@ You can deploy this container in a custom context as such:
 `docker run -p 80:8080 -it -e APP_CONTEXT=ui -e REG1=http://172.17.42.1:5000/v1/ atcol/docker-registry-ui`
 
 will expose the container under `http://localhost/ui`.
+
+## Read Only Mode
+
+Using the container parameter `-e READ_ONLY=true` will enable read only mode, which prevents manipulation of the 
+registry configurations at runtime.
 
 # License
 
