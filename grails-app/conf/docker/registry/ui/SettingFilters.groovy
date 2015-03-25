@@ -11,6 +11,7 @@ class SettingFilters {
                     log.info("Read only mode is enabled; rejecting request")
                     response.status = 403
                     flash.message = "Read only mode enabled. Save, edit and update actions are prohibited" //FIXME externalise
+                    render(view:'/forbidden')
                     return false
                 }
             }
