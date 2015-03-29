@@ -34,7 +34,41 @@
             <g:form class="form-horizontal" url="[resource:registryInstance, action:'update']" method="PUT" >
                 <g:hiddenField name="version" value="${registryInstance?.version}" />
                 <fieldset class="form">
-                    <g:render template="form"/>
+                    <div class="form-group">
+                        <label for="apiVersion" class="col-lg-2 control-label"><g:message code="labels.registry.apiVersion"/> *</label>
+
+                        <div class="col-lg-2">
+                            <g:textField name="apiVersion" style="cursor: auto;" class="form-control"
+                                         value="${registryInstance?.apiVersion}"></g:textField>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="protocol" class="col-lg-2 control-label"><g:message code="labels.registry.protocol"/> *</label>
+
+                        <div class="col-lg-4">
+                            <g:textField name="protocol" style="cursor: auto;" class="form-control"
+                                         value="${registryInstance?.protocol}"></g:textField>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="host" class="col-lg-2 control-label"><g:message code="labels.registry.host"/> *</label>
+
+                        <div class="col-lg-4">
+                            <g:textField name="host" style="cursor: auto;" class="form-control"
+                                         value="${registryInstance?.host}"></g:textField>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="port" class="col-lg-2 control-label"><g:message code="labels.registry.port"/> *</label>
+
+                        <div class="col-lg-4">
+                            <g:textField name="port" style="cursor: auto;" class="form-control"
+                                         value="${registryInstance?.port}"></g:textField>
+                        </div>
+                    </div>
                 </fieldset>
                 <fieldset class="buttons">
                     <g:actionSubmit class="btn btn-primary" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />

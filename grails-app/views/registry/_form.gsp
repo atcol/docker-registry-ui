@@ -43,7 +43,7 @@
         <g:textField name="username" style="cursor: auto;" class="form-control"
                      value="${registryInstance?.username}"></g:textField>
     </div>
-</div>
+</div> 
 
 <div class="form-group">
     <label for="password" class="col-lg-2 control-label"><g:message code="labels.registry.password"/></label>
@@ -52,4 +52,4 @@
         <g:textField name="password" style="cursor: auto;" class="form-control"
                      value="${registryInstance?.password}"></g:textField>
     </div>
-</div>
+</div> 
