@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Docker-registry-ui by atc-</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Docker-registry-ui</h1>
+        <h2>A web frontend/UI for easy private/local Docker Registry integration</h2>
+        <a href="https://github.com/atc-/docker-registry-ui" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p><a href="https://travis-ci.org/atc-/docker-registry-web"><img src="https://travis-ci.org/atc-/docker-registry-ui.svg?branch=master" alt="Build Status"></a> <a href="https://gitter.im/atc-/docker-registry-web"><img src="https://badges.gitter.im/atc-/docker-registry-web.png" alt="Gitter chat"></a></p>
+
+<h1>
+<a id="docker-registry-ui" class="anchor" href="#docker-registry-ui" aria-hidden="true"><span class="octicon octicon-link"></span></a>Docker Registry UI</h1>
+
+<p>A web UI for easy private/local Docker Registry integration. Allows you to browse, delete and search for images as
+well as register multiple registries for large installations.</p>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<p>The application boasts the following features:</p>
+
+<ul>
+<li><p>View all images for all registries (one to many)</p></li>
+<li><p>Further info. page for images for inspection of config. etc</p></li>
+<li><p>Pull copy/paste shortcuts</p></li>
+<li><p>Delete images</p></li>
+<li><p>Search for images</p></li>
+<li><p>Containerized via <a href="https://registry.hub.docker.com/u/atcol/docker-registry-ui/">Docker</a></p></li>
+<li><p>Custom deployment context (e.g. /reg-ui)</p></li>
+<li><p>Read only mode for preventing registry configuration changes once running</p></li>
+<li><p>Stateless application</p></li>
+</ul>
+
+<h2>
+<a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h2>
+
+<p>This project is containerized. You can run with docker right now by simply running:</p>
+
+<pre><code>docker run -p 8080:8080 atcol/docker-registry-ui
+</code></pre>
+
+<p>and browsing to localhost:8080/.</p>
+
+<h2>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+
+<p>You need to have a running instance of <code>docker registry</code> that has a <strong>search backend enabled</strong>! See <a href="https://github.com/atc-/docker-registry-web/issues/65#issuecomment-68060219">this issue</a> for further information.</p>
+
+<h2>
+<a id="statelessness" class="anchor" href="#statelessness" aria-hidden="true"><span class="octicon octicon-link"></span></a>Statelessness</h2>
+
+<p>The app' requires registry configuration which can be supplied once the app's running, or through container environment
+variables:</p>
+
+<pre><code>docker run -p 8080:8080 -e REG1=http://dev:5000/v1/ -e REG2=http://prod/v1/ atcol/docker-registry-ui
+</code></pre>
+
+<p>which will run the application and automatically register two registries at the hosts <code>dev</code> and <code>prod</code> respectively,
+both running API versions v1. You must provide URLs that include the API version. </p>
+
+<p><strong>Note:</strong> don't use <code>localhost</code> in registry URLs! The host needs to be visible from inside the container, so <code>-e REG1=http://localhost/...</code> won't work because localhost will resolve to the container's IP. If registry is running on the host, then remember to use its IP: <code>172.17.42.1</code>.</p>
+
+<h2>
+<a id="volumes" class="anchor" href="#volumes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Volumes</h2>
+
+<p>The webapp's configuration data is stored inside the container in a H2 database under <code>/var/lib/h2/</code>. You can hold this data on the host machine using the <code>-v</code> flag:</p>
+
+<pre><code>docker run -p 8080:8080 -v /some/data/dir:/var/lib/h2 atcol/docker-registry-ui
+</code></pre>
+
+<p>which survives container restarts.</p>
+
+<p>You could also use the data-container pattern using <code>--volumes-from</code>:</p>
+
+<pre><code>docker run -v /var/lib/h2 --name="registry_web_data" ubuntu
+
+docker run -p 8080:8080 --volumes-from=registry_web_data atcol/docker-registry-ui
+</code></pre>
+
+<p>Now all data will be kept in the <code>registry_web_data</code> container.</p>
+
+<h2>
+<a id="custom-deployment-context" class="anchor" href="#custom-deployment-context" aria-hidden="true"><span class="octicon octicon-link"></span></a>Custom Deployment Context</h2>
+
+<p>You can deploy this container in a custom context as such:</p>
+
+<p><code>docker run -p 80:8080 -it -e APP_CONTEXT=ui -e REG1=http://172.17.42.1:5000/v1/ atcol/docker-registry-ui</code></p>
+
+<p>will expose the container under <code>http://localhost/ui</code>.</p>
+
+<h2>
+<a id="read-only-mode" class="anchor" href="#read-only-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Read Only Mode</h2>
+
+<p>Using the container parameter <code>-e READ_ONLY=true</code> will enable read only mode, which prevents manipulation of the 
+registry configurations at runtime.</p>
+
+<h1>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h1>
+
+<p>As of release 0.9.5, this project is licenced under GPL v3.0. See the LICENSE file.</p>
+
+<h1>
+<a id="troubleshooting" class="anchor" href="#troubleshooting" aria-hidden="true"><span class="octicon octicon-link"></span></a>Troubleshooting</h1>
+
+<h2>
+<a id="my-registry-cant-be-foundseen-by-docker-registry-web-help" class="anchor" href="#my-registry-cant-be-foundseen-by-docker-registry-web-help" aria-hidden="true"><span class="octicon octicon-link"></span></a>My registry can't be found/seen by docker registry web! Help!</h2>
+
+<p>If you're seeing error messages like <code>Connection to http://registry refused</code>, make sure you've configured the port and hostname correctly. <strong>Do not</strong> set the registry hostname to <code>localhost</code>, because the container will resolve this to itself (127.0.0.1). If the registry instance runs on the host machine (that which runs the container), then set the registry IP/hostname to <code>172.17.42.1</code>. Alternatively, you could use writable /etc/hosts as of Docker 1.2 and 'route' it that way.</p>
+
+<h2>
+<a id="registries-behind-https-or-ping-failed-javaxnetsslsslpeerunverifiedexception-peer-not-authenticated" class="anchor" href="#registries-behind-https-or-ping-failed-javaxnetsslsslpeerunverifiedexception-peer-not-authenticated" aria-hidden="true"><span class="octicon octicon-link"></span></a>Registries behind HTTPS or <code>Ping failed: javax.net.ssl.SSLPeerUnverifiedException: peer not authenticated</code>
+</h2>
+
+<p>You need to register the CA with the container's keystore; see issue #108.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/atc-/docker-registry-ui/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/atc-/docker-registry-ui/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/atc-/docker-registry-ui"></a> is maintained by <a href="https://github.com/atc-">atc-</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
