@@ -3,8 +3,9 @@
 Docker Registry UI
 ===================
 
-A web UI for easy private/local Docker Registry integration. Allows you to browse, delete and search for images as
-well as register multiple registries for large installations.
+A web UI for easy private/local Docker Registry integration. 
+
+Docker Registry UI is a mature, easy-to-use and fast web application for administering your Docker Registry through a sleek user interface. You can register one-to-many registries and then browse, search and delete images.
 
 ## Features
 
