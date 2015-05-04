@@ -9,7 +9,7 @@ class RepositoryController {
     static allowedMethods = [delete: 'DELETE']
 
     def index() {
-        def registries = registryViewService.viewRepositories()
+        def registries = registryViewService.listRegistriesAndTheirRepositories()
         render view: "index", model: [registryViewSet: registries]
     }
 

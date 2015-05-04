@@ -9,7 +9,7 @@ class RegistryViewService {
 
     def repositoryService
 
-    def viewRepositories() {
+    def listRegistriesAndTheirRepositories() {
         def registries = [] as Set<RegistryReposView>
         Registry.all.each { registry ->
             def repositories = []
