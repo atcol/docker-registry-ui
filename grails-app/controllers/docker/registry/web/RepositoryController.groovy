@@ -4,7 +4,6 @@ import docker.registry.web.support.Repository
 
 class RepositoryController {
 
-    def repositoryService
     def registryViewService
     static allowedMethods = [delete: 'DELETE']
 
@@ -18,7 +17,7 @@ class RepositoryController {
         Repository repository = null
 
         if (reg) {
-            repository = repositoryService.detail(reg, repoName)
+            repository = reg.detail(repoName)
         }
 
         if (!reg || !repository) {
@@ -36,7 +35,7 @@ class RepositoryController {
         def reg = Registry.get(registry)
         log.info("Got registry by id $registry ? $reg")
         if (reg) {
-            repositoryService.delete(reg, repoName, tag)
+            reg.delete(repoName, tag)
         } else {
             response.status = 404
         }
