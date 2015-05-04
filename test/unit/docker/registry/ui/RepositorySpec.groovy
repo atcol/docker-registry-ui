@@ -1,4 +1,4 @@
-package docker.registry.web
+package docker.registry.ui
 
 import docker.registry.web.support.Repository
 import grails.test.mixin.TestFor

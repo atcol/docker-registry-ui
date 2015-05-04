@@ -1,5 +1,6 @@
-package docker.registry.web
+package docker.registry.ui
 
+import docker.registry.web.Registry
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 

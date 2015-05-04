@@ -1,7 +1,7 @@
-package docker.registry.web
+package docker.registry.ui
 
-
-
+import docker.registry.web.Registry
+import docker.registry.web.RegistryController
 import grails.test.mixin.*
 import spock.lang.*
 
