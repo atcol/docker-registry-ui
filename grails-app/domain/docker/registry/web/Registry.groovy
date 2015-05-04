@@ -31,6 +31,18 @@ class Registry {
         repositoryService.index(this)
     }
 
+    def delete(String repoName, String tag) {
+        repositoryService.delete(this, repoName, tag)
+    }
+
+    def detail(String repoName) {
+        repositoryService.detail(this, repoName)
+    }
+
+    def search(String query) {
+        repositoryService.search(this, query)
+    }
+
     def ping() {
         repositoryService.ping(this)
     }
