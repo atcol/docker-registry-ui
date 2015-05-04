@@ -9,7 +9,7 @@ class RegistryViewService {
 
     def repositoryService
 
-    def viewRegistries() {
+    def viewRepositories() {
         def registries = [] as Set<RegistryReposView>
         Registry.all.each { registry ->
             def repositories = []
@@ -19,7 +19,7 @@ class RegistryViewService {
 
             } catch (errorRetrievingReposFromRegistry) {
                 reachable = false
-                log.error("The registry ${registry.toUrl()} is unreachable")
+                log.error("The registry ${registry.toUrl()} is unreachable: ${errorRetrievingReposFromRegistry}")
             }
             registries.add(RegistryReposView.make(registry, repositories, reachable))
         }
