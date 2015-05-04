@@ -15,11 +15,11 @@ class RegistryViewService {
             def repositories = []
             def reachable = true
             try {
-                repositories = repositoryService.index(registry)
+                repositories = registry.getRepositories()
 
-            } catch (errorRetrievingReposFromRegistry) {
+            } catch (exceptionRetrievingRepos) {
                 reachable = false
-                log.error("The registry ${registry.toUrl()} is unreachable: ${errorRetrievingReposFromRegistry}")
+                log.error("The registry ${registry.toUrl()} is unreachable: ${exceptionRetrievingRepos}")
             }
             registries.add(RegistryReposView.make(registry, repositories, reachable))
         }
