@@ -168,4 +168,26 @@ class RegistrySpec extends Specification {
         !registryStr.contains("abc123")
         registryStr.contains("******") // * replaces abc123
     }
+
+    def "Ping valid"() {
+        given: "I have a valid registry"
+        final registry = new Registry(host: "localhost", port: 5000)
+
+        when: "I ping it"
+        final ping = registry.ping()
+
+        then: "The ping should succeed"
+        ping
+    }
+
+    def "Ping invalid"() {
+        given: "I have an invalid registry"
+        final registry = new Registry(host: "boo", port: -1)
+
+        when: "I ping it"
+        final ping = registry.ping()
+
+        then: "The ping should fail"
+        !ping
+    }
 }
