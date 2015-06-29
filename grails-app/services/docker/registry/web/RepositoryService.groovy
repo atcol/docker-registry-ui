@@ -1,5 +1,6 @@
 package docker.registry.web
 
+import docker.registry.ui.RepositorySource
 import grails.transaction.Transactional
 import groovyx.net.http.ContentType
 import groovyx.net.http.HTTPBuilder
@@ -12,7 +13,7 @@ import docker.registry.web.support.Repository
 import docker.registry.web.support.Tag
 
 @Transactional
-class RepositoryService {
+class RepositoryService implements RepositorySource {
 
     def List<Repository> index(final Registry registry) {
         search(registry, null)
@@ -126,29 +127,6 @@ class RepositoryService {
 
     def boolean ping(Registry registry) {
         def url = "${registry.toUrl()}/_ping"
-        def http = new HTTPBuilder(url)
-        def result = true
-        try {
-
-            http.getClient().getParams().setParameter("http.connection.timeout", new Integer(10000))
-            http.getClient().getParams().setParameter("http.socket.timeout", new Integer(10000))
-
-            http.request(Method.GET, groovyx.net.http.ContentType.JSON) {
-                response.success = { resp, json ->
-                    log.info("Ping of $registry succeeded")
-                }
-
-                response.failure = { resp ->
-                    log.error("Failed to ping $url: ${resp.statusLine.statusCode} : ${resp.statusLine.reasonPhrase}")
-                    result = false
-                }
-            }
-        } catch (final ConnectException|IOException e) {
-            log.info("Ping failed: $e")
-            result = false
-        } finally {
-            http.shutdown()
-        }
-        result
+        ping(url)
     }
 }
