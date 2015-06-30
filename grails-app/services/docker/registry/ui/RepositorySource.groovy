@@ -32,17 +32,11 @@ trait RepositorySource {
             http.getClient().getParams().setParameter("http.socket.timeout", new Integer(10000))
 
             http.request(Method.GET, ContentType.JSON) {
-                response.success = { resp, json ->
-                    println "Ping of $url succeeded"
-                }
-
                 response.failure = { resp ->
-                    println "Failed to ping $url: ${resp.statusLine.statusCode} : ${resp.statusLine.reasonPhrase}"
                     result = false
                 }
             }
-        } catch (final IOException e) {
-            println "Ping failed: $e"
+        } catch (final IOException ignored) {
             result = false
         } finally {
             http.shutdown()
