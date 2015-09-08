@@ -19,7 +19,7 @@ class RepositoryService implements RepositorySource {
         search(registry, null)
     }
 
-    def detail(final Registry registry, final String repoName) {
+    def Repository detail(final Registry registry, final String repoName) {
         def tags = getTags(registry, repoName)
         def repo = new Repository()
         tags.each { tag ->
