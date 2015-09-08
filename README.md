@@ -11,6 +11,8 @@ Docker Registry UI is a mature, easy-to-use and fast web application for adminis
 
 The application boasts the following features:
 
+ * Simultaneous Docker Registry 1 and Docker Distribution (Registry 2.1) support
+
  * View all images for all registries (one to many)
  
  * Further info. page for images for inspection of config. etc
@@ -53,7 +55,13 @@ both running API versions v1. You must provide URLs that include the API version
 
 **Note:** don't use `localhost` in registry URLs! The host needs to be visible from inside the container, so `-e REG1=http://localhost/...` won't work because localhost will resolve to the container's IP. If registry is running on the host, then remember to use its IP: `172.17.42.1`.
 
+## Simultaneous Docker Registry 1 and 2.1 Support
+
+Blah.
+
 ## Volumes
+
+**Note** You are encouraged to rely on statelessness configuration of your registries. It's simpler, less error-prone and requires less resources.
 
 The webapp's configuration data is stored inside the container in a H2 database under `/var/lib/h2/`. You can hold this data on the host machine using the `-v` flag:
 
