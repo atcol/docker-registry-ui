@@ -13,7 +13,7 @@ class DistributionRepositoryService implements RepositorySource {
     }
 
     @Override
-    def detail(Registry registry, String repoName) {
+    def Repository detail(Registry registry, String repoName) {
         return null
     }
 
