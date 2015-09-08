@@ -11,7 +11,7 @@ import groovyx.net.http.Method
 
 trait RepositorySource {
     abstract List<Repository> index(final Registry registry)
-    abstract detail(final Registry registry, final String repoName)
+    abstract Repository detail(final Registry registry, final String repoName)
     abstract List<Repository> search(final Registry registry, final String query)
     abstract List<Tag> getTags(final Registry registry, final repoName)
     abstract Image getImageDetail(final Registry registry, final String imgId)
