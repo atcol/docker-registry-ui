@@ -33,7 +33,7 @@ The application boasts the following features:
 
 This project is containerized. You can run with docker right now by simply running:
 
-	docker run -p 8080:8080 atcol/docker-registry-ui
+	docker run -d -p 8080:8080 atcol/docker-registry-ui
 
 and browsing to localhost:8080/.
 
@@ -46,7 +46,7 @@ You need to have a running instance of `docker registry` that has a **search bac
 The app' requires registry configuration which can be supplied once the app's running, or through container environment
 variables:
 
-	docker run -p 8080:8080 -e REG1=http://dev:5000/v1/ -e REG2=http://prod/v1/ atcol/docker-registry-ui
+	docker run -d -p 8080:8080 -e REG1=http://dev:5000/v1/ -e REG2=http://prod/v1/ atcol/docker-registry-ui
 
 which will run the application and automatically register two registries at the hosts `dev` and `prod` respectively,
 both running API versions v1. You must provide URLs that include the API version. 
@@ -57,15 +57,15 @@ both running API versions v1. You must provide URLs that include the API version
 
 The webapp's configuration data is stored inside the container in a H2 database under `/var/lib/h2/`. You can hold this data on the host machine using the `-v` flag:
 
-	docker run -p 8080:8080 -v /some/data/dir:/var/lib/h2 atcol/docker-registry-ui
+	docker run -d -p 8080:8080 -v /some/data/dir:/var/lib/h2 atcol/docker-registry-ui
 
 which survives container restarts.
 
 You could also use the data-container pattern using `--volumes-from`:
 
-	docker run -v /var/lib/h2 --name="registry_web_data" ubuntu
+	docker run -d -v /var/lib/h2 --name="registry_web_data" ubuntu
 
-	docker run -p 8080:8080 --volumes-from=registry_web_data atcol/docker-registry-ui
+	docker run -d -p 8080:8080 --volumes-from=registry_web_data atcol/docker-registry-ui
 
 Now all data will be kept in the `registry_web_data` container.
 
@@ -73,7 +73,7 @@ Now all data will be kept in the `registry_web_data` container.
 
 You can deploy this container in a custom context as such:
 
-`docker run -p 80:8080 -it -e APP_CONTEXT=ui -e REG1=http://172.17.42.1:5000/v1/ atcol/docker-registry-ui`
+`docker run -d -p 80:8080 -it -e APP_CONTEXT=ui -e REG1=http://172.17.42.1:5000/v1/ atcol/docker-registry-ui`
 
 will expose the container under `http://localhost/ui`.
 
