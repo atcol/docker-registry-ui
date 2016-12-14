@@ -1,3 +1,6 @@
+if [ -n "$ETC_HOSTS_ALIAS" ]; then
+  ex -sc 's/$/ '${ETC_HOSTS_ALIAS}'/|w|q' /etc/hosts
+fi
 if [ -n "$APP_CONTEXT" ]; then
   mv /var/lib/tomcat7/webapps/ROOT.war /var/lib/tomcat7/webapps/${APP_CONTEXT}.war
 fi
