@@ -125,7 +125,7 @@ class RepositoryService {
     }
 
     def boolean ping(Registry registry) {
-        def url = "${registry.toUrl()}/_ping"
+        def url = registry.apiVersion == "v1" ? "${registry.toUrl()}/_ping" : registry.toUrl()
         def http = new HTTPBuilder(url)
         def result = true
         try {
