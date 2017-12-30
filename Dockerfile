@@ -1,10 +1,10 @@
-FROM    ubuntu:14.04
+FROM    ubuntu
 
 # Install java and tomcat
-RUN     apt-get update && apt-get install -y tomcat7 openjdk-7-jdk
+RUN     apt-get update && apt-get install -y tomcat8 openjdk-8-jdk
 RUN     mkdir /var/lib/h2 && chmod a+rw /var/lib/h2
-RUN     rm -rf /var/lib/tomcat7/webapps/*
-ENV     JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64/
+RUN     rm -rf /var/lib/tomcat8/webapps/*
+ENV     JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
 # Install grails and project dependencies
 WORKDIR /work
@@ -17,15 +17,15 @@ RUN     ./grailsw help
 # Add project files and build a war
 ADD     . /work
 RUN     ./grailsw war
-RUN     cp target/docker-registry-ui-*.war /var/lib/tomcat7/webapps/ROOT.war
+RUN     cp target/docker-registry-ui-*.war /var/lib/tomcat8/webapps/ROOT.war
 
 # Update catalina configuration
-WORKDIR /usr/share/tomcat7/bin/
-ADD     startup.sh /usr/share/tomcat7/bin/custom-startup.sh
-RUN     chmod +x /usr/share/tomcat7/bin/custom-startup.sh
+WORKDIR /usr/share/tomcat8/bin/
+ADD     startup.sh /usr/share/tomcat8/bin/custom-startup.sh
+RUN     chmod +x /usr/share/tomcat8/bin/custom-startup.sh
 
 EXPOSE  8080
-VOLUME  ["/var/lib/h2/", "/var/lib/tomcat7"]
-ENV     CATALINA_BASE /var/lib/tomcat7
-CMD     /usr/share/tomcat7/bin/custom-startup.sh
+VOLUME  ["/var/lib/h2/", "/var/lib/tomcat8"]
+ENV     CATALINA_BASE /var/lib/tomcat8
+CMD     /usr/share/tomcat8/bin/custom-startup.sh
 
