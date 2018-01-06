@@ -1,6 +1,6 @@
 language: groovy
 
 jdk: 
-- oraclejdk7
+- oraclejdk8
 
 script: ./grailsw war docker-registry-web.war
