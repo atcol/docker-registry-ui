@@ -16,7 +16,8 @@ class RegistryController {
     }
 
     def show(Registry registryInstance) {
-        boolean isUp = registryInstance?.ping()
+        //FIXME this is really inefficient
+        boolean isUp = registryInstance != null && registryInstance.ping()
         respond registryInstance, model: [registryIsUp: isUp]
     }
 

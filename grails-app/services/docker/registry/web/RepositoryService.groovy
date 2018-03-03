@@ -41,7 +41,7 @@ class RepositoryService {
     List<Repository> search(final Registry registry, final String query) {
         log.info("Searching for images from $registry")
         final repoList = []
-        def url = "${registry.toUrl()}/search"
+        def url = "${registry.toUrl(RegistryAction.SEARCH).toString()}"
 
         log.info("Query provided for search is ${query}")
         if (query) {

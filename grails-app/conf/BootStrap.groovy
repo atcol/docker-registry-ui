@@ -35,7 +35,7 @@ public class BootStrap {
         log.info("Found registry $val. Creating...")
         def reg = Registry.fromUrl(val)
 
-        if (reg.ifPresent()) {
+        if (reg.isPresent()) {
             reg = reg.get()
             if (Registry.findByHostAndApiVersion(reg.host, reg.apiVersion)) {
                 log.info("Not creating registry ${val} as it already exists")

@@ -34,6 +34,7 @@ class Registry {
     URL toUrl(RegistryAction registryAction) {
         switch (registryAction) {
             case RegistryAction.PING: return new URL(this.apiVersion == "v1" ? "${this.toUrl()}/_ping" : "${this.toUrl()}/_catalog")
+            case RegistryAction.SEARCH: return new URL(this.apiVersion == "v1" ? "${this.toUrl()}/search" : "${this.toUrl()}/_catalog")
             default: return null;
         }
     }

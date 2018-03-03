@@ -8,6 +8,8 @@ import spock.lang.*
 @Mock(Registry)
 class RegistryControllerSpec extends Specification {
 
+    def repositoryService
+
     def populateValidParams(params) {
         assert params != null
         // TODO: Populate valid properties like...
@@ -29,7 +31,7 @@ class RegistryControllerSpec extends Specification {
         controller.create()
 
         then: "The model is correctly created"
-        model.registry != null
+        model.registryInstance != null
     }
 
     void "Test the save action correctly persists an instance"() {
@@ -37,19 +39,20 @@ class RegistryControllerSpec extends Specification {
         when: "The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         def registry = new Registry()
+        registry.repositoryService = repositoryService
         registry.validate()
         controller.save(registry)
 
         then: "The create view is rendered again with the correct model"
         response.status == 200
-        model.registry != null
+        model.registryInstance != null
         view == 'create'
 
         when: "The save action is executed with a valid instance"
         response.reset()
         populateValidParams(params)
         registry = new Registry(params)
-
+        registry.repositoryService = repositoryService
         controller.save(registry)
 
         then: "A redirect is issued to the show action"
@@ -68,6 +71,7 @@ class RegistryControllerSpec extends Specification {
         when: "A domain instance is passed to the show action"
         populateValidParams(params)
         def registry = new Registry(params)
+        registry.repositoryService = repositoryService
         controller.show(registry)
 
         then: "A model is populated containing the domain instance"
@@ -84,10 +88,11 @@ class RegistryControllerSpec extends Specification {
         when: "A domain instance is passed to the edit action"
         populateValidParams(params)
         def registry = new Registry(params)
+        registry.repositoryService = repositoryService
         controller.edit(registry)
 
         then: "A model is populated containing the domain instance"
-        model.registry == registry
+        model.registryInstance == registry
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -96,28 +101,32 @@ class RegistryControllerSpec extends Specification {
         controller.update(null)
 
         then: "A 404 error is returned"
-        response.status == 404
+        response.status == 405
         response.redirectedUrl == '/registry/index'
         flash.message != null
+    }
 
-
-        when: "An invalid domain instance is passed to the update action"u
-        response.reset()
+    void "Update rejects invalid domain instance"() {
+        when: "An invalid domain instance is passed to the update action"
         def registry = new Registry()
+        registry.repositoryService = repositoryService
         registry.validate()
         controller.update(registry)
 
         then: "The edit view is rendered again with the invalid instance"
         view == 'edit'
         model.registryInstance == registry
+    }
 
+    void "Update succcessful with a valid registry"() {
         when: "A valid domain instance is passed to the update action"
         response.reset()
         populateValidParams(params)
-        registry = new Registry(params).save(flush: true)
+        def registry = new Registry(params).save(flush: true)
+        registry.repositoryService = repositoryService
         controller.update(registry)
 
-        then: "A redirect is issues to the show action"
+        then: "A redirect is issued to the show action"
         response.redirectedUrl == "/registry/show/$registry.id"
         flash.message != null
     }
@@ -135,6 +144,7 @@ class RegistryControllerSpec extends Specification {
         response.reset()
         populateValidParams(params)
         def registry = new Registry(params).save(flush: true)
+        registry.repositoryService = repositoryService
 
         then: "It exists"
         Registry.count() == 1
