@@ -1,5 +1,6 @@
 package docker.registry.web
 
+import docker.registry.web.support.RegistryAction
 import grails.transaction.Transactional
 import groovyx.net.http.ContentType
 import groovyx.net.http.HTTPBuilder
@@ -14,7 +15,7 @@ import docker.registry.web.support.Tag
 @Transactional
 class RepositoryService {
 
-    def List<Repository> index(final Registry registry) {
+    List<Repository> index(final Registry registry) {
         search(registry, null)
     }
 
@@ -37,10 +38,10 @@ class RepositoryService {
         repo
     }
 
-    def List<Repository> search(final Registry registry, final String query) {
+    List<Repository> search(final Registry registry, final String query) {
         log.info("Searching for images from $registry")
         final repoList = []
-        def url = "${registry.toUrl()}/search"
+        def url = "${registry.toUrl(RegistryAction.SEARCH).toString()}"
 
         log.info("Query provided for search is ${query}")
         if (query) {
@@ -63,7 +64,7 @@ class RepositoryService {
         repoList
     }
 
-    def List<Tag> getTags(final Registry registry, final repoName) {
+    List<Tag> getTags(final Registry registry, final repoName) {
         def tagList = []
         log.info("Getting tags for $repoName")
         def url = "${registry.toUrl()}/repositories/${repoName}/tags"
@@ -83,7 +84,7 @@ class RepositoryService {
         tagList
     }
 
-    def Image getImageDetail(final Registry registry, final String imgId) {
+    Image getImageDetail(final Registry registry, final String imgId) {
         log.info("getting image $imgId")
         def img = null
         def http = new HTTPBuilder("${registry.toUrl()}/images/${imgId}/json")
@@ -101,7 +102,7 @@ class RepositoryService {
         img
     }
 
-    def boolean delete(final Registry registry, final String repoName, final String tag) {
+    boolean delete(final Registry registry, final String repoName, final String tag) {
         final uri = "${registry.toUrl()}/repositories/$repoName/tags/$tag"
         log.info("Deleting repo at $uri")
         def http = new HTTPBuilder(uri)
@@ -119,13 +120,13 @@ class RepositoryService {
         result
     }
 
-    def String buildPullName(Registry registry, String repoName, String tag) {
+    String buildPullName(Registry registry, String repoName, String tag) {
         def url = registry.toUrl().toURL()
         "${url.authority}/${repoName}:${tag}"
     }
 
-    def boolean ping(Registry registry) {
-        def url = registry.apiVersion == "v1" ? "${registry.toUrl()}/_ping" : registry.toUrl()
+    boolean ping(Registry registry) {
+        def url = registry.toUrl(RegistryAction.PING)
         def http = new HTTPBuilder(url)
         def result = true
         try {
@@ -143,7 +144,7 @@ class RepositoryService {
                     result = false
                 }
             }
-        } catch (final ConnectException|IOException e) {
+        } catch (final IOException e) {
             log.info("Ping failed: $e")
             result = false
         } finally {

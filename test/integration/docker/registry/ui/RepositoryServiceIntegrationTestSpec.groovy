@@ -3,6 +3,7 @@ package docker.registry.ui
 import docker.registry.web.Registry
 import docker.registry.web.RepositoryService
 import grails.test.mixin.TestFor
+import org.apache.tools.ant.taskdefs.optional.extension.Specification
 import spock.lang.Specification
 
 @TestFor(RepositoryService)
@@ -10,8 +11,8 @@ class RepositoryServiceIntegrationTestSpec extends Specification {
 
     final VALID_REGISTRY_URL = "http://localhost:5000/v1/"
     final NO_SUCH_REGISTRY = "http://bad.registry/v1/"
-    final VALID_REGISTRY = Registry.fromUrl(VALID_REGISTRY_URL)
-    final BAD_REGISTRY = Registry.fromUrl(NO_SUCH_REGISTRY)
+    final VALID_REGISTRY = Registry.fromUrl(VALID_REGISTRY_URL).orElseThrow { new AssertionError("No registry instance") }
+    final BAD_REGISTRY = Registry.fromUrl(NO_SUCH_REGISTRY).orElseThrow { new AssertionError("No registry instance") }
 
     def repositoryService
 
@@ -25,7 +26,7 @@ class RepositoryServiceIntegrationTestSpec extends Specification {
         when:
         def pingResult = repositoryService.ping(VALID_REGISTRY)
         then:
-        pingResult == true
+        pingResult
     }
 
     void "test ping false on invalid registry url"() {

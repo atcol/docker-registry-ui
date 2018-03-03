@@ -1,5 +1,6 @@
 package docker.registry.web
 
+import docker.registry.web.support.RegistryAction
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 
@@ -17,7 +18,7 @@ class RegistrySpec extends Specification {
 
     void "test toUrl without auth"() {
         when:
-        def url = Registry.fromUrl("http://172.17.42.1:5000/v1/").toUrl()
+        def url = Registry.fromUrl("http://172.17.42.1:5000/v1/").orElseThrow { new AssertionError("No registry instance") }.toUrl()
         then:
         url != null
         "172.17.42.1".equals(url.toURL().host)
@@ -27,7 +28,7 @@ class RegistrySpec extends Specification {
 
     void "test toUrl with auth no password"() {
         when:
-        def url = Registry.fromUrl("http://alex@172.17.42.1:5000/v1/").toUrl()
+        def url = Registry.fromUrl("http://alex@172.17.42.1:5000/v1/").orElseThrow { new AssertionError("No registry instance") }.toUrl()
         then:
         url != null
         "172.17.42.1".equals(url.toURL().host)
@@ -38,7 +39,7 @@ class RegistrySpec extends Specification {
 
     void "test toUrl with auth username & password"() {
         when:
-        def url = Registry.fromUrl("http://alex:password@172.17.42.1:5000/v1/").toUrl()
+        def url = Registry.fromUrl("http://alex:password@172.17.42.1:5000/v1/").orElseThrow { new AssertionError("No registry instance") }.toUrl()
         then:
         url != null
         "172.17.42.1".equals(url.toURL().host)
@@ -49,7 +50,7 @@ class RegistrySpec extends Specification {
 
     void "test toUrl port is default when no port specified"() {
         when:
-        def url = Registry.fromUrl("http://172.17.42.1/v1/").toUrl()
+        def url = Registry.fromUrl("http://172.17.42.1/v1/").orElseThrow { new AssertionError("No registry instance") }.toUrl()
         then:
         url != null
         "172.17.42.1".equals(url.toURL().host)
@@ -57,19 +58,20 @@ class RegistrySpec extends Specification {
         "/v1".equals(url.toURL().path)
     }
 
-    void "test toUrl with explicit port 80 is forgotton once converted to java.util.URL"() {
+    void "test toUrl with explicit port 80 is forgotten once converted to java.util.URL"() {
         when:
-        def url = Registry.fromUrl("http://172.17.42.1:80/v1/").toUrl()
+        def urlStr = Registry.fromUrl("http://172.17.42.1:80/v1/").orElseThrow { new AssertionError("No registry instance") }.toUrl()
         then:
-        url != null
-        "172.17.42.1".equals(url.toURL().host)
-        -1 == url.toURL().port
-        "/v1".equals(url.toURL().path)
+        urlStr != null
+        def url = urlStr.toURL()
+        "172.17.42.1" == url.host
+        -1 == url.port
+        "/v1" == url.path
     }
 
     void "test toUrl with Port resolution when the user does not enter a port, defaulting to 0"() {
         when:
-        def url = Registry.fromUrl("http://172.17.42.1:0/v1/").toUrl()
+        def url = Registry.fromUrl("http://172.17.42.1:0/v1/").orElseThrow { new AssertionError("No registry instance") }.toUrl()
         then:
         url != null
         "172.17.42.1".equals(url.toURL().host)
@@ -80,7 +82,7 @@ class RegistrySpec extends Specification {
 
     void "test fromUrl basic valid url"() {
         when:
-        def registry = Registry.fromUrl("http://172.17.42.1:5000/v1/")
+        def registry = Registry.fromUrl("http://172.17.42.1:5000/v1/").orElseThrow { new AssertionError("No registry instance") }
         then:
         registry != null
         registry.host != null
@@ -93,21 +95,21 @@ class RegistrySpec extends Specification {
 
     void "test fromUrl invalid path yields null"() {
         when:
-        def registry = Registry.fromUrl("http://172.17.42.1:5000/v1/asdkjh/asd/asd/asd?wehrkwh=1q124")
+        def registry = Registry.fromUrl("http://172.17.42.1:5000/v1/asdkjh/asd/asd/asd?wehrkwh=1q124").isPresent()
         then:
-        registry == null
+        !registry
     }
 
     void "test fromUrl invalid URL: no api version"() {
         when:
-        def registry = Registry.fromUrl("http://172.17.42.1:5001/")
+        def registry = Registry.fromUrl("http://172.17.42.1:5001/").isPresent()
         then:
-        registry == null
+        !registry
     }
 
     void "test fromUrl with no port (ip)"() {
         when:
-        def registry = Registry.fromUrl("http://172.17.42.1/v1/")
+        def registry = Registry.fromUrl("http://172.17.42.1/v1/").orElseThrow() { new AssertionError("No registry instance") }
         then:
         registry != null
         "172.17.42.1".equals(registry.host)
@@ -119,7 +121,7 @@ class RegistrySpec extends Specification {
 
     void "test fromUrl with no port (hostname)"() {
         when:
-        def registry = Registry.fromUrl("http://production/v1/")
+        def registry = Registry.fromUrl("http://production/v1/").orElseThrow { new AssertionError("No registry instance") }
         then:
         registry != null
         "production".equals(registry.host)
@@ -130,7 +132,7 @@ class RegistrySpec extends Specification {
 
     void "test fromUrl with username and password"() {
         when:
-        def registry = Registry.fromUrl("http://username:password@172.17.42.1:5000/v1/")
+        def registry = Registry.fromUrl("http://username:password@172.17.42.1:5000/v1/").orElseThrow { new AssertionError("No registry instance") }
         then:
         registry != null
         "172.17.42.1".equals(registry.host)
@@ -141,7 +143,7 @@ class RegistrySpec extends Specification {
 
     void "test fromUrl with username only url"() {
         when:
-        def registry = Registry.fromUrl("http://username@172.17.42.1:5000/v1/")
+        def registry = Registry.fromUrl("http://username@172.17.42.1:5000/v1/").orElseThrow { new AssertionError("No registry instance") }
         then:
         registry != null
         "172.17.42.1".equals(registry.host)
@@ -152,7 +154,7 @@ class RegistrySpec extends Specification {
 
     void "test toString doesn't NPE on null password :)"() {
         when:
-        def registry = Registry.fromUrl("http://admin@172.17.42.1:5000/v1/")
+        def registry = Registry.fromUrl("http://admin@172.17.42.1:5000/v1/").orElseThrow { new AssertionError("No registry instance") }
         registry.password = null
         then:
         "Registry{id=null, protocol='http', host='172.17.42.1', port=5000, apiVersion='v1', username='admin', password='null', repositoryService=null, version=null}"
@@ -161,10 +163,32 @@ class RegistrySpec extends Specification {
 
     void "test toString doesn't contain password :)"() {
         when:
-        def registryStr = Registry.fromUrl("http://admin:abc123@172.17.42.1:5000/v1/").toString()
+        def registryStr = Registry.fromUrl("http://admin:abc123@172.17.42.1:5000/v1/").orElseThrow { new AssertionError("No registry instance") }.toString()
         then:
         registryStr != null
         !registryStr.contains("abc123")
         registryStr.contains("******") // * replaces abc123
+    }
+
+    void "toUrl with action PING - registry v1"() {
+        when:
+        def registry = Registry.fromUrl("http://localhost:5000/v1/").orElseThrow { new AssertionError("No registry instance") }
+        def actionUrl = registry.toUrl(RegistryAction.PING)
+        then:
+        actionUrl != null
+        actionUrl.getPort() == 5000
+        actionUrl.getHost() == "localhost"
+        actionUrl.getPath() == "/v1/_ping"
+    }
+
+    void "toUrl with action PING - registry v2"() {
+        when:
+        def registry = Registry.fromUrl("http://localhost:5000/v2/").orElseThrow { new AssertionError("No registry instance") }
+        def actionUrl = registry.toUrl(RegistryAction.PING)
+        then:
+        actionUrl != null
+        actionUrl.getPort() == 5000
+        actionUrl.getHost() == "localhost"
+        actionUrl.getPath() == "/v2/_catalog"
     }
 }

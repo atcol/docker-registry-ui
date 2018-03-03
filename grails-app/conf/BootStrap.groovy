@@ -35,7 +35,8 @@ public class BootStrap {
         log.info("Found registry $val. Creating...")
         def reg = Registry.fromUrl(val)
 
-        if (reg) {
+        if (reg.isPresent()) {
+            reg = reg.get()
             if (Registry.findByHostAndApiVersion(reg.host, reg.apiVersion)) {
                 log.info("Not creating registry ${val} as it already exists")
             } else {
@@ -46,7 +47,6 @@ public class BootStrap {
             if (!reg.ping()) {
                 log.warn("Registry '${reg.toUrl()}' ping failed! Check it's up!")
             }
-
         } else {
             log.error("Couldn't parse valid registry URL from $val")
         }
