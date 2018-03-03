@@ -8,18 +8,16 @@ ENV     JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
 # Install grails and project dependencies
 WORKDIR /work
-RUN     curl -s "https://get.sdkman.io" | bash
-RUN     su -
-#ADD     grailsw /work/grailsw
-#ADD     wrapper /work/wrapper
-#ADD     application.properties /work/application.properties
-#ADD     grails-app/conf/BuildConfig.groovy /work/grails-app/conf/BuildConfig.groovy
-#RUN     ./grailsw help
+ADD     grailsw /work/grailsw
+ADD     wrapper /work/wrapper
+ADD     application.properties /work/application.properties
+ADD     grails-app/conf/BuildConfig.groovy /work/grails-app/conf/BuildConfig.groovy
+RUN     ./grailsw help
 
 # Add project files and build a war
-#ADD     . /work
-#RUN     ./grailsw war
-ADD     docker-registry-ui.war /var/lib/tomcat8/webapps/ROOT.war
+ADD     . /work
+RUN     ./grailsw war
+RUN     cp target/docker-registry-ui-*.war /var/lib/tomcat8/webapps/ROOT.war
 
 # Update catalina configuration
 WORKDIR /usr/share/tomcat8/bin/
