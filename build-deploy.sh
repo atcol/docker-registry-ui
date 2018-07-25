@@ -1,5 +1,5 @@
 #!/bin/bash
-./grailsw clean && \
-  ./grailsw war docker-registry-ui.war && \
+./grailsw.sh clean && \
+  ./grailsw.sh war docker-registry-ui.war && \
 	docker build .
 

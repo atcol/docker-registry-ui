@@ -1,16 +1,14 @@
 package docker.registry.web
 
+import docker.registry.web.support.Image
 import docker.registry.web.support.RegistryAction
+import docker.registry.web.support.Repository
+import docker.registry.web.support.Tag
 import grails.transaction.Transactional
 import groovyx.net.http.ContentType
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.Method
-
 import org.apache.http.HttpResponse
-
-import docker.registry.web.support.Image
-import docker.registry.web.support.Repository
-import docker.registry.web.support.Tag
 
 @Transactional
 class RepositoryService {
@@ -24,7 +22,7 @@ class RepositoryService {
         def repo = new Repository()
         tags.each { tag ->
             log.info("tag is ${tag}")
-            def imgDetail = getImageDetail(registry, tag.imageId)
+            def imgDetail = getImageDetail(registry, repoName, tag.imageId)
             imgDetail.displayName = "${repoName}:${tag.name}"
             imgDetail.tag = tag.name
             imgDetail.name = repoName
@@ -52,13 +50,21 @@ class RepositoryService {
 
         log.info("Getting repositories from ${http.getUri()}")
 
-        http.request(Method.GET, groovyx.net.http.ContentType.JSON) {
+        http.request(Method.GET, ContentType.JSON) {
             response.success = { resp, search ->
                 log.info("response data for repo list $search $resp")
-                search.results.each { repo ->
-                    final repository = new Repository(name: repo.name.toString(), tags: getTags(registry, repo.name.toString()))
-                    repoList.add(repository)
+                if ("v2" == registry.apiVersion) {
+                    search.repositories.each { repo ->
+                        final repository = new Repository(name: repo, tags: getTags(registry, repo))
+                        repoList.add(repository)
+                    }
+                } else {
+                    search.results.each { repo ->
+                        final repository = new Repository(name: repo.name.toString(), tags: getTags(registry, repo.name.toString()))
+                        repoList.add(repository)
+                    }
                 }
+                log.info("response data for repo mapped $repoList")
             }
         }
         repoList
@@ -67,27 +73,45 @@ class RepositoryService {
     List<Tag> getTags(final Registry registry, final repoName) {
         def tagList = []
         log.info("Getting tags for $repoName")
-        def url = "${registry.toUrl()}/repositories/${repoName}/tags"
+        def url
+        if ("v2" == registry.apiVersion) {
+            url = "${registry.toUrl()}/${repoName}/tags/list"
+        } else {
+            url = "${registry.toUrl()}/repositories/${repoName}/tags"
+        }
         log.info("tags url $url")
         def http = new HTTPBuilder(url)
         http.request(Method.GET, ContentType.JSON) {
-			response.failure = { HttpResponse resp ->
-				log.error("Could not retrieve tags: ${resp.statusLine}")
-			}
+            response.failure = { HttpResponse resp ->
+                log.error("Could not retrieve tags: ${resp.statusLine}")
+            }
             response.success = { resp, tags ->
                 log.info("Got tags $tags")
-                tagList = tags.collect { k, v ->
-                    new Tag(name: k.toString(), imageId: v.toString())
+                if ("v2" == registry.apiVersion) {
+                    if (tags.tags) {
+                        tagList = tags.tags.collect { k ->
+                            new Tag(name: k, imageId: k)
+                        }
+                    }
+                }else {
+                    tagList = tags.collect { k, v ->
+                        new Tag(name: k.toString(), imageId: v.toString())
+                    }
                 }
             }
         }
         tagList
     }
 
-    Image getImageDetail(final Registry registry, final String imgId) {
+    Image getImageDetail(final Registry registry,final String repoName, final String imgId) {
         log.info("getting image $imgId")
         def img = null
-        def http = new HTTPBuilder("${registry.toUrl()}/images/${imgId}/json")
+        def http
+        if ("v2" == registry.apiVersion) {
+            http = new HTTPBuilder("${registry.toUrl()}/${repoName}/manifests/${imgId}")
+        } else {
+            http = new HTTPBuilder("${registry.toUrl()}/images/${imgId}/json")
+        }
         http.request (Method.GET, ContentType.JSON) {
             response.success = { imgResp, Map imgData  ->
                 log.info("Image data (${imgData.getClass()}) is $imgData")
@@ -95,7 +119,7 @@ class RepositoryService {
             }
 
             response.failure = { resp ->
-                log.info("Failed to get img $imgId: $resp")
+                log.info("Failed to get img ${repoName}:$imgId $resp")
                 img = null
             }
         }

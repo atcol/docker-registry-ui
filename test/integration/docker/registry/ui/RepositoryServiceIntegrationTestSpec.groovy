@@ -3,7 +3,6 @@ package docker.registry.ui
 import docker.registry.web.Registry
 import docker.registry.web.RepositoryService
 import grails.test.mixin.TestFor
-import org.apache.tools.ant.taskdefs.optional.extension.Specification
 import spock.lang.Specification
 
 @TestFor(RepositoryService)
@@ -41,6 +40,21 @@ class RepositoryServiceIntegrationTestSpec extends Specification {
         def search = repositoryService.search(VALID_REGISTRY, "ui")
         then:
         !search.isEmpty()
+    }
+
+    void "test getImageDetail"() {
+        when:
+        def image = repositoryService.getImageDetail(VALID_REGISTRY, "repo/my_docker", "latest")
+        then:
+        image.checksum != ''
+    }
+
+
+    void "test detail"() {
+        when:
+        def repo = repositoryService.detail(VALID_REGISTRY, "repo/my_docker")
+        then:
+        !repo.images.isEmpty()
     }
 
     void "test index returns non-empty collection"() {

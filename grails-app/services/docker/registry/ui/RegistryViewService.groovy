@@ -19,6 +19,7 @@ class RegistryViewService {
 
             } catch (errorRetrievingReposFromRegistry) {
                 reachable = false
+                errorRetrievingReposFromRegistry.printStackTrace()
                 log.error("The registry ${registry.toUrl()} is unreachable")
             }
             registries.add(RegistryReposView.make(registry, repositories, reachable))
