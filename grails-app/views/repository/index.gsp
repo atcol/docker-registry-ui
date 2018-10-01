@@ -38,10 +38,10 @@
                                 <asset:image src="icons/link.png" /></asset>
                             </g:link> |
                             <a href="#" class="pullImg" data-pullName='<util:generatePullName registry="${entry.registry}" repoName="${repo.name}" tag="${tag.name}"/>'>
-                                <asset:image src="icons/book_download.png"/>
+                                <asset:image src="icons/book_download.png" title="Docker pull command"/>
                             </a> |
                             <a href="#" class="deleteImg" data-registryId="${entry.registry.id}" data-repoName="${repo.name}" data-tag="${tag.name}">
-                                <asset:image src="icons/garbage.png"/>
+                                <asset:image src="icons/garbage.png" title="Delete"/>
                             </a>
                         </td>
                     </tr>

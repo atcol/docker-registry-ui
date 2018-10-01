@@ -3,4 +3,4 @@ language: groovy
 jdk: 
 - oraclejdk8
 
-script: ./grailsw war docker-registry-web.war
+script: ./grailsw.sh war docker-registry-web.war

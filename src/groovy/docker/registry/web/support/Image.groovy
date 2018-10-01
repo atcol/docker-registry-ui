@@ -19,6 +19,11 @@ class Image {
     Map<String, String> config
     Map<String, String> container_config
     String Size
+    // Docker API v2 manifest fields https://docs.docker.com/registry/spec/api/#manifest
+    int schemaVersion
+    ArrayList<Map<String, String>> fsLayers
+    ArrayList<Map<String, String>> history
+    ArrayList<Object> signatures
 
     @Override
     public String toString() {

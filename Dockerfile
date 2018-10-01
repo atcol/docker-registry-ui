@@ -8,15 +8,15 @@ ENV     JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
 # Install grails and project dependencies
 WORKDIR /work
-ADD     grailsw /work/grailsw
+ADD     grailsw.sh /work/grailsw.sh
 ADD     wrapper /work/wrapper
 ADD     application.properties /work/application.properties
 ADD     grails-app/conf/BuildConfig.groovy /work/grails-app/conf/BuildConfig.groovy
-RUN     ./grailsw help
+RUN     ./grailsw.sh help
 
 # Add project files and build a war
 ADD     . /work
-RUN     ./grailsw war
+RUN     ./grailsw.sh war
 RUN     cp target/docker-registry-ui-*.war /var/lib/tomcat8/webapps/ROOT.war
 
 # Update catalina configuration
