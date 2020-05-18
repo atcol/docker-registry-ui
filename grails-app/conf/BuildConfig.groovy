@@ -45,7 +45,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
-        mavenRepo 'http://repo.spring.io/milestone'
+        mavenRepo "https://repo1.maven.org/maven2/"
     }
 
     dependencies {
@@ -58,22 +58,22 @@ grails.project.dependency.resolution = {
 
     plugins {
         // plugins for the build system only
-        build ":tomcat:7.0.53"
+        build ":tomcat:7.0.70"
 
         // plugins for the compile step
-        compile ":scaffolding:2.1.0"
-        compile ':cache:1.1.6'
-        compile ':cache-ehcache:1.0.0'
-        compile ":asset-pipeline:1.8.7"
+        compile ":scaffolding:2.1.2"
+        compile ':cache:1.1.8'
+        compile ':cache-ehcache:1.0.5'
+        compile ':asset-pipeline:2.9.1'
         compile ":rest:0.8"
         compile ":jquery:1.11.1"
-        compile ":jquery-ui:1.10.3"
+        compile ":jquery-ui:1.10.4"
         compile ":jquery-datatables:1.7.5"
-        compile ":spring-security-core:2.0-RC3"
+        compile ":spring-security-core:2.0.0"
 
         // plugins needed at runtime but not for compilation
-        runtime ":hibernate4:4.3.5.3"
-        runtime ":database-migration:1.4.0"
+        runtime ":hibernate4:4.3.8.1"
+        runtime ":database-migration:1.4.1"
 
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.7.4"
