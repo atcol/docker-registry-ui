@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/atc-/docker-registry-ui.svg?branch=master)](https://travis-ci.org/atc-/docker-registry-web) [![Gitter chat](https://badges.gitter.im/atc-/docker-registry-web.png)](https://gitter.im/atc-/docker-registry-web)
 
+This project is archived as it has not been maintained in years. There are alternatives as listed [here](https://www.cloudbees.com/blog/docker-guis).
+
 Docker Registry UI
 ===================
 
